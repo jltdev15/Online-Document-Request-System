@@ -6,15 +6,30 @@
           <img class="w-[5rem]" src="../assets/images/pbc_logo.webp" alt="" />
           <p class="text-xl font-bold">PBC Sunbeam School. Incorporated</p>
         </router-link>
-        <ul class="flex items-center gap-3">
+        <ul  class="flex items-center gap-3">
           <li class="hover:bg-gray-50 hover:text-gray-800 transition-all">
-            <router-link to="/admin_login" class="text-lg font-bold inline-block p-6"> Admin</router-link>
+            <router-link
+              to="/admin_login"
+              class="text-lg font-bold inline-block p-6"
+            >
+              Admin</router-link
+            >
           </li>
           <li class="hover:bg-gray-50 hover:text-gray-800 transition-all">
-            <router-link to="/student_login" href="" class="text-lg font-bold inline-block p-6">Student</router-link>
+            <router-link
+              to="/student_login"
+              href=""
+              class="text-lg font-bold inline-block p-6"
+              >Student</router-link
+            >
           </li>
           <li class="hover:bg-gray-50 hover:text-gray-800 transition-all">
-            <a href="" class="text-lg font-bold inline-block p-6"> About Us</a>
+            <router-link
+              to="/admin_dashboard"
+              class="text-lg font-bold inline-block p-6"
+            >
+              About Us</router-link
+            >
           </li>
           <li class="hover:bg-gray-50 hover:text-gray-800 transition-all">
             <a href="" class="text-lg font-bold inline-block p-6">

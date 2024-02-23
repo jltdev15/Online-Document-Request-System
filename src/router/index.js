@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import AdminLogin from '@/views/AdminLogin.vue'
 import StudentLogin from '@/views/StudentLogin.vue'
 import StudentRegistration from '@/views/StudentRegistration.vue'
+import AdminDashboard from '@/components/Admin/AdminDashboard.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -33,6 +34,11 @@ const router = createRouter({
       path:'/student_registration',
       name:'studentregister',
       component: StudentRegistration
+    },
+    {
+      path:'/admin_dashboard',
+      name:'admin-dashboard',
+      component: AdminDashboard 
     }
   ]
 })
