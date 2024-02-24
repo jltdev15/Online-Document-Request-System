@@ -32,9 +32,8 @@
             >
           </li>
           <li class="hover:bg-gray-50 hover:text-gray-800 transition-all">
-            <a href="" class="text-lg font-bold inline-block p-6">
-              Contact Us</a
-            >
+            <router-link to="/student_dashboard" href="" class="text-lg font-bold inline-block p-6">
+              Contact Us</router-link>
           </li>
         </ul>
         <ul v-if="false" class="flex items-center gap-3">
