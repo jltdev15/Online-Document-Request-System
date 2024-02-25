@@ -1,0 +1,88 @@
+import { ref, computed } from "vue";
+import { defineStore } from "pinia";
+import axiosClient from "@/axiosClient";
+
+export const useAdminStore = defineStore("admin", () => {
+  // State
+  const requests = ref([]);
+  const isScheduleShow = ref(false);
+  const schedId = ref("");
+  const date = ref("");
+  const currentDate = new Date();
+  date.value = currentDate.toISOString().split("T")[0];
+  // Actions or Method
+  const showSchedule = async (id) => {
+    isScheduleShow.value = !isScheduleShow.value;
+    console.log(id._id);
+    schedId.value = id._id;
+  };
+  const updatePickUp = async () => {
+    try {
+      const status = await axiosClient.patch(
+        `/admin/schedule/${schedId.value}`,
+        {
+          pickUpDate: date.value,
+          status: 'Completed'
+        }
+      );
+      console.log(status);
+      await getRequest();
+    } catch (err) {}
+  };
+  const hideSchedule = async () => {
+    isScheduleShow.value = !isScheduleShow.value;
+  };
+  const getRequest = async () => {
+    try {
+      const request = await axiosClient.get("/admin/requests");
+      console.log(request.data.content);
+      // requests.value.push(request.data.content[0]);
+      requests.value = request.data.content;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const updateToApproved = async (id) => {
+    console.log(id);
+    try {
+      const status = await axiosClient.patch(`/admin/approved/${id}`);
+      console.log(status);
+      getRequest();
+    } catch (err) {}
+  };
+  const updateToReject = async (id) => {
+    console.log(id);
+    try {
+      const status = await axiosClient.patch(`/admin/reject/${id}`);
+      console.log(status);
+      getRequest();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const updateToProcess = async (id) => {
+    console.log(id);
+    try {
+      const status = await axiosClient.patch(`/admin/processing/${id}`);
+      console.log(status);
+      getRequest();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return {
+    requests,
+    getRequest,
+    updateToApproved,
+    updateToReject,
+    updateToProcess,
+    isScheduleShow,
+    showSchedule,
+    hideSchedule,
+    schedId,
+    updatePickUp,
+    date,
+    currentDate,
+  };
+});
