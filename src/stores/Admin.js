@@ -10,6 +10,34 @@ export const useAdminStore = defineStore("admin", () => {
   const date = ref("");
   const currentDate = new Date();
   date.value = currentDate.toISOString().split("T")[0];
+
+  // Computed Properties
+
+  const getPendingRequest = computed(() => {
+    const numberOfPending = requests.value.filter(
+      (request) => request.status === "Pending"
+    );
+    return numberOfPending.length;
+  });
+  const getApproved = computed(() => {
+    const numberOfPending = requests.value.filter(
+      (request) => request.status === "Approved"
+    );
+    return numberOfPending.length;
+  });
+  const getProcessing = computed(() => {
+    const numberOfPending = requests.value.filter(
+      (request) => request.status === "Processing"
+    );
+    return numberOfPending.length;
+  });
+  const getCompleted = computed(() => {
+    const numberOfPending = requests.value.filter(
+      (request) => request.status === "Completed"
+    );
+    return numberOfPending.length;
+  });
+
   // Actions or Method
   const showSchedule = async (id) => {
     isScheduleShow.value = !isScheduleShow.value;
@@ -22,7 +50,7 @@ export const useAdminStore = defineStore("admin", () => {
         `/admin/schedule/${schedId.value}`,
         {
           pickUpDate: date.value,
-          status: 'Completed'
+          status: "Completed",
         }
       );
       console.log(status);
@@ -35,7 +63,6 @@ export const useAdminStore = defineStore("admin", () => {
   const getRequest = async () => {
     try {
       const request = await axiosClient.get("/admin/requests");
-      console.log(request.data.content);
       // requests.value.push(request.data.content[0]);
       requests.value = request.data.content;
     } catch (err) {
@@ -84,5 +111,9 @@ export const useAdminStore = defineStore("admin", () => {
     updatePickUp,
     date,
     currentDate,
+    getPendingRequest,
+    getApproved,
+    getProcessing,
+    getCompleted
   };
 });
