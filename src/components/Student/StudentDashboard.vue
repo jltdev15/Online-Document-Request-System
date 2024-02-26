@@ -6,10 +6,7 @@
         <h2 class="text-3xl font-bold">Dashboard</h2>
       </div>
       <div>
-        <button
-          @click="isGuideLineShow = !isGuideLineShow"
-          class="btn btn-primary"
-        >
+        <button @click="isGuideLineShow = !isGuideLineShow" class="btn btn-primary">
           Create Request <i class="fa-solid fa-plus"></i>
         </button>
       </div>
@@ -17,11 +14,7 @@
 
     <div v-if="isGuideLineShow" id="guidelinesModal" class="modal1">
       <div class="modal-content1">
-        <span
-          @click="isGuideLineShow = !isGuideLineShow"
-          class="float-right px-3 py-1 text-3xl text-red-700 border rounded-full cursor-pointer border-1 close1"
-          >&times;</span
-        >
+        <span @click="isGuideLineShow = !isGuideLineShow" class="float-right px-3 py-1 text-3xl text-red-700 border rounded-full cursor-pointer border-1 close1">&times;</span>
         <div class="guidelines">
           <h2>Guidelines in Requesting Document</h2>
           <b>1. Requests shall be for regular processing only:</b><br />
@@ -99,11 +92,7 @@
           Contact Numbers:<br />
           Registrar: <br />
           <div class="flex justify-center">
-            <router-link
-              to="/student_request"
-              class="w-2/12 py-3 mx-auto btn btn-outline"
-              >Agree</router-link
-            >
+            <router-link to="/student_request" class="w-2/12 py-3 mx-auto btn btn-outline">Agree</router-link>
           </div>
         </div>
       </div>
@@ -111,188 +100,217 @@
     <div class="py-9">
       <EasyDataTable :headers="headers" :items="studentStore.requestList">
         <template #item-operation="item">
-          <div
-            v-if="item.status === 'Approved'"
-            class="flex justify-center my-3"
-          >
-            <button
-              v-if="item.proof === 'Waiting for payment'"
-              class="flex items-center justify-center gap-3 px-3 py-3 font-bold bg-blue-500 rounded-md text-gray-50"
-            >
+          <div v-if="item.status === 'Approved'" class="flex justify-center my-3">
+            <button v-if="item.proof === 'Waiting for payment'" @click="studentStore.toggleUpdatePayment(item)" class="flex items-center justify-center gap-3 px-3 py-3 font-bold bg-blue-500 rounded-md text-gray-50">
               Make Payment<i class="fa-solid fa-peso-sign"></i>
             </button>
             <p v-else>Document is on Process</p>
           </div>
 
-          <div
-            v-if="item.status === 'Pending'"
-            class="flex justify-center my-3"
-          >
-            <p class="text-gray-80">Request verification</p>
+          <div v-if="item.status === 'Pending'" class="flex justify-center my-3">
+            <p class="text-gray-80">Your request has been received</p>
           </div>
-          <div
-            v-if="item.status === 'Processing'"
-            class="flex justify-center my-3"
-          >
+          <div v-if="item.status === 'Processing'" class="flex justify-center my-3">
             <p class="text-gray-80">Waiting document to be ready</p>
           </div>
-          <div
-            v-if="item.status === 'Completed'"
-            class="flex justify-center my-3"
-          >
+          <div v-if="item.status === 'Completed'" class="flex justify-center my-3">
             <p class="text-gray-80">Ready for pickup</p>
           </div>
         </template>
         <template #item-date="item">
           <p v-if="item.pickUpDate === ''">No date</p>
-          <p else>{{ item.pickUpDate }}</p>
+          <p else>
+            {{ item.pickUpDate }}
+          </p>
         </template>
       </EasyDataTable>
-      <payment-dialog :show="true" title="Upload Proof of Payment">
+      <payment-dialog :show="studentStore.isPaymentShow" title="Upload Proof of Payment">
         <template #default>
-          <div class="grid grid-cols-2 gap-6 py-6 ">
+          <div class="grid grid-cols-2 gap-3 p-6">
             <div class="p-3 border">
               <p>
-                  <strong>Gcash</strong>
-                  <ul><strong>Gcash Name:</strong> Juan Dela Cruz</ul>
-                  <ul><strong>Gcash Number:</strong> 0909-090-9090</ul>
-                  <strong>Bank Transfer</strong>
-                  <ul><strong>Bank Name:</strong> Juan Dela Cruz</ul>
-                  <ul><strong>Bank Number:</strong> 0909-00090-9090</ul>
+                <strong>Gcash</strong>
+              <ul><strong>Gcash Name:</strong> Juan Dela Cruz</ul>
+              <ul><strong>Gcash Number:</strong> 0909-090-9090</ul>
+              <strong>Bank Transfer</strong>
+              <ul><strong>Bank Name:</strong> Juan Dela Cruz</ul>
+              <ul><strong>Bank Number:</strong> 0909-00090-9090</ul>
               </p>
             </div>
             <div>
-            <div class="flex gap-3">
+              <div class="flex gap-3">
 
-              <div class="w-full">
-                  <label for="" class="font-bold">Date of Payment</label>
-                  <input v-model="date" type="date" placeholder="Type here" class="w-full max-w-xl input input-bordered" />
               </div>
-  
+              <label for="">Upload</label>
+              <div class="p-3 my-0 mb-3 border">
+            
+                <input @change="handleFileUpload" type="file" name="supporting_document" accept="application/pdf,image/x-png,image/gif,image/jpeg" id="supporting_document" />
+              </div>
+              <div class="flex justify-end w-full gap-3">
+                <button @click="studentStore.toggleUpdatePayment" class=" btn btn-outline" type="submit">
+                  Cancel
+                </button>
+                <button @click="uploadProof" class=" btn btn-primary" type="submit">
+                  Submit
+                </button>
+              </div>
             </div>
-            <div class="p-3 my-3 mb-3 border">
-              <input
-                type="file"
-                name="supporting_document"
-                accept="application/pdf,image/x-png,image/gif,image/jpeg"
-                id="supporting_document"
-              />
-            </div>
-            <div class="flex justify-end w-full gap-3">
-              <!-- <input type="submit" name="submit" value="Upload" /> -->
-              <button class="btn btn-outline" type="submit">
-                Cancel
-              </button>
-              <button class="btn btn-primary" type="submit">
-                Submit
-              </button>
-            </div>
+
           </div>
-      
-          </div>
-          
-        </template
-      ></payment-dialog>
+
+        </template>
+      </payment-dialog>
     </div>
   </section>
 </template>
 <script setup>
-import { ref, onMounted } from "vue";
-import { useStudentStore } from "@/stores/Student";
-import { useStudentAuthStore } from "@/stores/StudentAuth";
-import { useRouter } from "vue-router";
-import PaymentDialog from "@/components/Student/PaymentDialog.vue";
-const studentStore = useStudentStore();
-const studentAuthStore = useStudentAuthStore();
-const router = useRouter();
-studentStore.getRequest();
-const headers = [
-  { text: "DATE REQUESTED", value: "dateCreated" },
-  { text: "TYPES OF DOC.", value: "documentType" },
-  { text: "DATE NEEDED", value: "dateNeeded" },
-  { text: "PURPOSE OF REQUEST", value: "purpose" },
-  { text: "STATUS", value: "status" },
-  { text: "PICK UP DATE", value: "date" },
+  import {
+    ref,
+    onMounted
+  } from "vue";
+  import {
+    useStudentStore
+  } from "@/stores/Student";
+  import {
+    useStudentAuthStore
+  } from "@/stores/StudentAuth";
+  import {
+    useRouter
+  } from "vue-router";
+  import PaymentDialog from "@/components/Student/PaymentDialog.vue";
+  const studentStore = useStudentStore();
+  const studentAuthStore = useStudentAuthStore();
+  const router = useRouter();
+  studentStore.getRequest();
+  const fileName = ref(null);
+  const headers = [{
+      text: "DATE REQUESTED",
+      value: "dateCreated"
+    },
+    {
+      text: "TYPES OF DOC.",
+      value: "documentType"
+    },
+    {
+      text: "DATE NEEDED",
+      value: "dateNeeded"
+    },
+    {
+      text: "PURPOSE OF REQUEST",
+      value: "purpose"
+    },
+    {
+      text: "STATUS",
+      value: "status"
+    },
+    {
+      text: "PICK UP DATE",
+      value: "date"
+    },
 
-  { text: "ACTIONS", value: "operation" },
-];
-const isPaymentShow = ref(false);
-const isGuideLineShow = ref(false);
-studentAuthStore.checkAuthStudent();
-const items = [];
+    {
+      text: "ACTIONS",
+      value: "operation"
+    },
+  ];
+  const isPaymentShow = ref(false);
+  const isGuideLineShow = ref(false);
+  studentAuthStore.checkAuthStudent();
+  const items = [];
 
-onMounted(async () => {
-  await studentAuthStore.checkAuthStudent();
-  console.log(studentAuthStore.isAuthenticatedStudent);
-  if (studentAuthStore.isAuthenticatedStudent) {
-    return router.push("/student_dashboard");
+  onMounted(async () => {
+    await studentAuthStore.checkAuthStudent();
+    console.log(studentAuthStore.isAuthenticatedStudent);
+    if (studentAuthStore.isAuthenticatedStudent) {
+      return router.push("/student_dashboard");
+    }
+  });
+
+  const handleFileUpload = (event) => {
+    fileName.value = event.target.files[0];
   }
-});
+  const uploadProof = async () => {
+  const formData = new FormData();
+  if (!fileName.value) {
+    return alert('Cant upload empty file')
+  }
+  formData.append("proof", fileName.value);
+  studentStore.updatePayment(formData);
+};
 </script>
 
 <style scoped>
-#guidelinesModal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 999; /* Ensure the modal is in front */
-  background-color: white;
-  padding: 20px;
-  border: 2px solid black;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  width: 70%; /* Set the width of the modal */
-  max-width: 900px; /* Maximum width if needed */
-  margin-top: 20px;
-  font-size: 15px;
-}
+  #guidelinesModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    /* Ensure the modal is in front */
+    background-color: white;
+    padding: 20px;
+    border: 2px solid black;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 70%;
+    /* Set the width of the modal */
+    max-width: 900px;
+    /* Maximum width if needed */
+    margin-top: 20px;
+    font-size: 15px;
+  }
 
-/* Style for the modal content */
-.modal-content1 {
-  height: 500px;
-  overflow-y: auto;
-  text-align: left;
+  /* Style for the modal content */
+  .modal-content1 {
+    height: 500px;
+    overflow-y: auto;
+    text-align: left;
 
-  /* Set a fixed height for the content */
+    /* Set a fixed height for the content */
+    /* Enable vertical scrolling */
+  }
+
   /* Enable vertical scrolling */
-} /* Enable vertical scrolling */
 
-/* Close button style */
+  /* Close button style */
 
-.agree-button {
-  display: block;
-  margin: 0 auto;
-  background-color: darkblue;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-}
+  .agree-button {
+    display: block;
+    margin: 0 auto;
+    background-color: darkblue;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
 
-.agree-button:hover {
-  background-color: #2980b9;
-}
-.table1-container {
-  max-height: 200px;
-  margin-bottom: 20px;
-}
-/* Style for the table */
-/* Style for the table */
-.word-table {
-  width: 100%;
-  font-size: 10px;
-  table-layout: fixed;
-  position: sticky;
-  top: 00;
-  background-color: white; /* To maintain visibility */
-  margin-top: 10px;
-}
+  .agree-button:hover {
+    background-color: #2980b9;
+  }
 
-.word-table th,
-.word-table td {
-  border: 1px solid black;
-  padding: 4px;
-  text-align: center;
-  white-space: nowrap; /* Prevents line breaks within table cells */
-}
+  .table1-container {
+    max-height: 200px;
+    margin-bottom: 20px;
+  }
+
+  /* Style for the table */
+  /* Style for the table */
+  .word-table {
+    width: 100%;
+    font-size: 10px;
+    table-layout: fixed;
+    position: sticky;
+    top: 00;
+    background-color: white;
+    /* To maintain visibility */
+    margin-top: 10px;
+  }
+
+  .word-table th,
+  .word-table td {
+    border: 1px solid black;
+    padding: 4px;
+    text-align: center;
+    white-space: nowrap;
+    /* Prevents line breaks within table cells */
+  }
 </style>

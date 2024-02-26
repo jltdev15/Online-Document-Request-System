@@ -5,7 +5,8 @@ import axiosClient from "@/axiosClient";
 export const useStudentStore = defineStore("student", () => {
   // State
   const requestList = ref([]);
-  const isPaymentShow =ref(false);
+  const isPaymentShow = ref(false);
+  const idPayment = ref("");
   // const requestForm = reactive({
   //   type: "",
   //   attended: "",
@@ -25,9 +26,32 @@ export const useStudentStore = defineStore("student", () => {
     }
   };
 
+  const toggleUpdatePayment = async (id) => {
+    isPaymentShow.value = !isPaymentShow.value;
+    console.log("testing");
+    idPayment.value = id._id;
+    console.log(idPayment.value);
+  };
+
+  const updatePayment = async (value) => {
+    try {
+      await axiosClient.patch(`/update/${idPayment.value}`, value, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log("File uploaded successfully");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return {
     requestList,
     getRequest,
-    isPaymentShow
+    isPaymentShow,
+    toggleUpdatePayment,
+    idPayment,
+    updatePayment
   };
 });

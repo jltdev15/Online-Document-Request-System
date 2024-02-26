@@ -6,8 +6,8 @@ import StudentRegistration from "@/views/StudentRegistration.vue";
 import AdminDashboard from "@/components/Admin/AdminDashboard.vue";
 import StudentDashboard from "@/components/Student/StudentDashboard.vue";
 import StudentRequest from "@/components/Student/StudentRequest.vue";
-import PaymentForm from "@/components/Student/PaymentForm.vue";
-import FeedbackForm from '@/components/Student/FeedbackForm.vue';
+
+import FeedbackForm from "@/components/Student/FeedbackForm.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -55,11 +55,7 @@ const router = createRouter({
       name: "student-request",
       component: StudentRequest,
     },
-    {
-      path: "/payment",
-      name: "payment",
-      component: PaymentForm,
-    },
+
     {
       path: "/feedback",
       name: "feedback",
