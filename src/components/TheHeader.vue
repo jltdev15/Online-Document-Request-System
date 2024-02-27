@@ -31,11 +31,11 @@
         </ul>
         <ul v-show="adminAuthStore.isAuthenticated" class="items-center gap-3 text-sm md:flex">
           <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
-            <a href="" class="inline-block w-full font-bold text-center"> Profile</a>
+            <a href="" class="inline-block w-full p-6 font-bold text-center"> Profile</a>
           </li>
           <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
             <a href="javascript:void(0)" @click="adminAuthStore.submitLogout"
-              class="inline-block w-full font-bold text-center">
+              class="inline-block w-full p-6 font-bold text-center">
               Logout</a>
           </li>
         </ul>
