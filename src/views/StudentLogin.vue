@@ -1,45 +1,31 @@
 <template>
   <section class="">
-    <div class="w-2/6 mx-auto">
-      <h1 class="py-12 text-5xl font-bold text-center">Welcome Student!</h1>
+    <div class="mx-auto lg:w-2/6">
+      <h1 class="py-6 text-2xl font-bold text-center sm:py-12 lg:text-5xl">Welcome Student!</h1>
       <form @submit.prevent="submitCredentials">
-        <div
-          class="flex flex-col items-center justify-center py-12 bg-gray-200 rounded shadow"
-        >
+        <div class="flex flex-col items-center justify-center py-12 rounded shadow md:bg-gray-200">
           <label class="w-full max-w-xs form-control">
             <div class="label">
               <span class="text-lg label-text">What is your Username?</span>
             </div>
-            <input
-              v-model.trim="studentUser"
-              type="text"
-              placeholder="Type here"
-              class="w-full max-w-xs input input-bordered"
-            />
+            <input v-model.trim="studentUser" type="text" placeholder="Type here"
+              class="w-full max-w-xs input input-bordered" />
           </label>
           <label class="w-full max-w-xs form-control">
             <div class="label">
               <span class="text-lg label-text">What is your Password?</span>
             </div>
-            <input
-              v-model.trim="studentPass"
-              type="password"
-              placeholder="Type here"
-              class="w-full max-w-xs input input-bordered"
-            />
+            <input v-model.trim="studentPass" type="password" placeholder="Type here"
+              class="w-full max-w-xs input input-bordered" />
           </label>
-          <div class="w-full px-20 py-3 pt-6">
+          <div class="w-full max-w-xs py-3 pt-6 md:px-20">
             <button class="w-full text-lg font-bold btn btn-primary">
               Login
             </button>
           </div>
-          <div class="w-full px-20 pb-3">
+          <div class="w-full max-w-xs pb-3 md:px-20">
             <p class="py-3 text-center">Dont have an account?</p>
-            <router-link
-              to="/student_registration"
-              class="w-full text-lg btn btn-outline"
-              >Register</router-link
-            >
+            <router-link to="/student_registration" class="w-full text-lg btn btn-outline">Register</router-link>
           </div>
         </div>
       </form>

@@ -14,7 +14,8 @@
 
     <div v-if="isGuideLineShow" id="guidelinesModal" class="modal1">
       <div class="modal-content1">
-        <span @click="isGuideLineShow = !isGuideLineShow" class="float-right px-3 py-1 text-3xl text-red-700 border rounded-full cursor-pointer border-1 close1">&times;</span>
+        <span @click="isGuideLineShow = !isGuideLineShow"
+          class="float-right px-3 py-1 text-3xl text-red-700 border rounded-full cursor-pointer border-1 close1">&times;</span>
         <div class="guidelines">
           <h2>Guidelines in Requesting Document</h2>
           <b>1. Requests shall be for regular processing only:</b><br />
@@ -101,7 +102,8 @@
       <EasyDataTable :headers="headers" :items="studentStore.requestList">
         <template #item-operation="item">
           <div v-if="item.status === 'Approved'" class="flex justify-center my-3">
-            <button v-if="item.proof === 'Waiting for payment'" @click="studentStore.toggleUpdatePayment(item)" class="flex items-center justify-center gap-3 px-3 py-3 font-bold bg-blue-500 rounded-md text-gray-50">
+            <button v-if="item.proof === 'Waiting for payment'" @click="studentStore.toggleUpdatePayment(item)"
+              class="flex items-center justify-center gap-3 px-3 py-3 font-bold bg-blue-500 rounded-md text-gray-50">
               Make Payment<i class="fa-solid fa-peso-sign"></i>
             </button>
             <p v-else>Document is on Process</p>
@@ -143,8 +145,9 @@
               </div>
               <label for="">Upload</label>
               <div class="p-3 my-0 mb-3 border">
-            
-                <input @change="handleFileUpload" type="file" name="supporting_document" accept="application/pdf,image/x-png,image/gif,image/jpeg" id="supporting_document" />
+
+                <input @change="handleFileUpload" type="file" name="supporting_document"
+                  accept="application/pdf,image/x-png,image/gif,image/jpeg" id="supporting_document" />
               </div>
               <div class="flex justify-end w-full gap-3">
                 <button @click="studentStore.toggleUpdatePayment" class=" btn btn-outline" type="submit">
@@ -164,153 +167,171 @@
   </section>
 </template>
 <script setup>
-  import {
-    ref,
-    onMounted
-  } from "vue";
-  import {
-    useStudentStore
-  } from "@/stores/Student";
-  import {
-    useStudentAuthStore
-  } from "@/stores/StudentAuth";
-  import {
-    useRouter
-  } from "vue-router";
-  import PaymentDialog from "@/components/Student/PaymentDialog.vue";
-  const studentStore = useStudentStore();
-  const studentAuthStore = useStudentAuthStore();
-  const router = useRouter();
-  studentStore.getRequest();
-  const fileName = ref(null);
-  const headers = [{
-      text: "DATE REQUESTED",
-      value: "dateCreated"
-    },
-    {
-      text: "TYPES OF DOC.",
-      value: "documentType"
-    },
-    {
-      text: "DATE NEEDED",
-      value: "dateNeeded"
-    },
-    {
-      text: "PURPOSE OF REQUEST",
-      value: "purpose"
-    },
-    {
-      text: "STATUS",
-      value: "status"
-    },
-    {
-      text: "PICK UP DATE",
-      value: "date"
-    },
+import {
+  ref,
+  onMounted
+} from "vue";
+import {
+  useStudentStore
+} from "@/stores/Student";
+import {
+  useStudentAuthStore
+} from "@/stores/StudentAuth";
+import {
+  useRouter
+} from "vue-router";
+import PaymentDialog from "@/components/Student/PaymentDialog.vue";
+import { useAdminAuthStore } from "@/stores/AdminAuth";
+import { useToast } from "vue-toastification";
 
-    {
-      text: "ACTIONS",
-      value: "operation"
-    },
-  ];
-  const isPaymentShow = ref(false);
-  const isGuideLineShow = ref(false);
-  studentAuthStore.checkAuthStudent();
-  const items = [];
+const toast = useToast();
+const studentStore = useStudentStore();
+const studentAuthStore = useStudentAuthStore();
+const adminAuthStore = useAdminAuthStore();
+const router = useRouter();
+studentStore.getRequest();
+const fileName = ref(null);
+const headers = [{
+  text: "DATE REQUESTED",
+  value: "dateCreated"
+},
+{
+  text: "TYPES OF DOC.",
+  value: "documentType"
+},
+{
+  text: "DATE NEEDED",
+  value: "dateNeeded"
+},
+{
+  text: "PURPOSE OF REQUEST",
+  value: "purpose"
+},
+{
+  text: "STATUS",
+  value: "status"
+},
+{
+  text: "PICK UP DATE",
+  value: "date"
+},
 
-  onMounted(async () => {
-    await studentAuthStore.checkAuthStudent();
-    console.log(studentAuthStore.isAuthenticatedStudent);
-    if (studentAuthStore.isAuthenticatedStudent) {
-      return router.push("/student_dashboard");
-    }
-  });
+{
+  text: "ACTIONS",
+  value: "operation"
+},
+];
+const isPaymentShow = ref(false);
+const isGuideLineShow = ref(false);
+studentAuthStore.checkAuthStudent();
+const items = [];
 
-  const handleFileUpload = (event) => {
-    fileName.value = event.target.files[0];
+onMounted(async () => {
+  await studentAuthStore.checkAuthStudent();
+
+  if (studentAuthStore.isAuthenticatedStudent) {
+    return router.push("/student_dashboard");
   }
-  const uploadProof = async () => {
+  await adminAuthStore.checkAuth()
+  if (adminAuthStore.isAuthenticated) {
+    return router.push('/admin_dashboard')
+  }
+  router.push('/')
+
+});
+
+const handleFileUpload = (event) => {
+  fileName.value = event.target.files[0];
+}
+const uploadProof = async () => {
   const formData = new FormData();
   if (!fileName.value) {
     return alert('Cant upload empty file')
   }
   formData.append("proof", fileName.value);
-  studentStore.updatePayment(formData);
+  await studentStore.updatePayment(formData);
+  toast.success(
+    "Payment updated",
+    {
+      timeout: 2000,
+    },
+    await router.push("/")
+  );
 };
 </script>
 
 <style scoped>
-  #guidelinesModal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 999;
-    /* Ensure the modal is in front */
-    background-color: white;
-    padding: 20px;
-    border: 2px solid black;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    width: 70%;
-    /* Set the width of the modal */
-    max-width: 900px;
-    /* Maximum width if needed */
-    margin-top: 20px;
-    font-size: 15px;
-  }
+#guidelinesModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  /* Ensure the modal is in front */
+  background-color: white;
+  padding: 20px;
+  border: 2px solid black;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  width: 70%;
+  /* Set the width of the modal */
+  max-width: 900px;
+  /* Maximum width if needed */
+  margin-top: 20px;
+  font-size: 15px;
+}
 
-  /* Style for the modal content */
-  .modal-content1 {
-    height: 500px;
-    overflow-y: auto;
-    text-align: left;
+/* Style for the modal content */
+.modal-content1 {
+  height: 500px;
+  overflow-y: auto;
+  text-align: left;
 
-    /* Set a fixed height for the content */
-    /* Enable vertical scrolling */
-  }
-
+  /* Set a fixed height for the content */
   /* Enable vertical scrolling */
+}
 
-  /* Close button style */
+/* Enable vertical scrolling */
 
-  .agree-button {
-    display: block;
-    margin: 0 auto;
-    background-color: darkblue;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
+/* Close button style */
 
-  .agree-button:hover {
-    background-color: #2980b9;
-  }
+.agree-button {
+  display: block;
+  margin: 0 auto;
+  background-color: darkblue;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
 
-  .table1-container {
-    max-height: 200px;
-    margin-bottom: 20px;
-  }
+.agree-button:hover {
+  background-color: #2980b9;
+}
 
-  /* Style for the table */
-  /* Style for the table */
-  .word-table {
-    width: 100%;
-    font-size: 10px;
-    table-layout: fixed;
-    position: sticky;
-    top: 00;
-    background-color: white;
-    /* To maintain visibility */
-    margin-top: 10px;
-  }
+.table1-container {
+  max-height: 200px;
+  margin-bottom: 20px;
+}
 
-  .word-table th,
-  .word-table td {
-    border: 1px solid black;
-    padding: 4px;
-    text-align: center;
-    white-space: nowrap;
-    /* Prevents line breaks within table cells */
-  }
+/* Style for the table */
+/* Style for the table */
+.word-table {
+  width: 100%;
+  font-size: 10px;
+  table-layout: fixed;
+  position: sticky;
+  top: 00;
+  background-color: white;
+  /* To maintain visibility */
+  margin-top: 10px;
+}
+
+.word-table th,
+.word-table td {
+  border: 1px solid black;
+  padding: 4px;
+  text-align: center;
+  white-space: nowrap;
+  /* Prevents line breaks within table cells */
+}
 </style>

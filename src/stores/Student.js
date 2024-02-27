@@ -1,19 +1,14 @@
 import { ref, computed, reactive } from "vue";
 import { defineStore } from "pinia";
 import axiosClient from "@/axiosClient";
+import { useRouter } from "vue-router";
 
 export const useStudentStore = defineStore("student", () => {
   // State
   const requestList = ref([]);
   const isPaymentShow = ref(false);
   const idPayment = ref("");
-  // const requestForm = reactive({
-  //   type: "",
-  //   attended: "",
-  //   dateNeeded: "",
-  //   purpose: "",
-  //   supportingDocument: "",
-  // });
+  const router = useRouter();
   // Actions
   const getRequest = async () => {
     try {
@@ -25,14 +20,12 @@ export const useStudentStore = defineStore("student", () => {
       console.log(err);
     }
   };
-
   const toggleUpdatePayment = async (id) => {
     isPaymentShow.value = !isPaymentShow.value;
     console.log("testing");
     idPayment.value = id._id;
     console.log(idPayment.value);
   };
-
   const updatePayment = async (value) => {
     try {
       await axiosClient.patch(`/update/${idPayment.value}`, value, {
@@ -41,6 +34,15 @@ export const useStudentStore = defineStore("student", () => {
         },
       });
       console.log("File uploaded successfully");
+      isPaymentShow.value = !isPaymentShow.value;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const registerAccount = async (value) => {
+    try {
+      const newData = await axiosClient.post("/register", value);
+      console.log(newData);
     } catch (err) {
       console.log(err);
     }
@@ -52,6 +54,8 @@ export const useStudentStore = defineStore("student", () => {
     isPaymentShow,
     toggleUpdatePayment,
     idPayment,
-    updatePayment
+    updatePayment,
+    registerAccount,
+    router,
   };
 });
