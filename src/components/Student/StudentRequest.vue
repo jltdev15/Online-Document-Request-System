@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="pt-24">
     <div class="mx-auto lg:p-6 lg:w-6/12">
       <div class="">
         <router-link class="flex items-center gap-2 px-3 py-3 bg-transparent" to="/student_dashboard"><i
@@ -8,7 +8,7 @@
       </div>
       <div class="px-3 pb-6">
         <header class="py-3">
-          <h1 class="py-6 text-3xl font-bold text-center rounded-lg md:bg-blue-800 md:text-gray-50">
+          <h1 class="py-3 text-3xl font-bold text-center rounded-lg md:bg-blue-800 md:text-gray-50">
             Student Request Form
           </h1>
         </header>

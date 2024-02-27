@@ -19,7 +19,7 @@
             <input type="password" placeholder="Type here" class="w-full input input-bordered" v-model.trim="adminpass"
               required />
           </label>
-          <div class="w-full px-6 py-6">
+          <div class="w-full px-6 py-6 xs:px-20">
             <button class="w-full text-xl font-bold btn btn-primary">
               Login
             </button>

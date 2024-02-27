@@ -1,5 +1,5 @@
 <template>
-  <section class="py-0">
+  <section class="pt-28">
     <div class="mx-auto md:w-3/6">
       <h1 class="py-6 text-2xl font-bold text-center capitalize lg:text-5xl">Create new Account</h1>
       <form @submit.prevent="registerStudent">
