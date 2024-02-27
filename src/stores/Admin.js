@@ -53,6 +53,7 @@ export const useAdminStore = defineStore("admin", () => {
           status: "Completed",
         }
       );
+      isScheduleShow.value = !isScheduleShow.value;
       console.log(status);
       await getRequest();
     } catch (err) {}
@@ -114,6 +115,6 @@ export const useAdminStore = defineStore("admin", () => {
     getPendingRequest,
     getApproved,
     getProcessing,
-    getCompleted
+    getCompleted,
   };
 });

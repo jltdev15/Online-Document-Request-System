@@ -65,7 +65,7 @@
           </button>
           <button @click="adminStore.updatePickUp"
             class="px-6 py-3 font-semibold capitalize bg-blue-800 border border-transparent rounded hover:bg-blue-600 text-gray-50">
-            Confirm Pickup
+            Confirm
           </button>
         </div>
       </template>
@@ -138,10 +138,13 @@ import { computed, onMounted, ref } from "vue";
 import { useAdminStore } from "../../stores/Admin";
 import BaseDialog from "@/components/Admin/BaseDialog.vue";
 import { useAdminAuthStore } from "@/stores/AdminAuth";
+import {
+  useStudentAuthStore
+} from "@/stores/StudentAuth";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-
+const studentAuthStore = useStudentAuthStore();
 const adminAuthStore = useAdminAuthStore();
 const adminStore = useAdminStore();
 adminStore.getRequest();
@@ -183,10 +186,16 @@ const processHandler = async (value) => {
 };
 
 onMounted(async () => {
-  console.log(adminAuthStore.isAuthenticated);
-  if (!adminAuthStore.isAuthenticated) {
-    router.push("/");
+  await studentAuthStore.checkAuthStudent();
+
+  if (studentAuthStore.isAuthenticatedStudent) {
+    return router.push("/student_dashboard");
   }
+  await adminAuthStore.checkAuth()
+  if (adminAuthStore.isAuthenticated) {
+    return router.push('/admin_dashboard')
+  }
+  router.push('/')
 });
 </script>
 
