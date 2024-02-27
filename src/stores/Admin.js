@@ -50,13 +50,25 @@ export const useAdminStore = defineStore("admin", () => {
         `/admin/schedule/${schedId.value}`,
         {
           pickUpDate: date.value,
-          status: "Completed",
+          status: "Waiting to pickup",
         }
       );
       isScheduleShow.value = !isScheduleShow.value;
       console.log(status);
       await getRequest();
     } catch (err) {}
+  };
+
+  const updateCompleted = async (id) => {
+    try {
+      const status = await axiosClient.patch(`/admin/complete/${id}`, {
+        status: "Completed",
+      });
+      console.log(status);
+      await getRequest();
+    } catch (err) {
+      console.log(err);
+    }
   };
   const hideSchedule = async () => {
     isScheduleShow.value = !isScheduleShow.value;
@@ -98,6 +110,16 @@ export const useAdminStore = defineStore("admin", () => {
       console.log(err);
     }
   };
+  const updateToComplete = async (id) => {
+    console.log(id);
+    try {
+      const status = await axiosClient.patch(`/admin/processing/${id}`);
+      console.log(status);
+      getRequest();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return {
     requests,
@@ -116,5 +138,6 @@ export const useAdminStore = defineStore("admin", () => {
     getApproved,
     getProcessing,
     getCompleted,
+    updateCompleted,
   };
 });

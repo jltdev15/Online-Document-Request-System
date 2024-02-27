@@ -122,11 +122,15 @@
               Schedule <i class="fa-regular fa-calendar-check"></i>
             </button>
           </div>
+          <div class="flex justify-center p-3" v-show="item.status === 'Waiting to pickup'">
+            <button
+              class="transition-all flex justify-center w-[9rem] hover:bg-green-500 rounded-md px-6 py-2 bg-green-600 text-gray-50 btn-success gap-3 items-center"
+              @click="finishHandler(item)">
+              Complete <i class="fa-regular fa-calendar-check"></i>
+            </button>
+          </div>
           <div class="flex justify-center p-3" v-show="item.status === 'Completed'">
-            <p
-              class="transition-all flex justify-center w-[10rem] hrounded-md px-6 py-2 text-gray-800 btn-success gap-3 items-center">
-              No action needed
-            </p>
+            <p>No action needed</p>
           </div>
         </template>
       </EasyDataTable>
@@ -161,12 +165,12 @@ const headers = [
   { text: "PURPOSE OF REQUEST", value: "purpose", width: 150 },
   { text: "SUPPORTING DOCUMENTS", value: "supporting", width: 150 },
   { text: "PROOF OF PAYMENT", value: "proof", width: 150 },
-
-  { text: "STATUS", value: "status" },
   {
     text: "PICK UP DATE",
     value: "date", width: 150
   },
+  { text: "STATUS", value: "status" },
+
   { text: "ACTIONS", value: "operation" },
 ];
 const showScheduleDialog = async () => {
@@ -183,6 +187,9 @@ const rejectHandler = async (value) => {
 };
 const processHandler = async (value) => {
   adminStore.updateToProcess(value._id);
+};
+const finishHandler = async (value) => {
+  adminStore.updateCompleted(value._id);
 };
 
 onMounted(async () => {

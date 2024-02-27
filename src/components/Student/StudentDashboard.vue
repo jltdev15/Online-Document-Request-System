@@ -116,8 +116,11 @@
           <div v-if="item.status === 'Processing'" class="flex justify-start my-3">
             <p class="text-gray-80">Waiting document to be ready</p>
           </div>
+          <div v-if="item.status === 'Waiting to pickup'" class="flex justify-start my-3">
+            <p class="text-gray-80">Your document is ready</p>
+          </div>
           <div v-if="item.status === 'Completed'" class="flex justify-start my-3">
-            <p class="text-gray-80">Ready for pickup</p>
+            <p class="text-gray-80">Done</p>
           </div>
         </template>
         <template #item-date="item">
