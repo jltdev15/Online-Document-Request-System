@@ -85,6 +85,12 @@
             {{ item.status }}
           </div>
         </template>
+        <template #item-date="item">
+          <p v-if="item.pickUpDate === ''">Not set</p>
+          <p else>
+            {{ item.pickUpDate }}
+          </p>
+        </template>
         <template #item-operation="item">
           <div v-if="item.status === 'Pending'" class="flex items-center justify-between gap-3 p-1">
             <button
@@ -154,6 +160,10 @@ const headers = [
   { text: "PROOF OF PAYMENT", value: "proof", width: 150 },
 
   { text: "STATUS", value: "status" },
+  {
+    text: "PICK UP DATE",
+    value: "date", width: 150
+  },
   { text: "ACTIONS", value: "operation" },
 ];
 const showScheduleDialog = async () => {
