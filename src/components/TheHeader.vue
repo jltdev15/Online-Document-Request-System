@@ -34,7 +34,7 @@
               Logout</a>
           </li>
         </ul>
-        <ul v-show="studentAuthStore.isAuthenticatedStudent" class="flex items-center gap-3 text-sm">
+        <ul v-show="studentAuthStore.isAuthenticatedStudent" class="flex items-center hidden gap-3 text-sm">
           <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
             <a href="" class="inline-block p-6 font-bold"> Student Profile</a>
           </li>

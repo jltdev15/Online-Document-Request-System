@@ -1,22 +1,23 @@
 <template>
   <section>
-    <div class="w-6/12 p-6 mx-auto">
+    <div class="mx-auto lg:p-6 lg:w-6/12">
       <div class="">
-        <router-link class="bg-transparent btn" to="/student_dashboard"><i class="fa-solid fa-circle-arrow-left"></i>Back
+        <router-link class="flex items-center gap-2 px-3 py-3 bg-transparent" to="/student_dashboard"><i
+            class="fa-solid fa-circle-arrow-left"></i>Back
           to Dashboard</router-link>
       </div>
-      <div class="pb-6">
+      <div class="px-3 pb-6">
         <header class="py-3">
-          <h1 class="py-6 text-3xl font-bold text-center bg-blue-800 rounded-lg text-gray-50">
+          <h1 class="py-6 text-3xl font-bold text-center rounded-lg md:bg-blue-800 md:text-gray-50">
             Student Request Form
           </h1>
         </header>
         <form @submit.prevent="uploadFile" enctype="multipart/form-dataß">
           <div class="">
-            <div class="grid grid-cols-3 gap-6">
+            <div class="grid gap-6 md:grid-cols-3">
               <div class="flex flex-col gap-3">
-                <label class="text-xl font-bold" for="document_type">Document Type</label>
-                <select v-model.trim="documentType" class="w-full max-w-xs select select-bordered">
+                <label class="font-bold md:text-xl" for="document_type">Document Type</label>
+                <select v-model.trim="documentType" class="w-full lg:max-w-xs select select-bordered">
                   <option selected value="">Choose Document</option>
                   <option value="COE">Certificate of Enrollment - P50</option>
                   <option value="COR">Certificate of Registration - P50</option>
@@ -28,8 +29,8 @@
                 </select>
               </div>
               <div class="flex flex-col gap-3">
-                <label class="text-xl font-bold" for="last_school_year">S.Y. Attended</label>
-                <select v-model.trim="year" class="w-full max-w-xs select select-bordered">
+                <label class="text-base font-bold md:text-xl" for="last_school_year">S.Y. Attended</label>
+                <select v-model.trim="year" class="w-full lg:max-w-xs select select-bordered">
                   <option selected value="">Choose Year</option>
                   <option v-for="item in yearsRange" :key="item">
                     {{ item }}
@@ -37,8 +38,8 @@
                 </select>
               </div>
               <div class="flex flex-col gap-3">
-                <label class="text-xl font-bold" for="date_needed">Date Needed</label>
-                <input v-model.trim="dateNeeded" class="w-full max-w-xs px-2 py-2 border rounded-lg" type="date"
+                <label class="font-bold md:text-xl" for="date_needed">Date Needed</label>
+                <input v-model.trim="dateNeeded" class="w-full px-2 py-2 border rounded-lg lg:max-w-xs" type="date"
                   :min="date" name="date_needed" required />
               </div>
             </div>

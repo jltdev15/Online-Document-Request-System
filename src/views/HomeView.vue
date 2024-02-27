@@ -1,8 +1,8 @@
 <template>
   <section class="sm:h-[80svh] flex justify-center items-center">
     <div class="w-full pb-32">
-      <h1 class="p-12 text-2xl font-bold text-center sm:text-5xl">
-        PBC Sunbeam School Online Document Request
+      <h1 class="text-xl font-bold text-center p-9 sm:text-5xl">
+        PBC Sunbeam School ODRS
       </h1>
       <div class="flex flex-col gap-12 p-6 mx-auto md:flex-row sm:w-3/6 justify-evenly">
         <div class="md:p-12">

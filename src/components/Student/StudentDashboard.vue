@@ -1,7 +1,7 @@
 <template>
-  <section class="w-10/12 pt-6 pb-32 mx-auto">
-    <header class="flex items-center justify-between py-3">
-      <div>
+  <section class="px-3 pt-6 pb-32 mx-auto md:w-10/12">
+    <header class="flex items-center justify-between gap-3 py-3">
+      <div class="">
         <h1>Welcome Student</h1>
         <h2 class="text-3xl font-bold">Dashboard</h2>
       </div>
@@ -92,8 +92,8 @@
           QR Code:<br />
           Contact Numbers:<br />
           Registrar: <br />
-          <div class="flex justify-center">
-            <router-link to="/student_request" class="w-2/12 py-3 mx-auto btn btn-outline">Agree</router-link>
+          <div class="flex justify-center py-3">
+            <router-link to="/student_request" class="w-5/12 py-3 mx-auto btn btn-outline">Agree</router-link>
           </div>
         </div>
       </div>
@@ -103,7 +103,7 @@
         <template #item-operation="item">
           <div v-if="item.status === 'Approved'" class="flex justify-center my-3">
             <button v-if="item.proof === 'Waiting for payment'" @click="studentStore.toggleUpdatePayment(item)"
-              class="flex items-center justify-center gap-3 px-3 py-3 font-bold bg-blue-500 rounded-md text-gray-50">
+              class="flex text-[0.8rem] items-center justify-center gap-3 px-0 w-[10rem] py-3 font-bold bg-blue-500 rounded-md text-gray-50">
               Make Payment<i class="fa-solid fa-peso-sign"></i>
             </button>
             <p v-else>Document is on Process</p>
@@ -272,17 +272,17 @@ const uploadProof = async () => {
   padding: 20px;
   border: 2px solid black;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  width: 70%;
+  width: 100%;
   /* Set the width of the modal */
   max-width: 900px;
   /* Maximum width if needed */
   margin-top: 20px;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 /* Style for the modal content */
 .modal-content1 {
-  height: 500px;
+  height: 400px;
   overflow-y: auto;
   text-align: left;
 
@@ -300,7 +300,7 @@ const uploadProof = async () => {
   background-color: darkblue;
   color: #fff;
   border: none;
-  padding: 5px 10px;
+  width: 100%;
   cursor: pointer;
 }
 

@@ -1,48 +1,48 @@
 <template>
   <section class="py-0">
-    <div class="w-3/6 mx-auto">
-      <h1 class="py-3 text-5xl font-bold text-center capitalize">Create new Account</h1>
+    <div class="mx-auto md:w-3/6">
+      <h1 class="py-6 text-2xl font-bold text-center capitalize lg:text-5xl">Create new Account</h1>
       <form @submit.prevent="registerStudent">
         <div
-          class="grid flex-col items-center justify-center grid-cols-2 px-12 py-12 capitalize bg-gray-200 rounded shadow gap-9">
-          <label class="w-full max-w-xs form-control">
+          class="grid gap-6 px-6 py-6 capitalize rounded shadow md:justify-center md:items-center md:px-12 md:grid-cols-2 md:bg-gray-200 md:gap-6">
+          <label class="w-full md:max-w-xs form-control">
             <div class="label">
-              <span class="text-lg label-text">What is your Full Name?</span>
+              <span class="text-lg font-bold label-text">What is your Full Name?</span>
             </div>
             <input v-model.trim="data.fullName" type="text" placeholder="Type here"
               class="w-full max-w-xs input input-bordered" required />
           </label>
           <label class="w-full max-w-xs form-control">
             <div class="label">
-              <span class="text-lg label-text">Learner Reference Number?</span>
+              <span class="text-lg font-bold label-text">Learner Reference Number?</span>
             </div>
             <input v-model.trim="data.lrn" type="number" placeholder="Type here"
               class="w-full max-w-xs input input-bordered" required />
           </label>
           <label class="w-full max-w-xs form-control">
             <div class="label">
-              <span class="text-lg label-text"> Your Complete address?</span>
+              <span class="text-lg font-bold label-text"> Your Complete address?</span>
             </div>
             <input v-model.trim="data.address" type="text" placeholder="Type here"
               class="w-full max-w-xs input input-bordered" required />
           </label>
           <label class="w-full max-w-xs form-control">
             <div class="label">
-              <span class="text-lg label-text"> Your Email Address?</span>
+              <span class="text-lg font-bold label-text"> Your Email Address?</span>
             </div>
             <input v-model="data.email" type="email" placeholder="Type here" class="w-full max-w-xs input input-bordered"
               required />
           </label>
           <label class="w-full max-w-xs form-control">
             <div class="label">
-              <span class="text-lg label-text">Your Contact?</span>
+              <span class="text-lg font-bold label-text">Your Contact?</span>
             </div>
             <input v-model="data.contact" type="number" placeholder="Type here"
               class="w-full max-w-xs input input-bordered" required />
           </label>
           <label class="w-full max-w-xs form-control">
             <div class="label">
-              <span class="text-lg label-text">Your Secure Password?</span>
+              <span class="text-lg font-bold label-text">Your Secure Password?</span>
             </div>
             <input v-model="data.password" type="password" placeholder="Type here"
               class="w-full max-w-xs input input-bordered" required />
@@ -57,12 +57,12 @@
           <input type="checkbox" />
           <span> I agree to the <a href="">Terms and Condition</a></span>
         </div>
-        <div class="flex justify-end w-full gap-3 py-2">
+        <div class="flex justify-end w-full gap-3 px-6 py-2">
           <button class="w-full text-lg font-bold btn btn-primary" type="submit">
             Register Account
           </button>
         </div>
-        <div class="flex justify-center text-center">
+        <div class="flex justify-center py-3 text-center">
           <router-link to="/student_login" class="w-full text-lg font-bold btn-outline">
             Already Registered? Login now
           </router-link>
