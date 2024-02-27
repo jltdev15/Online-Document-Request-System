@@ -1,5 +1,5 @@
 <template>
-  <section class="px-3 pt-6 pb-32 mx-auto md:w-10/12">
+  <section class="px-3 pt-24 mx-auto md:w-10/12">
     <header class="flex items-center justify-between gap-3 py-3">
       <div class="">
         <h1>Welcome Student</h1>
@@ -99,28 +99,29 @@
       </div>
     </div>
     <div class="py-9">
-      <EasyDataTable :headers="headers" :items="studentStore.requestList">
+      <EasyDataTable :headers="headers" :items="studentStore.requestList" :rows-per-page="5" border-cell
+        table-class-name="customize-table" header-text-direction="left">
         <template #item-operation="item">
-          <div v-if="item.status === 'Approved'" class="flex justify-center my-3">
+          <div v-if="item.status === 'Approved'" class="flex justify-start my-3">
             <button v-if="item.proof === 'Waiting for payment'" @click="studentStore.toggleUpdatePayment(item)"
-              class="flex text-[0.8rem] items-center justify-center gap-3 px-0 w-[10rem] py-3 font-bold bg-blue-500 rounded-md text-gray-50">
+              class="flex text-[0.8rem] items-center justify-start gap-3 pl-3 w-[10rem] py-3 font-bold bg-blue-500 rounded-md text-gray-50">
               Make Payment<i class="fa-solid fa-peso-sign"></i>
             </button>
             <p v-else>Document is on Process</p>
           </div>
 
-          <div v-if="item.status === 'Pending'" class="flex justify-center my-3">
+          <div v-if="item.status === 'Pending'" class="flex justify-start my-3">
             <p class="text-gray-80">Your request has been received</p>
           </div>
-          <div v-if="item.status === 'Processing'" class="flex justify-center my-3">
+          <div v-if="item.status === 'Processing'" class="flex justify-start my-3">
             <p class="text-gray-80">Waiting document to be ready</p>
           </div>
-          <div v-if="item.status === 'Completed'" class="flex justify-center my-3">
+          <div v-if="item.status === 'Completed'" class="flex justify-start my-3">
             <p class="text-gray-80">Ready for pickup</p>
           </div>
         </template>
         <template #item-date="item">
-          <p v-if="item.pickUpDate === ''">No date</p>
+          <p v-if="item.pickUpDate === ''">Not set</p>
           <p else>
             {{ item.pickUpDate }}
           </p>
@@ -128,8 +129,8 @@
       </EasyDataTable>
       <payment-dialog :show="studentStore.isPaymentShow" title="Upload Proof of Payment">
         <template #default>
-          <div class="grid grid-cols-2 gap-3 p-6">
-            <div class="p-3 border">
+          <div class="">
+            <div class="p-3 text-sm border">
               <p>
                 <strong>Gcash</strong>
               <ul><strong>Gcash Name:</strong> Juan Dela Cruz</ul>
@@ -143,19 +144,20 @@
               <div class="flex gap-3">
 
               </div>
-              <label for="">Upload</label>
+              <label for="" class="font-bold">Upload</label>
               <div class="p-3 my-0 mb-3 border">
 
-                <input @change="handleFileUpload" type="file" name="supporting_document"
+                <input class="text-sm md:text-xl" @change="handleFileUpload" type="file" name="supporting_document"
                   accept="application/pdf,image/x-png,image/gif,image/jpeg" id="supporting_document" />
               </div>
-              <div class="flex justify-end w-full gap-3">
-                <button @click="studentStore.toggleUpdatePayment" class=" btn btn-outline" type="submit">
-                  Cancel
-                </button>
-                <button @click="uploadProof" class=" btn btn-primary" type="submit">
+              <div class="flex flex-col gap-3">
+                <button @click="uploadProof" class="w-full btn btn-primary" type="submit">
                   Submit
                 </button>
+                <button @click="studentStore.toggleUpdatePayment" class="w-full btn btn-outline" type="submit">
+                  Cancel
+                </button>
+
               </div>
             </div>
 
@@ -193,32 +195,32 @@ studentStore.getRequest();
 const fileName = ref(null);
 const headers = [{
   text: "DATE REQUESTED",
-  value: "dateCreated"
+  value: "dateCreated", width: 150
 },
 {
   text: "TYPES OF DOC.",
-  value: "documentType"
+  value: "documentType", width: 150
 },
 {
   text: "DATE NEEDED",
-  value: "dateNeeded"
+  value: "dateNeeded", width: 150
 },
 {
   text: "PURPOSE OF REQUEST",
-  value: "purpose"
+  value: "purpose", width: 150
 },
 {
   text: "STATUS",
-  value: "status"
+  value: "status", width: 150
 },
 {
   text: "PICK UP DATE",
-  value: "date"
+  value: "date", width: 150
 },
 
 {
   text: "ACTIONS",
-  value: "operation"
+  value: "operation", width: 150
 },
 ];
 const isPaymentShow = ref(false);
@@ -261,6 +263,13 @@ const uploadProof = async () => {
 </script>
 
 <style scoped>
+.customize-table {
+  --easy-table-header-font-size: 12px;
+  --easy-table-header-height: 50px;
+  --easy-table-header-font-color: #ffffff;
+  --easy-table-header-background-color: rgb(30 64 175);
+}
+
 #guidelinesModal {
   position: fixed;
   top: 50%;

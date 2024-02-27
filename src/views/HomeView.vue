@@ -1,7 +1,7 @@
 <template>
-  <section class="sm:h-[80svh] flex justify-center items-center">
-    <div class="w-full pb-32">
-      <h1 class="text-xl font-bold text-center p-9 sm:text-5xl">
+  <section class="sm:h-[80svh] pt-32 md:pt-24 flex justify-center items-center">
+    <div class="w-full pb-0">
+      <h1 class="p-3 text-xl font-bold text-center sm:text-5xl">
         PBC Sunbeam School ODRS
       </h1>
       <div class="flex flex-col gap-12 p-6 mx-auto md:flex-row sm:w-3/6 justify-evenly">
@@ -12,7 +12,7 @@
             Proceed here
           </router-link>
         </div>
-        <div class="md:px-12">
+        <div class="md:p-12">
           <h2 class="py-3 text-lg text-center">Are you Student?</h2>
           <router-link to="/student_login"
             class="inline-block w-full py-3 font-bold text-center bg-blue-800 hover:bg-blue-700 transistion-all px-9 text-gray-50">

@@ -2,10 +2,10 @@
   <teleport to="body">
     <div v-if="show" @click="closeHandler" class="backdrop"></div>
     <transition name="dialog">
-      <dialog open v-if="show" class="w-[80%] sm:w-3/6 lg:w-3/6 xl:w-1/12">
+      <dialog open v-if="show" class="w-[90%]  sm:w-3/6 lg:w-3/6 xl:w-1/12 rounded-md">
         <header class="bg-blue-800">
           <slot name="header">
-            <h2 class="py-3 text-2xl font-bold text-center">{{ title }}</h2>
+            <h2 class="py-3 font-bold text-center md:text-2xl">{{ title }}</h2>
           </slot>
         </header>
         <section>
@@ -61,7 +61,7 @@ function closeHandler() {
 dialog {
   position: fixed;
   top: 10vh;
-  left: 10dvw;
+  left: 5dvw;
   z-index: 999;
   border: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
@@ -69,7 +69,7 @@ dialog {
   margin: 0;
   overflow: hidden;
   background-color: white;
-  width: 100%;
+
 }
 
 header {

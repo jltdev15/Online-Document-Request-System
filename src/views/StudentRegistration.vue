@@ -4,7 +4,7 @@
       <h1 class="py-6 text-2xl font-bold text-center capitalize lg:text-5xl">Create new Account</h1>
       <form @submit.prevent="registerStudent">
         <div
-          class="grid gap-6 px-6 py-6 capitalize rounded shadow md:justify-center md:items-center md:px-12 md:grid-cols-2 md:bg-gray-200 md:gap-6">
+          class="grid gap-3 px-6 py-6 capitalize rounded shadow md:justify-center md:items-center md:px-12 md:grid-cols-2 md:bg-gray-200 md:gap-6">
           <label class="w-full md:max-w-xs form-control">
             <div class="label">
               <span class="text-lg font-bold label-text">What is your Full Name?</span>

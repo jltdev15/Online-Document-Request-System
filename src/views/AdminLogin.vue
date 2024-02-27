@@ -1,9 +1,9 @@
 <template>
-  <section class="">
+  <section class="pt-24">
     <div class="mx-auto lg:w-2/6">
       <h1 class="py-6 text-2xl font-bold text-center md:py-12 md:text-5xl">Welcome Admin!</h1>
       <form @submit.prevent="submitCredentials">
-        <div class="flex flex-col items-center justify-center py-12 rounded shadow lg:bg-gray-200">
+        <div class="flex flex-col items-center justify-center py-6 rounded md:shadow lg:bg-gray-200">
           <label class="w-full max-w-xs form-control">
             <div class="label">
               <span class="text-lg font-bold label-text">What is your Username?</span>
@@ -16,10 +16,10 @@
             <div class="label">
               <span class="text-lg font-bold label-text">What is your Password?</span>
             </div>
-            <input type="password" placeholder="Type here" class="w-full max-w-xs input input-bordered"
-              v-model.trim="adminpass" required />
+            <input type="password" placeholder="Type here" class="w-full input input-bordered" v-model.trim="adminpass"
+              required />
           </label>
-          <div class="w-full px-20 py-6">
+          <div class="w-full px-6 py-6">
             <button class="w-full text-xl font-bold btn btn-primary">
               Login
             </button>

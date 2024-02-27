@@ -1,21 +1,21 @@
 <template>
-  <section class="">
+  <section class="pt-24">
     <div class="mx-auto lg:w-2/6">
-      <h1 class="py-6 text-2xl font-bold text-center sm:py-12 lg:text-5xl">Welcome Student!</h1>
+      <h1 class="py-4 text-2xl font-bold text-center sm:py-12 lg:text-5xl">Welcome Student!</h1>
       <form @submit.prevent="submitCredentials">
-        <div class="flex flex-col items-center justify-center py-12 rounded shadow md:bg-gray-200">
+        <div class="flex flex-col items-center justify-center py-6 rounded md:shadow md:bg-gray-200">
           <label class="w-full max-w-xs form-control">
             <div class="label">
               <span class="text-lg label-text">What is your Username?</span>
             </div>
-            <input v-model.trim="studentUser" type="text" placeholder="Type here"
+            <input v-model.trim="studentUser" type="text" placeholder="Type here" required
               class="w-full max-w-xs input input-bordered" />
           </label>
           <label class="w-full max-w-xs form-control">
             <div class="label">
               <span class="text-lg label-text">What is your Password?</span>
             </div>
-            <input v-model.trim="studentPass" type="password" placeholder="Type here"
+            <input v-model.trim="studentPass" type="password" placeholder="Type here" required
               class="w-full max-w-xs input input-bordered" />
           </label>
           <div class="w-full max-w-xs py-3 pt-6 md:px-20">
@@ -35,9 +35,11 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useStudentAuthStore } from "@/stores/StudentAuth";
+import { useAdminAuthStore } from "@/stores/AdminAuth";
 import { useRouter } from "vue-router";
 
 const studentAuthStore = useStudentAuthStore();
+const adminAuthStore = useAdminAuthStore()
 const router = useRouter();
 const studentUser = ref("");
 const studentPass = ref("");
@@ -52,10 +54,13 @@ const submitCredentials = async () => {
 };
 
 onMounted(async () => {
-  await studentAuthStore.checkAuthStudent();
-  console.log(studentAuthStore.isAuthenticatedStudent);
+  await adminAuthStore.checkAuth();
+  if (adminAuthStore.isAuthenticated) {
+    return router.push("/admin_dashboard");
+  }
+  await studentAuthStore.checkAuthStudent()
   if (studentAuthStore.isAuthenticatedStudent) {
-    router.push("/student_dashboard");
+    return router.push('/student_dashboard')
   }
 });
 </script>
