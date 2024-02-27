@@ -6,7 +6,7 @@
         <p class="text-lg font-bold sm:text-xl text-gray-50">PBC Sunbeam School Inc.</p>
       </router-link>
       <div :class="{ 'right-0': isNavShow, 'right-[-100%]': isNavHide }" id="main-nav"
-        class="2xs:py-2 w-8/12 md:w-5/12 lg:w-1/6 md:px-0 md:gap-2 lg:px-0 md:py-0 h-screen md:h-auto absolute capitalize bg-[#0245A3] text-gray-50 md:bg-transparent md:justify-between lg:justify-between  md:static md:flex top-[100%] lg:z-0 z-[999] animate__animated animate__fadeInLeft">
+        class="2xs:py-2 w-8/12 md:w-5/12 lg:w-[15%] md:px-0 md:gap-2 lg:px-0 md:py-0 h-screen md:h-auto absolute capitalize bg-[#0245A3] text-gray-50 md:bg-transparent md:justify-between lg:justify-between  md:static md:flex top-[100%] lg:z-0 z-[999] animate__animated animate__fadeInLeft">
         <ul v-show="!adminAuthStore.isAuthenticated && !studentAuthStore.isAuthenticatedStudent"
           class="flex flex-col gap-6 px-6 py-12 text-base font-semibold text-gray-50 lg:text-base xs:px-12 md:gap-3 md:text-sm md:py-0 sm:text-lg md:text-gray-800 sm:px-16 md:items-center md:flex-row md:px-0 lg:gap-2">
           <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
@@ -31,17 +31,17 @@
         </ul>
         <ul v-show="adminAuthStore.isAuthenticated" class="items-center gap-3 text-sm md:flex">
           <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
-            <a href="" class="inline-block w-full p-6 font-bold text-center"> Profile</a>
+            <a href="" class="inline-block w-full font-bold text-center"> Profile</a>
           </li>
           <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
             <a href="javascript:void(0)" @click="adminAuthStore.submitLogout"
-              class="inline-block w-full p-6 font-bold text-center">
+              class="inline-block w-full font-bold text-center">
               Logout</a>
           </li>
         </ul>
         <ul v-show="studentAuthStore.isAuthenticatedStudent" class="items-center gap-3 text-sm md:flex">
           <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
-            <a href="" class="inline-block w-full p-6 font-bold text-center"> Student Profile</a>
+            <a href="" class="inline-block w-full p-6 font-bold text-center"> Profile</a>
           </li>
           <li class="transition-all hover:bg-gray-50 hover:text-gray-800 ">
             <a href="javascript:void(0)" @click="adminAuthStore.submitLogout"
