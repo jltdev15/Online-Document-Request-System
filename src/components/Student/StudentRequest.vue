@@ -37,11 +37,6 @@
                   </option>
                 </select>
               </div>
-              <div class="hidden">
-                <label class="my-3 font-bold text-center" for="">Select Date</label>
-                <input v-model="date" type="date" placeholder="Type here" class="w-full max-w-xl input input-bordered"
-                  :min="date" />
-              </div>
               <div class="flex flex-col gap-3">
                 <label class="font-bold md:text-xl" for="date_needed">Date Needed</label>
                 <input v-model.trim="dateNeeded" class="w-full px-2 py-2 border rounded-lg lg:max-w-xs" type="date"
@@ -77,11 +72,7 @@ import { useRouter } from "vue-router";
 import { useStudentStore } from "@/stores/Student";
 import { useToast } from "vue-toastification";
 import { useAdminStore } from "../../stores/Admin";
-import {
-  useStudentAuthStore
-} from "@/stores/StudentAuth";
 const adminStore = useAdminStore();
-const studentAuthStore = useStudentAuthStore();
 const toast = useToast();
 const router = useRouter();
 const studentStore = useStudentStore();
@@ -90,7 +81,9 @@ const fileName = ref(null);
 const year = ref("");
 const dateNeeded = ref("");
 const purpose = ref("");
-const date = ref("");
+const dateCreated = ref("");
+const currentDate = new Date();
+dateCreated.value = currentDate.toISOString().split("T")[0];
 
 const handleFileUpload = (event) => {
   fileName.value = event.target.files[0];
@@ -102,7 +95,7 @@ const uploadFile = async () => {
     formData.append("fileName", fileName.value);
   }
   formData.append("documentType", documentType.value);
-  formData.append("dateCreated", date.value);
+  formData.append("dateCreated", dateCreated.value);
   formData.append("year", year.value);
   formData.append("dateNeeded", dateNeeded.value);
   formData.append("purpose", purpose.value);
@@ -133,15 +126,7 @@ for (let i = 1991; i <= 2025; i++) {
 }
 
 onMounted(async () => {
-  const currentDate = new Date();
-  date.value = currentDate.toISOString().split("T")[0];
-  console.log(date.value);
 
-  await studentAuthStore.checkAuthStudent();
-
-  if (studentAuthStore.isAuthenticatedStudent) {
-    return router.push("/student_request");
-  }
-  router.push('/')
+  console.log(dateCreated.value);
 });
 </script>
