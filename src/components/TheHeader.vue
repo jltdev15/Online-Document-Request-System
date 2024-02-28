@@ -18,16 +18,6 @@
             <router-link to="/student_login" @click="toggleMobileNav"
               class="inline-block p-3 font-bold sm:p-6 text-gray-50">Student</router-link>
           </li>
-          <!-- <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
-            <router-link to="/admin_dashboard" @click="toggleMobileNav"
-              class="inline-block p-3 font-bold sm:p-6 text-gray-50">
-              About Us</router-link>
-          </li>
-          <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
-            <router-link to="/student_dashboard" @click="toggleMobileNav" href=""
-              class="inline-block w-full p-3 font-bold sm:p-6 text-gray-50">
-              Contact Us</router-link>
-          </li> -->
         </ul>
         <ul v-show="adminAuthStore.isAuthenticated" class="items-center gap-3 text-sm md:flex">
           <li class="transition-all hover:bg-gray-50 hover:text-gray-800">

@@ -20,7 +20,7 @@ export const useStudentAuthStore = defineStore("authstudent", () => {
       }
     } catch (err) {
       isAuthenticatedStudent.value = false;
-      console.log(err);
+      // console.log(err);
     }
   };
   const submitLogin = async (formData) => {

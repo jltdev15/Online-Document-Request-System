@@ -1,31 +1,33 @@
 <template>
-  <section class="pt-24">
-    <div class="mx-auto lg:w-2/6">
-      <h1 class="py-6 text-2xl font-bold text-center md:py-12 md:text-5xl">Welcome Admin!</h1>
-      <form @submit.prevent="submitCredentials">
-        <div class="flex flex-col items-center justify-center py-6 rounded md:shadow lg:bg-gray-200">
-          <label class="w-full max-w-xs form-control">
-            <div class="label">
-              <span class="text-lg font-bold label-text">What is your Username?</span>
-            </div>
+  <section class=" bg-[url('./images/pbc_logo.webp')]  bg-cover bg-center h-screen">
+    <div class="h-screen bg-gray-900 bg-opacity-50 rounded-lg blur-bg text-gray-50">
+      <div class="pt-32 mx-auto md:pt-16 lg:w-2/6">
+        <h1 class="py-6 text-2xl font-bold text-center md:py-12 md:text-5xl">Welcome Admin!</h1>
+        <form @submit.prevent="submitCredentials">
+          <div class="flex flex-col items-center justify-center lg:pb-16 lg:pt-12 rounded-xl md:shadow lg:bg-gray-200">
+            <label class="w-full max-w-xs form-control">
+              <div class="label">
+                <span class="text-lg font-bold label-text text-gray-50 md:text-gray-500">What is your Username?</span>
+              </div>
 
-            <input type="text" placeholder="Type here" class="w-full max-w-xs input input-bordered"
-              v-model.trim="adminuser" required />
-          </label>
-          <label class="w-full max-w-xs pt-3 form-control">
-            <div class="label">
-              <span class="text-lg font-bold label-text">What is your Password?</span>
+              <input type="text" placeholder="Type here" class="w-full max-w-xs input input-bordered"
+                v-model.trim="adminuser" required />
+            </label>
+            <label class="w-full max-w-xs pt-3 form-control">
+              <div class="label">
+                <span class="text-lg font-bold label-text text-gray-50 md:text-gray-500">What is your Password?</span>
+              </div>
+              <input type="password" placeholder="Type here" class="w-full input input-bordered" v-model.trim="adminpass"
+                required />
+            </label>
+            <div class="w-full px-6 py-6 xs:px-20">
+              <button type="submit" class="w-full text-xl font-bold btn btn-primary">
+                Login
+              </button>
             </div>
-            <input type="password" placeholder="Type here" class="w-full input input-bordered" v-model.trim="adminpass"
-              required />
-          </label>
-          <div class="w-full px-6 py-6 xs:px-20">
-            <button type="submit" class="w-full text-xl font-bold btn btn-primary">
-              Login
-            </button>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </section>
 </template>
@@ -63,3 +65,10 @@ onMounted(async () => {
   }
 });
 </script>
+
+<style scoped>
+.blur-bg {
+  backdrop-filter: blur(5px);
+  /* Adjust the blur intensity */
+}
+</style>

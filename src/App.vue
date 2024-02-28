@@ -1,24 +1,13 @@
 <script setup>
-import TheHeader from './components/TheHeader.vue';
+import TheHeader from "./components/TheHeader.vue";
+import TheFooter from "./components/TheFooter.vue";
 </script>
 
 <template>
-<the-header></the-header>
-<template>
-  <section>
-      <div>
-          <h1>Welcome Admin!</h1>
-          <div>
-              <label for="">Username</label>
-              <input type="text" placeholder="Admin username">
-          </div>
-      </div>
-  </section>
-</template>
-<router-view></router-view>
+    <the-header></the-header>
+
+    <router-view> </router-view>
+    <the-footer></the-footer>
 </template>
 
-<style scoped>
-
-
-</style>
+<style scoped></style>

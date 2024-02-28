@@ -4,11 +4,11 @@
       <h1>Welcome Admin</h1>
       <h2 class="text-3xl font-bold">Dashboard</h2>
     </header>
-    <div class="grid grid-cols-2 place-items-center gap-y-3 md:grid-cols-4 gap-x-3">
-      <div class="shadow-xl md:w-56 card bg-base-100">
-        <div class="card-body">
+    <div class="container grid grid-flow-row grid-cols-2 gap-2 justify-items-stretch md:grid-cols-4">
+      <div class="shadow-xl md:w-56 card bg-base-100 ">
+        <div class="flex flex-col card-body">
           <h2 class="card-title">Pending</h2>
-          <p class="text-2xl font-bold text-center">
+          <p class="p-3 text-xl font-bold text-center md:p-6 md:text-5xl">
             {{ adminStore.getPendingRequest }}
           </p>
           <!-- <div class="justify-end card-actions">
@@ -16,10 +16,10 @@
           </div> -->
         </div>
       </div>
-      <div class="shadow-xl md:w-56 card bg-base-100">
+      <div class="shadow-xl md:w-56 card bg-base-100 ">
         <div class="card-body">
           <h2 class="card-title">Approved</h2>
-          <p class="text-2xl font-bold text-center">
+          <p class="p-3 text-xl font-bold text-center md:p-6 md:text-5xl">
             {{ adminStore.getApproved }}
           </p>
           <!-- <div class="justify-end card-actions">
@@ -27,10 +27,10 @@
           </div> -->
         </div>
       </div>
-      <div class="shadow-xl md:w-56 card bg-base-100">
+      <div class="shadow-xl md:w-56 card bg-base-100 ">
         <div class="card-body">
           <h2 class="card-title">Processing</h2>
-          <p class="text-2xl font-bold text-center">
+          <p class="p-3 text-xl font-bold text-center md:p-6 md:text-5xl">
             {{ adminStore.getProcessing }}
           </p>
           <!-- <div class="justify-end card-actions">
@@ -38,10 +38,10 @@
           </div> -->
         </div>
       </div>
-      <div class="shadow-xl md:w-56 card bg-base-100">
+      <div class="shadow-xl md:w-56 card bg-base-100 ">
         <div class="card-body">
           <h2 class="card-title">Completed</h2>
-          <p class="text-2xl font-bold text-center">
+          <p class="p-3 text-xl font-bold text-center md:p-6 md:text-5xl">
             {{ adminStore.getCompleted }}
           </p>
           <!-- <div class="justify-end card-actions">
@@ -224,6 +224,7 @@ const adminAuthStore = useAdminAuthStore();
 const adminStore = useAdminStore();
 adminStore.getRequest();
 
+// setInterval(adminStore.getRequest(), 5000)
 const isCompleted = ref(false);
 
 const headers = [
