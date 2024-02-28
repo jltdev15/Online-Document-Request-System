@@ -1,6 +1,6 @@
 <template>
   <div class="bg-[url('./images/home-bg.png')] bg-cover h-screen bg-center backdrop-blur-2xl z-[-999]">
-    <div class="h-screen bg-gray-900 bg-opacity-50 rounded-lg blur-bg text-gray-50">
+    <div class="h-screen bg-gray-900 bg-opacity-25 rounded-lg blur-bg text-gray-50">
       <section class="sm:h-[80svh] pt-32 md:pt-24 flex justify-center items-center ">
         <div class="w-full pb-0">
           <h1 class="p-3 text-xl font-bold text-center py-9 sm:text-5xl">
@@ -57,7 +57,7 @@ onMounted(async () => {
 </script>
 <style scoped>
 .blur-bg {
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(1px);
   /* Adjust the blur intensity */
 }
 </style>

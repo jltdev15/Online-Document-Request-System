@@ -1,6 +1,6 @@
 <template>
   <section class=" bg-[url('./images/pbc_logo.webp')]  bg-cover bg-center h-screen">
-    <div class="h-screen bg-gray-900 bg-opacity-50 rounded-lg blur-bg text-gray-50">
+    <div class="h-screen bg-gray-900 bg-opacity-50 blur-bg text-gray-50">
       <div class="mx-auto pt-28 md:pt-16 lg:w-2/6">
         <h1 class="py-4 text-2xl font-bold text-center sm:py-12 lg:text-5xl">Welcome Student!</h1>
         <form @submit.prevent="submitCredentials">

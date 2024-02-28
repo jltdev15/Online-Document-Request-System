@@ -1,10 +1,10 @@
 <template>
   <section class=" bg-[url('./images/pbc_logo.webp')]  bg-cover bg-center h-screen">
-    <div class="h-screen bg-gray-900 bg-opacity-50 rounded-lg blur-bg text-gray-50">
+    <div class="h-screen bg-gray-900 bg-opacity-50 blur-bg text-gray-50">
       <div class="pt-32 mx-auto md:pt-16 lg:w-2/6">
         <h1 class="py-6 text-2xl font-bold text-center md:py-12 md:text-5xl">Welcome Admin!</h1>
         <form @submit.prevent="submitCredentials">
-          <div class="flex flex-col items-center justify-center lg:pb-16 lg:pt-12 rounded-xl md:shadow lg:bg-gray-200">
+          <div class="flex flex-col items-center justify-center lg:pb-16 lg:pt-12 md:rounded-xl md:shadow lg:bg-gray-200">
             <label class="w-full max-w-xs form-control">
               <div class="label">
                 <span class="text-lg font-bold label-text text-gray-50 md:text-gray-500">What is your Username?</span>
