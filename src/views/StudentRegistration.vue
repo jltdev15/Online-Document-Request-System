@@ -105,6 +105,12 @@ const registerStudent = async () => {
     password: data.password,
     requestList: [],
   };
+  if (registerForm.learnerReferenceNumber.length > 12) {
+    return alert('LRN must be 12 digits')
+  }
+  if (registerForm.learnerReferenceNumber.length < 12) {
+    return alert('LRN must not exceed 12 digits')
+  }
   await studentStore.registerAccount(registerForm);
   toast.success(
     "Account created",
