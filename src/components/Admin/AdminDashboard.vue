@@ -4,7 +4,7 @@
       <h1>Welcome Admin</h1>
       <h2 class="text-3xl font-bold">Dashboard</h2>
     </header>
-    <div class="grid grid-cols-2 gap-y-3 md:grid-cols-4 gap-x-3">
+    <div class="grid grid-cols-2 place-items-center gap-y-3 md:grid-cols-4 gap-x-3">
       <div class="shadow-xl md:w-56 card bg-base-100">
         <div class="card-body">
           <h2 class="card-title">Pending</h2>
@@ -72,7 +72,7 @@
     </base-dialog>
     <div class="py-9">
       <EasyDataTable :headers="headers" alternating :items="adminStore.requests" table-class-name="customize-table"
-        :rows-per-page="5" border-cell header-text-direction="center">
+        :rows-per-page="5" border-cell header-text-direction="left">
         <template #item-supporting="{ fileName, filePath }">
           <a target="_blank" :href="filePath">{{ fileName }}</a>
         </template>
@@ -91,8 +91,45 @@
             {{ item.pickUpDate }}
           </p>
         </template>
+        <template #item-remarks="item">
+          <div class="flex justify-center p-3" v-show="item.status === 'Rejected'">
+            <p class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
+              {{ item.remarks }}
+            </p>
+          </div>
+          <div class="flex justify-center p-3" v-show="item.status === 'Pending'">
+            <p class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
+              Waiting for response
+            </p>
+          </div>
+          <div class="flex justify-center p-3" v-show="item.status === 'Approved'">
+            <p v-if="item.proof === ''"
+              class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
+              Waiting for payment
+            </p>
+            <p v-else
+              class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
+              Ready to process
+            </p>
+          </div>
+          <div class="flex justify-center p-3" v-show="item.status === 'Processing'">
+            <p class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
+              Working on request
+            </p>
+          </div>
+          <div class="flex justify-start p-3" v-show="item.status === 'Done'">
+            <p class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
+              Document ready
+            </p>
+          </div>
+          <div class="flex justify-center p-3" v-show="item.status === 'Completed'">
+            <p class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
+              Document received
+            </p>
+          </div>
+        </template>
         <template #item-operation="item">
-          <div v-if="item.status === 'Pending'" class="flex items-center justify-between gap-3 p-1">
+          <div v-if="item.status === 'Pending'" class="flex items-center justify-between gap-3 p-3">
             <button
               class="flex items-center gap-3 px-3 py-2 transition-all bg-green-600 rounded-md hover:bg-green-500 text-gray-50 btn-success"
               @click="acceptHandler(item)">
@@ -100,13 +137,19 @@
             </button>
             <button
               class="flex items-center gap-3 px-3 py-2 transition-all bg-red-600 rounded-md hover:bg-red-500 text-gray-50"
-              @click="rejectHandler(item)">
+              @click="adminStore.showRemarksDialog(item)">
               Reject<i class="fa-solid fa-ban text-gray-50"></i>
             </button>
           </div>
+          <div class="flex justify-center p-3" v-show="item.status === 'Rejected'">
+            <p class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
+              No action needed
+            </p>
+
+          </div>
           <div class="flex justify-center p-3" v-show="item.status === 'Approved'">
-            <p v-if="item.proof === 'Waiting for payment'"
-              class="transition-all flex w-[9rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
+            <p v-if="item.proof === ''"
+              class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
               No action needed
             </p>
             <button v-else
@@ -122,18 +165,45 @@
               Schedule <i class="fa-regular fa-calendar-check"></i>
             </button>
           </div>
-          <div class="flex justify-center p-3" v-show="item.status === 'Waiting to pickup'">
+          <div class="flex justify-center p-3" v-show="item.status === 'Done'">
             <button
-              class="transition-all flex justify-center w-[9rem] hover:bg-green-500 rounded-md px-6 py-2 bg-green-600 text-gray-50 btn-success gap-3 items-center"
+              class="transition-all flex justify-center w-[12rem] hover:bg-green-500 rounded-md px-6 py-2 bg-green-600 text-gray-50 btn-success gap-3 items-center"
               @click="finishHandler(item)">
               Complete <i class="fa-regular fa-calendar-check"></i>
             </button>
           </div>
           <div class="flex justify-center p-3" v-show="item.status === 'Completed'">
-            <p>No action needed</p>
+            <p class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">No
+              action needed</p>
           </div>
         </template>
       </EasyDataTable>
+      <reject-dialog :show="adminStore.isRemarksShow" title="Reject request">
+        <template #default>
+          <div>
+            <label class="my-3 font-bold text-center" for="">Select Remarks</label>
+            <select v-model="adminStore.remarks" class="w-full select select-bordered">
+              <option selected value="" disabled>Choose Remarks</option>
+              <option value="Unavailable Documents">Unavailable Documents</option>
+              <option value="Access Restrictions">Access Restrictions</option>
+              <option value="Policy Violations">Policy Violations</option>
+              <option value="Incorrect Information">Incorrect Information</option>
+            </select>
+          </div>
+        </template>
+        <template #actions>
+          <div class="flex gap-2">
+            <button @click="adminStore.showRemarksDialog"
+              class="px-6 py-3 bg-red-800 border-blue-800 rounded text-gray-50">
+              Close
+            </button>
+            <button @click="adminStore.updateToReject"
+              class="px-6 py-3 font-semibold capitalize bg-blue-800 border border-transparent rounded hover:bg-blue-600 text-gray-50">
+              Confirm
+            </button>
+          </div>
+        </template>
+      </reject-dialog>
     </div>
   </section>
 </template>
@@ -141,6 +211,7 @@
 import { computed, onMounted, ref } from "vue";
 import { useAdminStore } from "../../stores/Admin";
 import BaseDialog from "@/components/Admin/BaseDialog.vue";
+import RejectDialog from '@/components/Admin/RejectDialog.vue'
 import { useAdminAuthStore } from "@/stores/AdminAuth";
 import {
   useStudentAuthStore
@@ -170,10 +241,11 @@ const headers = [
     value: "date", width: 150
   },
   { text: "STATUS", value: "status" },
+  { text: "REMARKS", value: "remarks", width: 200 },
 
   { text: "ACTIONS", value: "operation" },
 ];
-const showScheduleDialog = async () => {
+const showRemarksDialog = async () => {
   return (isScheduleShow.value = !isScheduleShow.value);
 };
 const closeScheduleDialog = async () => {

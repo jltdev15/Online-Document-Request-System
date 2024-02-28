@@ -6,8 +6,11 @@ export const useAdminStore = defineStore("admin", () => {
   // State
   const requests = ref([]);
   const isScheduleShow = ref(false);
+  const isRemarksShow = ref(false);
   const schedId = ref("");
+  const rejectId = ref("");
   const date = ref("");
+  const remarks = ref("");
   const currentDate = new Date();
   date.value = currentDate.toISOString().split("T")[0];
 
@@ -44,13 +47,18 @@ export const useAdminStore = defineStore("admin", () => {
     console.log(id._id);
     schedId.value = id._id;
   };
+  const showRemarksDialog = async (id) => {
+    isRemarksShow.value = !isRemarksShow.value;
+    console.log(id._id);
+    rejectId.value = id._id;
+  };
   const updatePickUp = async () => {
     try {
       const status = await axiosClient.patch(
         `/admin/schedule/${schedId.value}`,
         {
           pickUpDate: date.value,
-          status: "Waiting to pickup",
+          status: "Done",
         }
       );
       isScheduleShow.value = !isScheduleShow.value;
@@ -58,7 +66,6 @@ export const useAdminStore = defineStore("admin", () => {
       await getRequest();
     } catch (err) {}
   };
-
   const updateCompleted = async (id) => {
     try {
       const status = await axiosClient.patch(`/admin/complete/${id}`, {
@@ -70,6 +77,7 @@ export const useAdminStore = defineStore("admin", () => {
       console.log(err);
     }
   };
+
   const hideSchedule = async () => {
     isScheduleShow.value = !isScheduleShow.value;
   };
@@ -90,12 +98,18 @@ export const useAdminStore = defineStore("admin", () => {
       getRequest();
     } catch (err) {}
   };
-  const updateToReject = async (id) => {
-    console.log(id);
+  const updateToReject = async () => {
     try {
-      const status = await axiosClient.patch(`/admin/reject/${id}`);
+      const status = await axiosClient.patch(
+        `/admin/rejected/${rejectId.value}`,
+        {
+          remarks: remarks.value,
+          status: "Rejected",
+        }
+      );
+      isRemarksShow.value = !isRemarksShow.value;
       console.log(status);
-      getRequest();
+      await getRequest();
     } catch (err) {
       console.log(err);
     }
@@ -139,5 +153,10 @@ export const useAdminStore = defineStore("admin", () => {
     getProcessing,
     getCompleted,
     updateCompleted,
+    isRemarksShow,
+    showRemarksDialog,
+    updateToReject,
+    rejectId,
+    remarks,
   };
 });

@@ -40,7 +40,7 @@
               <div class="flex flex-col gap-3">
                 <label class="font-bold md:text-xl" for="date_needed">Date Needed</label>
                 <input v-model.trim="dateNeeded" class="w-full px-2 py-2 border rounded-lg lg:max-w-xs" type="date"
-                  :min="date" name="date_needed" required />
+                  :min="date" name="date_needed" placeholder="MM/DD/YYYY" required />
               </div>
             </div>
             <div>

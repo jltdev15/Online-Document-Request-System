@@ -10,42 +10,42 @@
               <span class="text-lg font-bold label-text">What is your Full Name?</span>
             </div>
             <input v-model.trim="data.fullName" type="text" placeholder="Type here"
-              class="w-full max-w-xs input input-bordered" required />
+              class="w-full lg:max-w-xs input input-bordered" required />
           </label>
-          <label class="w-full max-w-xs form-control">
+          <label class="w-full lg:max-w-xsform-control">
             <div class="label">
               <span class="text-lg font-bold label-text">Learner Reference Number?</span>
             </div>
             <input v-model.trim="data.lrn" type="number" placeholder="Type here"
-              class="w-full max-w-xs input input-bordered" required />
+              class="w-full lg:max-w-xs input input-bordered" required />
           </label>
-          <label class="w-full max-w-xs form-control">
+          <label class="w-full lg:max-w-xs form-control">
             <div class="label">
               <span class="text-lg font-bold label-text"> Your Complete address?</span>
             </div>
             <input v-model.trim="data.address" type="text" placeholder="Type here"
-              class="w-full max-w-xs input input-bordered" required />
+              class="w-full lg:max-w-xs input input-bordered" required />
           </label>
-          <label class="w-full max-w-xs form-control">
+          <label class="w-full lg:max-w-xs form-control">
             <div class="label">
               <span class="text-lg font-bold label-text"> Your Email Address?</span>
             </div>
-            <input v-model="data.email" type="email" placeholder="Type here" class="w-full max-w-xs input input-bordered"
-              required />
+            <input v-model.trim="data.email" type="email" placeholder="Type here"
+              class="w-full lg:max-w-xs input input-bordered" required />
           </label>
-          <label class="w-full max-w-xs form-control">
+          <label class="w-full lg:max-w-xs form-control">
             <div class="label">
               <span class="text-lg font-bold label-text">Your Contact?</span>
             </div>
-            <input v-model="data.contact" type="number" placeholder="Type here"
-              class="w-full max-w-xs input input-bordered" required />
+            <input v-model.trim="data.contact" type="number" placeholder="Type here"
+              class="w-full lg:max-w-xs input input-bordered" required />
           </label>
-          <label class="w-full max-w-xs form-control">
+          <label class="w-full lg:max-w-xs form-control">
             <div class="label">
               <span class="text-lg font-bold label-text">Your Secure Password?</span>
             </div>
-            <input v-model="data.password" type="password" placeholder="Type here"
-              class="w-full max-w-xs input input-bordered" required />
+            <input v-model.trim="data.password" type="password" placeholder="Type here"
+              class="w-full lg:max-w-xs input input-bordered" required />
           </label>
 
           <!-- <div class="w-full px-20 pb-3">
@@ -54,13 +54,54 @@
           </div> -->
         </div>
         <div class="py-3 text-center">
-          <input type="checkbox" />
-          <span> I agree to the <a href="">Terms and Condition</a></span>
+          <input type="checkbox" :disabled="!studentStore.isEnabled" :checked="isChecked" required
+            @click="checkHandler" />
+          <span> I agree to the <a href="javascript:void(0)" @click="studentStore.showCondition"
+              class="text-blue-700">Terms and
+              Condition</a></span>
         </div>
+        <terms-and-condition :show="studentStore.isConditionShow" title="Terms and Conditions">
+          <template #default>
+            <div class="overflow-auto h-[50vh]">
+              <h2>PBC Document Requisition Terms and Conditions</h2>
+              <p>
+                <strong class="text-center">Acceptance of Terms:</strong>
+              <ul>
+                <li>By accessing or using the Online Document Request System (PBC ODRS), you agree to comply with and be
+                  bound by these terms and conditions.</li>
+                <li>The ODRS is intended for use by authorized users only. Users must provide accurate and complete
+                  information during the registration process.</li>
+                <li>Users are responsible for maintaining the confidentiality of their login credentials. Any activity
+                  that occurs under a user's account is their responsibility.</li>
+                <li>Users agree to submit accurate and valid requests for documents. Misuse or abuse of the system may
+                  result in suspension or termination of access.</li>
+                <li>Information provided through the PBC ODRS will be used solely for the purpose of fulfilling document
+                  requests. Personal information will be handled in accordance with the privacy policy.</li>
+                <li>Users are prohibited from violating or attempting to violate the security of the PBC ODRS. Any
+                  unauthorized access or use may result in legal action.</li>
+                <li>These terms and conditions may be modified at any time. Users will be notified of any significant
+                  changes, and continued use of the PBC ODRS after such modifications constitutes acceptance of the
+                  updated terms.</li>
+                <li>The system administrators reserve the right to terminate or suspend access to the ODRS at any time,
+                  with or without cause.</li>
+              </ul>
+              <ul>By using the PBC ODRS, you acknowledge that you have read, understood, and agree to be bound by these
+                terms and conditions.
+              </ul>
+
+              </p>
+              <div class="py-3">
+                <button @click="studentStore.hideCondition"
+                  class="w-full py-3 font-bold bg-gray-400 text-gray-50">Accept</button>
+              </div>
+            </div>
+          </template>
+        </terms-and-condition>
         <div class="flex justify-end w-full gap-3 px-6 py-2">
-          <button class="w-full text-lg font-bold btn btn-primary" type="submit">
+          <button :disabled="!isChecked" class="w-full text-lg font-bold btn btn-primary" type="submit">
             Register Account
           </button>
+
         </div>
         <div class="flex justify-center py-3 text-center">
           <router-link to="/student_login" class="w-full text-lg font-bold btn-outline">
@@ -73,13 +114,13 @@
 </template>
 
 <script setup>
-import { reactive, onMounted } from "vue";
+import { reactive, onMounted, ref } from "vue";
 import { useStudentStore } from "@/stores/Student";
 import { useStudentAuthStore } from "@/stores/StudentAuth";
 import { useAdminAuthStore } from "@/stores/AdminAuth";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
-
+import TermsAndCondition from '@/views/TermsAndCondition.vue'
 const toast = useToast()
 const studentStore = useStudentStore();
 const studentAuthStore = useStudentAuthStore();
@@ -93,9 +134,26 @@ const data = reactive({
   password: "",
   contact: "",
 });
-
+const isChecked = ref(false)
+const isConditionShow = ref(false);
+const isEnabled = ref(false);
+const checkHandler = async () => {
+  isChecked.value = !isChecked.value;
+  console.log(isChecked.value);
+}
 const registerStudent = async () => {
-  console.log("text");
+  console.log(data.lrn.toString().length);
+  if (data.lrn.toString().length < 12) {
+    return toast.error('LRN must be 12 digits', {
+      timeout: 1500,
+    })
+  }
+  if (data.lrn.toString().length > 12) {
+
+    return toast.error('LRN must not exceed 12 digits', {
+      timeout: 1500,
+    })
+  }
   const registerForm = {
     fullName: data.fullName,
     learnerReferenceNumber: data.lrn,
@@ -105,12 +163,7 @@ const registerStudent = async () => {
     password: data.password,
     requestList: [],
   };
-  if (registerForm.learnerReferenceNumber.length > 12) {
-    return alert('LRN must be 12 digits')
-  }
-  if (registerForm.learnerReferenceNumber.length < 12) {
-    return alert('LRN must not exceed 12 digits')
-  }
+
   await studentStore.registerAccount(registerForm);
   toast.success(
     "Account created",

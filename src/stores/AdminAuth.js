@@ -2,12 +2,13 @@ import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import { useRouter } from "vue-router";
 import axiosClient from "@/axiosClient";
+import { useToast } from "vue-toastification";
 
 export const useAdminAuthStore = defineStore("authadmin", () => {
   // State
   const isAuthenticated = ref(false);
   const router = useRouter();
-
+  const toast = useToast();
   // Actions
 
   const checkAuth = async () => {
@@ -22,15 +23,26 @@ export const useAdminAuthStore = defineStore("authadmin", () => {
       console.log(err);
     }
   };
-  const submitLogin = async (formData) => {
+
+  const submitAdminLogin = async (formData) => {
+    console.log(formData);
     try {
       const data = await axiosClient.post(`/admin/login`, formData);
-      console.log(data);
       if (data) {
+        toast.success(data.data.message, {
+          timeout: 1500,
+        });
+        setTimeout(async () => {
+          await router.push("/admin_dashboard");
+        }, 3000);
         return (isAuthenticated.value = true);
       }
+      console.log(typeof data);
     } catch (err) {
-      console.log(err);
+      console.log(err.response.data.message);
+      toast.error(err.response.data.message, {
+        timeout: 1500,
+      });
     }
   };
   const submitLogout = async () => {
@@ -44,9 +56,10 @@ export const useAdminAuthStore = defineStore("authadmin", () => {
   };
   return {
     isAuthenticated,
-    submitLogin,
+    submitAdminLogin,
     checkAuth,
     submitLogout,
     router,
+    toast,
   };
 });

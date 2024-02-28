@@ -50,7 +50,6 @@ const submitCredentials = async () => {
     password: studentPass.value,
   };
   await studentAuthStore.submitLogin(loginData);
-  router.push("/student_dashboard");
 };
 
 onMounted(async () => {

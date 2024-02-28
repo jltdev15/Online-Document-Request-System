@@ -9,12 +9,12 @@
         class="2xs:py-2 w-8/12 md:w-5/12 lg:w-[15%] md:px-0 md:gap-2 lg:px-0 md:py-0 h-screen md:h-auto absolute capitalize bg-[#0245A3] text-gray-50 md:bg-transparent md:justify-between lg:justify-between  md:static md:flex top-[100%] lg:z-0 z-[999] animate__animated animate__fadeInLeft">
         <ul v-show="!adminAuthStore.isAuthenticated && !studentAuthStore.isAuthenticatedStudent"
           class="flex flex-col gap-6 px-6 py-12 text-base font-semibold text-gray-50 lg:text-base xs:px-12 md:gap-3 md:text-sm md:py-0 sm:text-lg md:text-gray-800 sm:px-16 md:items-center md:flex-row md:px-0 lg:gap-2">
-          <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
+          <li class="transition-all hover:bg-blue-500 hover:text-gray-800">
             <router-link to="/admin_login" @click="toggleMobileNav"
               class="inline-block p-3 font-bold sm:p-6 text-gray-50">
               Admin</router-link>
           </li>
-          <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
+          <li class="transition-all hover:bg-blue-500 hover:text-gray-800">
             <router-link to="/student_login" @click="toggleMobileNav"
               class="inline-block p-3 font-bold sm:p-6 text-gray-50">Student</router-link>
           </li>

@@ -20,7 +20,7 @@
               required />
           </label>
           <div class="w-full px-6 py-6 xs:px-20">
-            <button class="w-full text-xl font-bold btn btn-primary">
+            <button type="submit" class="w-full text-xl font-bold btn btn-primary">
               Login
             </button>
           </div>
@@ -42,12 +42,13 @@ const adminuser = ref("");
 const adminpass = ref("");
 adminAuthStore.checkAuth();
 const submitCredentials = async () => {
+
   const loginData = {
     userName: adminuser.value,
     password: adminpass.value,
   };
-  await adminAuthStore.submitLogin(loginData);
-  router.push("/admin_dashboard");
+  await adminAuthStore.submitAdminLogin(loginData)
+  // router.push("/admin_dashboard");
 };
 
 

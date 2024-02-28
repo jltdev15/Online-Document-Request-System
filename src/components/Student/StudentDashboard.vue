@@ -103,24 +103,48 @@
         table-class-name="customize-table" header-text-direction="left">
         <template #item-operation="item">
           <div v-if="item.status === 'Approved'" class="flex justify-start my-3">
-            <button v-if="item.proof === 'Waiting for payment'" @click="studentStore.toggleUpdatePayment(item)"
+            <button v-if="item.proof === ''" @click="studentStore.toggleUpdatePayment(item)"
               class="flex text-[0.8rem] items-center justify-start gap-3 pl-3 w-[10rem] py-3 font-bold bg-blue-500 rounded-md text-gray-50">
               Make Payment<i class="fa-solid fa-peso-sign"></i>
             </button>
-            <p v-else>Document is on Process</p>
+            <p v-else>No action needed</p>
           </div>
 
+          <div v-if="item.status === 'Rejected'" class="flex justify-start my-3">
+            <p class="text-gray-80">No action needed</p>
+          </div>
           <div v-if="item.status === 'Pending'" class="flex justify-start my-3">
-            <p class="text-gray-80">Your request has been received</p>
+            <p class="text-gray-80">No action needed</p>
+          </div>
+          <div v-if="item.status === 'Processing'" class="flex justify-start my-3">
+            <p class="text-gray-80">No action needed</p>
+          </div>
+          <div v-if="item.status === 'Done'" class="flex justify-start my-3">
+            <p class="text-gray-80">Pick up now!</p>
+          </div>
+          <div v-if="item.status === 'Completed'" class="flex justify-start my-3">
+            <p class="text-gray-80">No action needed</p>
+          </div>
+        </template>
+        <template #item-remarks="item">
+          <div v-if="item.status === 'Completed'" class="flex justify-start my-3">
+            <p class="text-gray-80">Document received</p>
+          </div>
+          <div v-if="item.status === 'Done'" class="flex justify-start my-3">
+            <p class="text-gray-80">Your document is ready</p>
           </div>
           <div v-if="item.status === 'Processing'" class="flex justify-start my-3">
             <p class="text-gray-80">Waiting document to be ready</p>
           </div>
-          <div v-if="item.status === 'Waiting to pickup'" class="flex justify-start my-3">
-            <p class="text-gray-80">Your document is ready</p>
+          <div v-if="item.status === 'Rejected'" class="flex justify-start my-3">
+            <p class="text-gray-80">{{ item.remarks }}</p>
           </div>
-          <div v-if="item.status === 'Completed'" class="flex justify-start my-3">
-            <p class="text-gray-80">Done</p>
+          <div v-if="item.status === 'Pending'" class="flex justify-start my-3">
+            <p class="text-gray-80">Your request has been received</p>
+          </div>
+          <div v-if="item.status === 'Approved'" class="flex justify-start my-3">
+            <p v-if="item.proof === ''" class="text-gray-80">Waiting for payment</p>
+            <p v-else>Document is on process.</p>
           </div>
         </template>
         <template #item-date="item">
@@ -213,14 +237,17 @@ const headers = [{
   value: "purpose", width: 150
 },
 {
+  text: "PICK UP DATE",
+  value: "date", width: 150
+},
+{
   text: "STATUS",
   value: "status", width: 150
 },
 {
-  text: "PICK UP DATE",
-  value: "date", width: 150
+  text: "REMARKS",
+  value: "remarks", width: 150
 },
-
 {
   text: "ACTIONS",
   value: "operation", width: 150

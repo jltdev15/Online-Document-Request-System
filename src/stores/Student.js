@@ -7,8 +7,14 @@ export const useStudentStore = defineStore("student", () => {
   // State
   const requestList = ref([]);
   const isPaymentShow = ref(false);
+  const isConditionShow = ref(false);
   const idPayment = ref("");
+  const isEnabled = ref(false);
   const router = useRouter();
+
+  const isEnabledCheckBox = computed(() => {
+    return isEnabled.value;
+  });
   // Actions
   const getRequest = async () => {
     try {
@@ -25,6 +31,15 @@ export const useStudentStore = defineStore("student", () => {
     console.log("testing");
     idPayment.value = id._id;
     console.log(idPayment.value);
+  };
+
+  const showCondition = async () => {
+    isConditionShow.value = !isConditionShow.value;
+    isEnabled.value = !isEnabled.value;
+    console.log(isEnabled.value);
+  };
+  const hideCondition = async () => {
+    isConditionShow.value = !isConditionShow.value;
   };
   const updatePayment = async (value) => {
     try {
@@ -57,5 +72,10 @@ export const useStudentStore = defineStore("student", () => {
     updatePayment,
     registerAccount,
     router,
+    showCondition,
+    isConditionShow,
+    isEnabled,
+    isEnabledCheckBox,
+    hideCondition,
   };
 });
