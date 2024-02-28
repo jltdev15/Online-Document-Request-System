@@ -34,7 +34,7 @@ export const useAdminAuthStore = defineStore("authadmin", () => {
         });
         setTimeout(async () => {
           await router.push("/admin_dashboard");
-        }, 3000);
+        }, 1500);
         return (isAuthenticated.value = true);
       }
       console.log(typeof data);
