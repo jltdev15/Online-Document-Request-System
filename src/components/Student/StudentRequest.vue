@@ -115,7 +115,7 @@ const uploadFile = async () => {
 const years = ref("");
 const date = ref("");
 const yearsRange = ref([]);
-for (let i = 1980; i <= 2200; i++) {
+for (let i = 1991; i <= 2025; i++) {
   years.value = i + "-" + (i + 1);
   yearsRange.value.push(years.value);
 }
