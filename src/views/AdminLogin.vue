@@ -7,18 +7,18 @@
           <div class="flex flex-col items-center justify-center lg:pb-16 lg:pt-12 md:rounded-xl md:shadow lg:bg-gray-200">
             <label class="w-full max-w-xs form-control">
               <div class="label">
-                <span class="text-lg font-bold label-text text-gray-50 md:text-gray-500">What is your Username?</span>
+                <span class="text-lg font-bold label-text text-gray-50 md:text-gray-800">What is your Username?</span>
               </div>
 
-              <input type="text" placeholder="Type here" class="w-full max-w-xs input input-bordered"
+              <input type="text" placeholder="Type here" class="w-full max-w-xs md:text-gray-800 input input-bordered"
                 v-model.trim="adminuser" required />
             </label>
             <label class="w-full max-w-xs pt-3 form-control">
               <div class="label">
-                <span class="text-lg font-bold label-text text-gray-50 md:text-gray-500">What is your Password?</span>
+                <span class="text-lg font-bold label-text text-gray-50 md:text-gray-800">What is your Password?</span>
               </div>
-              <input type="password" placeholder="Type here" class="w-full input input-bordered" v-model.trim="adminpass"
-                required />
+              <input type="password" placeholder="Type here" class="w-full input input-bordered md:text-gray-800"
+                v-model.trim="adminpass" required />
             </label>
             <div class="w-full px-6 py-6 xs:px-20">
               <button type="submit" class="w-full text-xl font-bold btn btn-primary">

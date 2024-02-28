@@ -10,14 +10,14 @@
                 <span class="text-lg font-bold label-text text-gray-50 md:text-gray-500">What is your Username?</span>
               </div>
               <input v-model.trim="studentUser" type="text" placeholder="Type here" required
-                class="w-full max-w-xs input input-bordered" />
+                class="w-full max-w-xs text-gray-800 input input-bordered" />
             </label>
             <label class="w-full max-w-xs form-control">
               <div class="label">
                 <span class="text-lg font-bold label-text text-gray-50 md:text-gray-500">What is your Password?</span>
               </div>
               <input v-model.trim="studentPass" type="password" placeholder="Type here" required
-                class="w-full max-w-xs input input-bordered" />
+                class="w-full max-w-xs text-gray-800 input input-bordered" />
             </label>
             <div class="w-full max-w-xs py-3 pt-6 sm:max-w-lg md:px-20">
               <button class="w-full text-lg font-bold btn btn-primary">
