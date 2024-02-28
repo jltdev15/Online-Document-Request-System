@@ -37,6 +37,11 @@
                   </option>
                 </select>
               </div>
+              <div class="hidden">
+                <label class="my-3 font-bold text-center" for="">Select Date</label>
+                <input v-model="adminStore.date" type="date" placeholder="Type here"
+                  class="w-full max-w-xl input input-bordered" :min="adminStore.date" />
+              </div>
               <div class="flex flex-col gap-3">
                 <label class="font-bold md:text-xl" for="date_needed">Date Needed</label>
                 <input v-model.trim="dateNeeded" class="w-full px-2 py-2 border rounded-lg lg:max-w-xs" type="date"
@@ -71,7 +76,8 @@ import axiosClient from "@/axiosClient";
 import { useRouter } from "vue-router";
 import { useStudentStore } from "@/stores/Student";
 import { useToast } from "vue-toastification";
-
+import { useAdminStore } from "../../stores/Admin";
+const adminStore = useAdminStore();
 const toast = useToast();
 const router = useRouter();
 const studentStore = useStudentStore();
@@ -91,6 +97,7 @@ const uploadFile = async () => {
     formData.append("fileName", fileName.value);
   }
   formData.append("documentType", documentType.value);
+  formData.append("dateCreated", adminStore.date);
   formData.append("year", year.value);
   formData.append("dateNeeded", dateNeeded.value);
   formData.append("purpose", purpose.value);
