@@ -134,7 +134,7 @@
             <p class="text-gray-80">Your document is ready</p>
           </div>
           <div v-if="item.status === 'Processing'" class="flex justify-start my-3">
-            <p class="text-gray-80">Waiting document to be ready</p>
+            <p class="text-gray-80">Payment Received! Waiting document to be ready</p>
           </div>
           <div v-if="item.status === 'Rejected'" class="flex justify-start my-3">
             <p class="text-gray-80">{{ item.remarks }}</p>
