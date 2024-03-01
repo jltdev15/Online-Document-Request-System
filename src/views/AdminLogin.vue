@@ -2,7 +2,7 @@
   <section class=" bg-[url('./images/pbc_logo.webp')]  bg-cover bg-center h-screen">
     <div class="h-screen bg-gray-900 bg-opacity-50 blur-bg text-gray-50">
       <div class="pt-24 ">
-        <h1 class="py-6 text-2xl font-bold text-center md:py-12 md:text-5xl">Administrator <i
+        <h1 class="py-6 text-2xl font-bold text-center md:py-9 md:text-5xl">Administrator <i
             class="text-yellow-400 fa-solid fa-unlock"></i></h1>
         <form @submit.prevent="submitCredentials">
           <div class="flex flex-col items-center justify-center lg:w-[30%] mx-auto md:rounded-xl lg:shadow rounded-xl ">
@@ -21,7 +21,7 @@
               <input type="password" placeholder="Type here" class="w-full text-gray-800 input input-bordered"
                 v-model.trim="adminpass" required />
             </label>
-            <div class="w-full max-w-xs py-3 pt-6 lg:max-w-full md:px-0 lg:px-8 xl:px-14">
+            <div class="w-full max-w-xs py-3 pt-6 lg:max-w-full md:px-0 xl:px-8 2xl:px-14">
               <button type="submit" class="w-full text-xl font-bold btn btn-primary">
                 Login
               </button>

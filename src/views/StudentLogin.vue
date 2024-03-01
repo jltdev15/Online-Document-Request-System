@@ -2,13 +2,13 @@
   <section class=" bg-[url('./images/pbc_logo.webp')]  bg-cover bg-center h-screen">
     <div class="h-screen bg-gray-900 bg-opacity-50 blur-bg text-gray-50">
       <div class="px-3 mx-auto pt-28 md:pt-16 sm:w-4/6 md:w-7/12 lg:w-5/12 xl:w-4/12">
-        <h1 class="py-4 text-2xl font-bold text-center sm:py-12 lg:text-5xl">Welcome Student</h1>
+        <h1 class="py-4 text-2xl font-bold text-center sm:pt-12 lg:text-5xl 3xl:pt-12">Welcome Student</h1>
         <form @submit.prevent="submitCredentials">
-          <div class="flex flex-col items-center p-6 lg:p-0 rounded-xl lg:py-12 md:shadow md:bg-gray-200">
+          <div class="flex flex-col items-center p-6 lg:pt-3 rounded-xl ">
             <div class="w-full max-w-xs sm:max-w-lg md:px-3 lg:px-12">
               <label class="w-full form-control">
                 <div class="label">
-                  <span class="text-lg font-bold label-text text-gray-50 md:text-gray-800">What is your Username?</span>
+                  <span class="text-lg font-bold label-text text-gray-50 ">What is your Username?</span>
                 </div>
                 <input v-model.trim="studentUser" type="text" placeholder="Type here" required
                   class="w-full max-w-xs text-gray-800 sm:max-w-lg input input-bordered" />
@@ -17,7 +17,7 @@
             <div class="w-full max-w-xs sm:max-w-lg md:px-3 lg:px-12">
               <label class="w-full max-w-xs sm:max-w-lg form-control">
                 <div class="label">
-                  <span class="text-lg font-bold label-text text-gray-50 md:text-gray-800">What is your Password?</span>
+                  <span class="text-lg font-bold label-text text-gray-50 ">What is your Password?</span>
                 </div>
                 <input v-model.trim="studentPass" type="password" placeholder="Type here" required
                   class="w-full max-w-xs text-gray-800 sm:max-w-lg input input-bordered" />
@@ -29,9 +29,9 @@
               </button>
             </div>
             <div class="w-full max-w-xs pb-3 sm:max-w-lg md:px-3 lg:px-12 xl:px-12">
-              <p class="py-3 text-center text-gray-50 md:text-gray-800">Dont have an account?</p>
+              <p class="py-3 text-center text-gray-50 ">Dont have an account?</p>
               <router-link to="/student_registration"
-                class="w-full text-lg btn btn-outline text-gray-50 md:text-gray-500">Register</router-link>
+                class="w-full text-lg btn btn-outline text-gray-50">Register</router-link>
             </div>
           </div>
         </form>
