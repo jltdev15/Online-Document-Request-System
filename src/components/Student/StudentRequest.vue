@@ -3,8 +3,7 @@
     <div class="mx-auto lg:p-6 lg:w-6/12">
       <div class="">
         <router-link class="flex items-center gap-2 px-3 py-3 bg-transparent" to="/student_dashboard"><i
-            class="fa-solid fa-circle-arrow-left"></i>Back
-          to Dashboard</router-link>
+            class="fa-solid fa-circle-arrow-left"></i>Back to Dashboard</router-link>
       </div>
       <div class="px-3 pb-6">
         <header class="py-3">
@@ -40,7 +39,7 @@
               <div class="flex flex-col gap-3">
                 <label class="font-bold md:text-xl" for="date_needed">Date Needed</label>
                 <input v-model.trim="dateNeeded" class="w-full px-2 py-2 border rounded-lg lg:max-w-xs" type="date"
-                  :min="date" name="date_needed" placeholder="MM/DD/YYYY" required />
+                  :min="dateNeeded" name="date_needed" placeholder="MM/DD/YYYY" required />
               </div>
             </div>
             <div>
@@ -51,12 +50,21 @@
                 <textarea v-model.trim="purpose" class="w-full p-3 border resize-none" name="purpose" id="purpose"
                   rows="4" placeholder="(eg. Scholarship, Graduation, etc.)" required></textarea>
               </div>
+              <header class="py-1 ">
+                <h2 class="text-xl font-bold">Supporting Documents <span
+                    class="text-sm text-gray-500 font-extralight">(e.g.Valid
+                    Ids,)</span>
+                </h2>
+                <p class="text-sm text-gray-500 font-extralight">Accepts only JPEG or PDF format(2MB Max size)</p>
+              </header>
               <div class="p-3 mb-3 border">
-                <input @change="handleFileUpload" type="file" name="supporting_document" accept="application/pdf"
-                  id="supporting_document" ref="fileInput " />
+
+                <input placeholder="Supporting documents" @change="handleFileUpload" type="file"
+                  name="supporting_document" accept="application/pdf/jpeg" id="supporting_document" ref="fileInput " />
               </div>
               <!-- <input type="submit" name="submit" value="Upload" /> -->
-              <button class="w-full btn btn-primary" type="submit">Send Request</button>
+              <button class="w-full text-base bg-blue-800 btn text-gray-50" type="submit">Send Request <i
+                  class="fa-solid fa-arrow-right"></i></button>
             </div>
           </div>
         </form>
@@ -82,8 +90,6 @@ const year = ref("");
 const dateNeeded = ref("");
 const purpose = ref("");
 const dateCreated = ref("");
-const currentDate = new Date();
-dateCreated.value = currentDate.toISOString().split("T")[0];
 
 const handleFileUpload = (event) => {
   fileName.value = event.target.files[0];
@@ -126,7 +132,8 @@ for (let i = 1991; i <= 2025; i++) {
 }
 
 onMounted(async () => {
-
   console.log(dateCreated.value);
+  const currentDate = new Date();
+  dateNeeded.value = currentDate.toISOString().split("T")[0];
 });
 </script>

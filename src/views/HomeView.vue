@@ -3,7 +3,7 @@
     <div class="h-screen bg-gray-900 bg-opacity-25 rounded-lg blur-bg text-gray-50">
       <section class="sm:h-[80svh] pt-32 md:pt-24 flex justify-center items-center ">
         <div class="w-full pb-0">
-          <h1 class="p-3 text-xl font-bold text-center py-9 sm:text-5xl">
+          <h1 class="p-3 text-xl font-bold text-center text-gray-800 lg:text-gray-50 py-9 sm:text-5xl">
             PBC Sunbeam School ODRS
           </h1>
           <div class="flex flex-col gap-12 p-6 mx-auto md:flex-row sm:w-3/6 justify-evenly">

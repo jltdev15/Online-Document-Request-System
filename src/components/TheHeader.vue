@@ -1,12 +1,12 @@
 <template>
-  <nav class="fixed top-0 z-50 w-full px-0 bg-blue-800 border-gray-200 shadow lg:px-6 sm:px-2 md:px-2 3xl:px-32">
+  <nav class="fixed top-0 z-50 w-full px-0 bg-blue-800 border-gray-200 shadow ">
     <section class="flex flex-wrap items-center justify-between py-3 mx-auto sm:py-0 md:static">
       <router-link to="/" class="flex items-center gap-3 p-3">
         <img class="w-12 sm:w-[4rem]" src="../assets/images/pbc_logo.webp" alt="" />
         <p class="text-lg font-bold sm:text-xl text-gray-50">PBC Sunbeam School Inc.</p>
       </router-link>
       <div :class="{ 'right-0': isNavShow, 'right-[-100%]': isNavHide }" id="main-nav"
-        class="2xs:py-2 w-8/12 md:w-5/12 lg:w-[15%] md:px-0 md:gap-2 lg:px-0 md:py-0 h-screen md:h-auto absolute capitalize bg-[#0245A3] text-gray-50 md:bg-transparent md:justify-between lg:justify-between  md:static md:flex top-[100%] lg:z-0 z-[999] animate__animated animate__fadeInLeft">
+        class="2xs:py-2 w-8/12 md:w-4/12 md:px-3 lg:w-[20%] md:gap-2 lg:px-0 md:py-0 h-screen md:h-auto absolute capitalize bg-[#0245A3] text-gray-50 md:bg-transparent md:justify-between lg:justify-between  md:static md:flex top-[100%] lg:z-0 z-[999] animate__animated animate__fadeInLeft">
         <ul v-show="!adminAuthStore.isAuthenticated && !studentAuthStore.isAuthenticatedStudent"
           class="flex flex-col gap-6 px-6 py-12 text-base font-semibold text-gray-50 lg:text-base xs:px-12 md:gap-3 md:text-sm md:py-0 sm:text-lg md:text-gray-800 sm:px-16 md:items-center md:flex-row md:px-0 lg:gap-2">
           <li class="transition-all hover:bg-blue-500 hover:text-gray-800">

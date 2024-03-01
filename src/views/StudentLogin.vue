@@ -1,31 +1,35 @@
 <template>
   <section class=" bg-[url('./images/pbc_logo.webp')]  bg-cover bg-center h-screen">
     <div class="h-screen bg-gray-900 bg-opacity-50 blur-bg text-gray-50">
-      <div class="mx-auto pt-28 md:pt-16 lg:w-2/6">
-        <h1 class="py-4 text-2xl font-bold text-center sm:py-12 lg:text-5xl">Welcome Student!</h1>
+      <div class="px-3 mx-auto pt-28 md:pt-16 sm:w-4/6 md:w-7/12 lg:w-5/12 xl:w-4/12">
+        <h1 class="py-4 text-2xl font-bold text-center sm:py-12 lg:text-5xl">Welcome Student</h1>
         <form @submit.prevent="submitCredentials">
-          <div class="flex flex-col items-center justify-center py-6 rounded-2xl md:shadow md:bg-gray-200">
-            <label class="w-full max-w-xs form-control">
-              <div class="label">
-                <span class="text-lg font-bold label-text text-gray-50 md:text-gray-500">What is your Username?</span>
-              </div>
-              <input v-model.trim="studentUser" type="text" placeholder="Type here" required
-                class="w-full max-w-xs text-gray-800 input input-bordered" />
-            </label>
-            <label class="w-full max-w-xs form-control">
-              <div class="label">
-                <span class="text-lg font-bold label-text text-gray-50 md:text-gray-500">What is your Password?</span>
-              </div>
-              <input v-model.trim="studentPass" type="password" placeholder="Type here" required
-                class="w-full max-w-xs text-gray-800 input input-bordered" />
-            </label>
-            <div class="w-full max-w-xs py-3 pt-6 sm:max-w-lg md:px-20">
+          <div class="flex flex-col items-center p-6 lg:p-0 rounded-xl lg:py-12 md:shadow md:bg-gray-200">
+            <div class="w-full max-w-xs sm:max-w-lg md:px-3 lg:px-12">
+              <label class="w-full form-control">
+                <div class="label">
+                  <span class="text-lg font-bold label-text text-gray-50 md:text-gray-800">What is your Username?</span>
+                </div>
+                <input v-model.trim="studentUser" type="text" placeholder="Type here" required
+                  class="w-full max-w-xs text-gray-800 sm:max-w-lg input input-bordered" />
+              </label>
+            </div>
+            <div class="w-full max-w-xs sm:max-w-lg md:px-3 lg:px-12">
+              <label class="w-full max-w-xs sm:max-w-lg form-control">
+                <div class="label">
+                  <span class="text-lg font-bold label-text text-gray-50 md:text-gray-800">What is your Password?</span>
+                </div>
+                <input v-model.trim="studentPass" type="password" placeholder="Type here" required
+                  class="w-full max-w-xs text-gray-800 sm:max-w-lg input input-bordered" />
+              </label>
+            </div>
+            <div class="w-full max-w-xs py-3 pt-6 sm:max-w-lg md:p-3 lg:px-12 xl:px-12">
               <button class="w-full text-lg font-bold btn btn-primary">
                 Login
               </button>
             </div>
-            <div class="w-full max-w-xs pb-3 sm:max-w-lg md:px-20">
-              <p class="py-3 text-center text-gray-50 md:text-gray-500">Dont have an account?</p>
+            <div class="w-full max-w-xs pb-3 sm:max-w-lg md:px-3 lg:px-12 xl:px-12">
+              <p class="py-3 text-center text-gray-50 md:text-gray-800">Dont have an account?</p>
               <router-link to="/student_registration"
                 class="w-full text-lg btn btn-outline text-gray-50 md:text-gray-500">Register</router-link>
             </div>

@@ -1,26 +1,28 @@
 <template>
-  <section class=" bg-[url('./images/pbc_logo.webp')]  bg-cover bg-center h-screen">
+  <section class=" bg-[url('./images/pbc_logo.webp')]  bg-cover bg-center md:h-screen">
     <div class="h-screen bg-gray-900 bg-opacity-50 blur-bg text-gray-50">
-      <div class="pt-32 mx-auto md:pt-16 lg:w-2/6">
-        <h1 class="py-6 text-2xl font-bold text-center md:py-12 md:text-5xl">Welcome Admin!</h1>
+      <div class="pt-24">
+        <h1 class="py-6 text-2xl font-bold text-center md:py-12 md:text-5xl">Administrator <i
+            class="text-yellow-400 fa-solid fa-unlock"></i></h1>
         <form @submit.prevent="submitCredentials">
-          <div class="flex flex-col items-center justify-center lg:pb-16 lg:pt-12 md:rounded-xl md:shadow lg:bg-gray-200">
+          <div
+            class="flex flex-col items-center justify-center lg:w-[30%] mx-auto lg:py-12 md:rounded-xl lg:shadow rounded-xl lg:bg-gray-200">
             <label class="w-full max-w-xs form-control">
               <div class="label">
-                <span class="text-lg font-bold label-text text-gray-50 md:text-gray-800">What is your Username?</span>
+                <span class="text-lg font-bold text-white label-text lg:text-gray-800">What is your Username?</span>
               </div>
 
-              <input type="text" placeholder="Type here" class="w-full max-w-xs md:text-gray-800 input input-bordered"
+              <input type="text" placeholder="Type here" class="w-full max-w-xs text-gray-800 input input-bordered"
                 v-model.trim="adminuser" required />
             </label>
             <label class="w-full max-w-xs pt-3 form-control">
               <div class="label">
-                <span class="text-lg font-bold label-text text-gray-50 md:text-gray-800">What is your Password?</span>
+                <span class="text-lg font-bold text-white label-text lg:text-gray-800 ">What is your Password?</span>
               </div>
-              <input type="password" placeholder="Type here" class="w-full input input-bordered md:text-gray-800"
+              <input type="password" placeholder="Type here" class="w-full text-gray-800 input input-bordered"
                 v-model.trim="adminpass" required />
             </label>
-            <div class="w-full px-6 py-6 xs:px-20">
+            <div class="w-full max-w-xs py-3 pt-6 lg:max-w-full md:px-0 lg:px-8 xl:px-14">
               <button type="submit" class="w-full text-xl font-bold btn btn-primary">
                 Login
               </button>
