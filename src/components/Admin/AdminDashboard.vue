@@ -173,8 +173,10 @@
             </button>
           </div>
           <div class="flex justify-center p-3" v-show="item.status === 'Completed'">
-            <p class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">No
-              action needed</p>
+            <!-- <p class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">No
+              action needed</p> -->
+            <button @click="adminStore.showArchiveDialog(item)" class="bg-red-800 btn text-gray-50 hover:bg-red-600">Move
+              to archive<i class="fa-solid fa-box-archive"></i></button>
           </div>
         </template>
       </EasyDataTable>
@@ -190,6 +192,11 @@
               <option value="Incorrect Information">Incorrect Information</option>
             </select>
           </div>
+          <div>
+            <p class="font-bold">Others</p>
+            <textarea v-model.trim="adminStore.others" class="w-full p-3 border resize-none" name="purpose" id="purpose"
+              rows="2" placeholder="Other remarks" required></textarea>
+          </div>
         </template>
         <template #actions>
           <div class="flex gap-2">
@@ -204,6 +211,26 @@
           </div>
         </template>
       </reject-dialog>
+      <archive-dialog :show="adminStore.isArchiveShow" title="Archive Request">
+        <template #default>
+          <div class="flex items-center gap-3">
+            <i class="text-3xl fa-regular fa-circle-question"></i>
+            <p class="text-base font-semibold">Are you sure to move this request to archive?</p>
+          </div>
+        </template>
+        <template #actions>
+          <div class="flex gap-2">
+            <button @click="adminStore.showArchiveDialog"
+              class="px-6 py-3 font-semibold bg-red-800 border-blue-800 rounded hover:bg-red-500 text-gray-50">
+              Cancel
+            </button>
+            <button @click="adminStore.updateToArchive"
+              class="py-3 font-semibold capitalize bg-blue-800 border border-transparent rounded px-9 hover:bg-blue-600 text-gray-50">
+              Yes, I'm sure
+            </button>
+          </div>
+        </template>
+      </archive-dialog>
     </div>
   </section>
 </template>
@@ -212,6 +239,7 @@ import { computed, onMounted, ref } from "vue";
 import { useAdminStore } from "../../stores/Admin";
 import BaseDialog from "@/components/Admin/BaseDialog.vue";
 import RejectDialog from '@/components/Admin/RejectDialog.vue'
+import ArchiveDialog from '@/components/Admin/ArchiveDialog.vue'
 import { useAdminAuthStore } from "@/stores/AdminAuth";
 import {
   useStudentAuthStore
@@ -246,12 +274,8 @@ const headers = [
 
   { text: "ACTIONS", value: "operation" },
 ];
-const showRemarksDialog = async () => {
-  return (isScheduleShow.value = !isScheduleShow.value);
-};
-const closeScheduleDialog = async () => {
-  return (isScheduleShow.value = !isScheduleShow.value);
-};
+
+
 const acceptHandler = async (value) => {
   adminStore.updateToApproved(value._id);
 };
@@ -267,7 +291,6 @@ const finishHandler = async (value) => {
 
 onMounted(async () => {
   await studentAuthStore.checkAuthStudent();
-
   if (studentAuthStore.isAuthenticatedStudent) {
     return router.push("/student_dashboard");
   }

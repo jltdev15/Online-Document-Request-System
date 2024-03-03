@@ -1,5 +1,5 @@
 <template>
-  <section class="pt-24">
+  <section class="pt-20">
     <div class="mx-auto lg:p-6 lg:w-6/12">
       <div class="">
         <router-link class="flex items-center gap-2 px-3 py-3 bg-transparent" to="/student_dashboard"><i
@@ -43,7 +43,7 @@
               </div>
             </div>
             <div>
-              <header class="pt-6 pb-3">
+              <header class="pt-3 pb-1">
                 <h2 class="text-xl font-bold">Purpose of Request</h2>
               </header>
               <div>
@@ -51,7 +51,7 @@
                   rows="4" placeholder="(eg. Scholarship, Graduation, etc.)" required></textarea>
               </div>
               <header class="py-1 ">
-                <h2 class="text-xl font-bold">Supporting Documents <span
+                <h2 class="text-xl font-bold">Attached Supporting Documents <span
                     class="text-sm text-gray-500 font-extralight">(e.g.Valid
                     Ids,)</span>
                 </h2>
@@ -60,11 +60,15 @@
               <div class="p-3 mb-3 border">
 
                 <input placeholder="Supporting documents" @change="handleFileUpload" type="file"
-                  name="supporting_document" accept="application/pdf/jpeg" id="supporting_document" ref="fileInput " />
+                  name="supporting_document" accept="application/pdf, image/jpeg, image/png" id="supporting_document"
+                  ref="fileInput " />
+                <p v-if="isFileSizeExceed" class="p-1 text-red-800">Files size exceeded. Please upload other documents
+                </p>
               </div>
               <!-- <input type="submit" name="submit" value="Upload" /> -->
-              <button class="w-full text-base bg-blue-800 btn text-gray-50" type="submit">Send Request <i
-                  class="fa-solid fa-arrow-right"></i></button>
+              <button :disabled="isFileSizeExceed"
+                class="w-full text-base bg-blue-800 hover:bg-blue-500 btn text-gray-50" type="submit">Send Request
+                <i class="fa-solid fa-arrow-right"></i></button>
             </div>
           </div>
         </form>
@@ -80,7 +84,11 @@ import { useRouter } from "vue-router";
 import { useStudentStore } from "@/stores/Student";
 import { useToast } from "vue-toastification";
 import { useAdminStore } from "../../stores/Admin";
+import {
+  useStudentAuthStore
+} from "@/stores/StudentAuth";
 const adminStore = useAdminStore();
+const studentAuthStore = useStudentAuthStore();
 const toast = useToast();
 const router = useRouter();
 const studentStore = useStudentStore();
@@ -90,12 +98,27 @@ const year = ref("");
 const dateNeeded = ref("");
 const purpose = ref("");
 const dateCreated = ref("");
+const isFileSizeExceed = ref(false)
+
+
+
+
+
 
 const handleFileUpload = (event) => {
   fileName.value = event.target.files[0];
+  const file = event.target.files[0];
+  const maxSize = 2048 * 2048;
+  if (file && file.size > maxSize) {
+    return isFileSizeExceed.value = true;
+  }
+  isFileSizeExceed.value = false;
+  console.log(fileName.value);
 };
 
 const uploadFile = async () => {
+
+
   const formData = new FormData();
   if (fileName.value) {
     formData.append("fileName", fileName.value);
@@ -132,8 +155,15 @@ for (let i = 1991; i <= 2025; i++) {
 }
 
 onMounted(async () => {
-  console.log(dateCreated.value);
+
   const currentDate = new Date();
   dateNeeded.value = currentDate.toISOString().split("T")[0];
+  dateCreated.value = currentDate.toISOString().split("T")[0];
+  await studentAuthStore.checkAuthStudent();
+
+  if (studentAuthStore.isAuthenticatedStudent) {
+    return router.push("/student_request");
+  }
+  return router.push('/')
 });
 </script>

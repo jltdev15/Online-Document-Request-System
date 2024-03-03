@@ -6,6 +6,8 @@ import StudentRegistration from "@/views/StudentRegistration.vue";
 import AdminDashboard from "@/components/Admin/AdminDashboard.vue";
 import StudentDashboard from "@/components/Student/StudentDashboard.vue";
 import StudentRequest from "@/components/Student/StudentRequest.vue";
+import RequestArchive from "@/components/Admin/RequestArchive.vue";
+import StudentProfile from "@/components/Student/StudentProfile.vue";
 
 import FeedbackForm from "@/components/Student/FeedbackForm.vue";
 
@@ -35,6 +37,7 @@ const router = createRouter({
       name: "studentlogin",
       component: StudentLogin,
     },
+
     {
       path: "/student_registration",
       name: "studentregister",
@@ -55,11 +58,20 @@ const router = createRouter({
       name: "student-request",
       component: StudentRequest,
     },
-
+    {
+      path: "/student_profile",
+      name: "studentprofile",
+      component: StudentProfile,
+    },
     {
       path: "/feedback",
       name: "feedback",
       component: FeedbackForm,
+    },
+    {
+      path: "/archive",
+      name: "archive",
+      component: RequestArchive,
     },
   ],
 });

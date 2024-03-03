@@ -6,7 +6,7 @@
         <h2 class="text-3xl font-bold">Dashboard</h2>
       </div>
       <div>
-        <button @click="isGuideLineShow = !isGuideLineShow" class="btn btn-primary">
+        <button @click="isGuideLineShow = !isGuideLineShow" class="btn btn-primary text-gray-50">
           Create Request <i class="fa-solid fa-plus"></i>
         </button>
       </div>
@@ -102,10 +102,10 @@
       <EasyDataTable :headers="headers" :items="studentStore.requestList" :rows-per-page="5" border-cell
         table-class-name="customize-table" header-text-direction="left">
         <template #item-operation="item">
-          <div v-if="item.status === 'Approved'" class="flex justify-start my-3">
+          <div v-if="item.status === 'Approved'" class="my-2 w-[10rem]">
             <button v-if="item.proof === ''" @click="studentStore.toggleUpdatePayment(item)"
-              class="flex text-[0.8rem] items-center justify-start gap-3 pl-3 w-[10rem] py-3 font-bold bg-blue-500 rounded-md text-gray-50">
-              Make Payment<i class="fa-solid fa-peso-sign"></i>
+              class="w-full bg-red-700 btn hover:bg-red-500 text-gray-50">
+              <i class="fa-solid fa-peso-sign text-center text-[0.8rem] font-bold"></i>Make Payment
             </button>
             <p v-else>No action needed</p>
           </div>
@@ -126,6 +126,7 @@
             <p class="text-gray-80">No action needed</p>
           </div>
         </template>
+
         <template #item-remarks="item">
           <div v-if="item.status === 'Completed'" class="flex justify-start my-3">
             <p class="text-gray-80">Document received</p>
@@ -139,7 +140,7 @@
           <div v-if="item.status === 'Rejected'" class="flex justify-start my-3">
             <p class="text-gray-80">{{ item.remarks }}</p>
           </div>
-          <div v-if="item.status === 'Pending'" class="flex justify-start my-3">
+          <div v-if="item.status === 'Pending'" class="my-2 text-center w-[10rem]">
             <p class="text-gray-80">Your request has been received</p>
           </div>
           <div v-if="item.status === 'Approved'" class="flex justify-start my-3">
@@ -147,6 +148,7 @@
             <p v-else>Document is on process.</p>
           </div>
         </template>
+
         <template #item-date="item">
           <p v-if="item.pickUpDate === ''">Not set</p>
           <p else>
@@ -154,10 +156,11 @@
           </p>
         </template>
       </EasyDataTable>
-      <payment-dialog :show="studentStore.isPaymentShow" title="Upload Proof of Payment">
+      <payment-dialog :show="studentStore.isPaymentShow" title="Payment">
+
         <template #default>
           <div class="">
-            <div class="p-3 text-sm border">
+            <div class="p-3 text-base border">
               <p>
                 <strong>Gcash</strong>
               <ul><strong>Gcash Name:</strong> Juan Dela Cruz</ul>
@@ -171,15 +174,19 @@
               <div class="flex gap-3">
 
               </div>
-              <label for="" class="font-bold">Upload</label>
-              <div class="p-3 my-0 mb-3 border">
+              <label for="" class="text-base font-bold">Upload Proof of payment</label>
+              <p class="text-sm text-gray-500 font-extralight">Only JPEG or PNG format (5MB max size)</p>
+              <div class="p-1 mt-3 mb-6 border">
 
-                <input class="text-sm md:text-xl" @change="handleFileUpload" type="file" name="supporting_document"
-                  accept="application/pdf,image/x-png,image/gif,image/jpeg" id="supporting_document" />
+                <input class="text-sm md:text-base" @change="handleFileUpload" type="file" name="supporting_document"
+                  accept="image/x-png,image/jpeg" id="supporting_document" />
+                <p v-if="isFileSizeExceed" class="p-1 text-red-800">Files size exceeded. Please upload other files
+                </p>
               </div>
+
               <div class="flex flex-col gap-3">
-                <button @click="uploadProof" class="w-full btn btn-primary" type="submit">
-                  Submit
+                <button @click="uploadProof" class="w-full text-base btn btn-primary" type="submit">
+                  Submit<i class="fa-solid fa-arrow-right"></i>
                 </button>
                 <button @click="studentStore.toggleUpdatePayment" class="w-full btn btn-outline" type="submit">
                   Cancel
@@ -195,6 +202,7 @@
     </div>
   </section>
 </template>
+
 <script setup>
 import {
   ref,
@@ -220,6 +228,7 @@ const adminAuthStore = useAdminAuthStore();
 const router = useRouter();
 studentStore.getRequest();
 const fileName = ref(null);
+const isFileSizeExceed = ref('')
 const headers = [{
   text: "DATE REQUESTED",
   value: "dateCreated", width: 150
@@ -260,11 +269,10 @@ const items = [];
 
 onMounted(async () => {
   await studentAuthStore.checkAuthStudent();
-
+  await adminAuthStore.checkAuth()
   if (studentAuthStore.isAuthenticatedStudent) {
     return router.push("/student_dashboard");
   }
-  await adminAuthStore.checkAuth()
   if (adminAuthStore.isAuthenticated) {
     return router.push('/admin_dashboard')
   }
@@ -272,13 +280,32 @@ onMounted(async () => {
 
 });
 
+
+// const handleFileUpload = (event) => {
+//   fileName.value = event.target.files[0];
+//   const file = event.target.files[0];
+//   const maxSize = 2048 * 2048;
+//   if (file && file.size > maxSize) {
+//     return isFileSizeExceed.value = true;
+//   }
+//   isFileSizeExceed.value = false;
+//   console.log(fileName.value);
+// };
+
 const handleFileUpload = (event) => {
   fileName.value = event.target.files[0];
+  const file = event.target.files[0];
+  const maxSize = 5000 * 5000;
+  if (file && file.size > maxSize) {
+    return isFileSizeExceed.value = true;
+  }
 }
 const uploadProof = async () => {
   const formData = new FormData();
   if (!fileName.value) {
-    return alert('Cant upload empty file')
+    return toast.error('Cant upload empty file', {
+      timeout: 1500
+    })
   }
   formData.append("proof", fileName.value);
   await studentStore.updatePayment(formData);

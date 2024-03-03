@@ -19,8 +19,6 @@ export const useStudentStore = defineStore("student", () => {
   const getRequest = async () => {
     try {
       const request = await axiosClient.get("/allrequest");
-      // requests.value.push(request.data.content[0]);
-      console.log(request);
       requestList.value = request.data.content;
     } catch (err) {
       console.log(err);

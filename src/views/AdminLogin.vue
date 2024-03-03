@@ -5,7 +5,7 @@
         <h1 class="py-6 text-2xl font-bold text-center md:py-9 md:text-5xl">Administrator <i
             class="text-yellow-400 fa-solid fa-unlock"></i></h1>
         <form @submit.prevent="submitCredentials">
-          <div class="flex flex-col items-center justify-center lg:w-[30%] mx-auto md:rounded-xl lg:shadow rounded-xl ">
+          <div class="flex flex-col items-center justify-center lg:w-[30%] mx-auto md:rounded-xl ">
             <label class="w-full max-w-xs form-control">
               <div class="label">
                 <span class="text-lg font-bold text-white label-text ">What is your Username?</span>

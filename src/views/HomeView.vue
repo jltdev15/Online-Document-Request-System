@@ -55,6 +55,7 @@ onMounted(async () => {
   }
 });
 </script>
+
 <style scoped>
 .blur-bg {
   backdrop-filter: blur(1px);

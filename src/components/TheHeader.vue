@@ -6,9 +6,9 @@
         <p class="text-lg font-bold sm:text-xl text-gray-50">PBC Sunbeam School Inc.</p>
       </router-link>
       <div :class="{ 'right-0': isNavShow, 'right-[-100%]': isNavHide }" id="main-nav"
-        class="2xs:py-2 w-8/12 md:w-4/12 md:px-3 lg:w-[20%] md:gap-2 lg:px-0 md:py-0 h-screen md:h-auto absolute capitalize bg-[#0245A3] text-gray-50 md:bg-transparent md:justify-between lg:justify-between  md:static md:flex top-[100%] lg:z-0 z-[999] animate__animated animate__fadeInLeft">
+        class="2xs:py-2 px-9   md:px-3  md:gap-2 lg:px-0 md:py-0 h-screen md:h-auto absolute capitalize bg-[#0245A3] text-gray-50 md:bg-transparent md:justify-between lg:justify-between  md:static md:flex top-[100%] lg:z-0 z-[999] animate__animated animate__fadeInLeft">
         <ul v-show="!adminAuthStore.isAuthenticated && !studentAuthStore.isAuthenticatedStudent"
-          class="flex flex-col gap-6 px-6 py-12 text-base font-semibold text-gray-50 lg:text-base xs:px-12 md:gap-3 md:text-sm md:py-0 sm:text-lg md:text-gray-800 sm:px-16 md:items-center md:flex-row md:px-0 lg:gap-2">
+          class="flex flex-col gap-6 px-6 py-12 text-base font-semibold text-gray-50 lg:text-lg xs:px-12 md:gap-3 md:text-sm md:py-0 sm:text-lg md:text-gray-800 sm:px-16 md:items-center md:flex-row md:px-0 lg:gap-2">
           <li class="transition-all hover:bg-blue-500 hover:text-gray-800">
             <router-link to="/admin_login" @click="toggleMobileNav"
               class="inline-block p-3 font-bold sm:p-6 text-gray-50">
@@ -19,67 +19,42 @@
               class="inline-block p-3 font-bold sm:p-6 text-gray-50">Student</router-link>
           </li>
         </ul>
-        <ul v-show="adminAuthStore.isAuthenticated" class="items-center gap-3 text-sm md:flex">
+        <ul v-show="adminAuthStore.isAuthenticated" class="items-center gap-3 text-sm text-left lg:text-lg md:flex">
           <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
-            <a href="" class="inline-block w-full p-6 font-bold text-center"> Profile</a>
+            <a href="" class="inline-block w-full p-6 font-bold text-left lg:text-lg"> Admin Profile</a>
+          </li>
+          <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
+            <router-link to="/archive" class="inline-block w-full p-6 font-bold text-left lg:text-lg"> Request
+              Archive</router-link>
           </li>
           <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
             <a href="javascript:void(0)" @click="adminAuthStore.submitLogout"
-              class="inline-block w-full p-6 font-bold text-center">
+              class="inline-block w-full p-6 font-bold text-left ">
               Logout</a>
           </li>
         </ul>
-        <ul v-show="studentAuthStore.isAuthenticatedStudent" class="items-center gap-3 text-sm md:flex">
+        <ul v-show="studentAuthStore.isAuthenticatedStudent" class="items-center gap-3 text-base md:px-3 md:flex">
           <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
-            <a href="" class="inline-block w-full p-6 font-bold text-center"> Profile</a>
+            <router-link to="/student_profile" class="inline-block w-full p-6 font-bold text-center">Learners
+              Profile</router-link>
           </li>
           <li class="transition-all hover:bg-gray-50 hover:text-gray-800 ">
-            <a href="javascript:void(0)" @click="adminAuthStore.submitLogout"
+            <a href="javascript:void(0)" @click="studentAuthStore.submitLogout"
               class="inline-block w-full p-6 font-bold text-center">
               Logout</a>
           </li>
         </ul>
       </div>
-      <!-- Mobile Navigation -->
-      <!-- <div class="md:hidden" aria-current="false">
-        <button
-          @click="toggleMobileNav"
-          class="transition-all btnMobileNav animate__animated animate__rubberBand"
-        >
-          <i
-            id="icon"
-            class="text-2xl text-white fa-solid"
-            :class="{ 'fa-bars': isShow, 'fa-xmark': isClose }"
-          ></i>
-        </button>
-      </div> -->
       <div class="mr-3 md:hidden animate__animated animate__rubberBand" id="nav-icon1" @click="toggleMobileNav"
         :class="{ open: isNavShow, '': isNavHide }">
         <span class="bg-blue-50"></span>
         <span class="bg-blue-50"></span>
         <span class="bg-blue-50"></span>
       </div>
-      <!-- Social Links -->
-      <!-- <ul class="social-ul">
-        <li class="social-li">
-          <a class="social-links" href="#">
-            <i class="fab fa-facebook-f icon"></i>
-          </a>
-        </li>
-        <li class="social-li">
-          <a class="social-links" href="#"><i class="fab fa-twitter icon"></i></a>
-        </li>
-        <li class="social-li">
-          <a class="social-links" href="#"><i class="fab fa-linkedin-in icon"></i></a>
-        </li>
-        <li class="social-li">
-          <a class="social-links" href="#"><i class="fab fa-google-plus-g icon"></i></a>
-        </li>
-
-      </ul> -->
     </section>
   </nav>
 </template>
+
 <script setup>
 import { onMounted, ref } from "vue";
 import { useAdminAuthStore } from "@/stores/AdminAuth";

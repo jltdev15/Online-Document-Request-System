@@ -1,0 +1,67 @@
+<template>
+    <section class="w-full px-3 pb-0 mx-auto pt-28 md:px-12">
+        <header class="py-3">
+            <router-link to="/admin_dashboard" class="text-xl btn"><i class="fa-solid fa-arrow-left"></i>Back to Admin
+                Dashboard</router-link>
+        </header>
+
+        <div class="py-3">
+            <p class="py-3 text-3xl font-bold">List of Archive request</p>
+            <EasyDataTable :headers="headers" alternating :items="adminStore.archiveRequest"
+                table-class-name="customize-table" :rows-per-page="5" border-cell header-text-direction="left">
+            </EasyDataTable>
+        </div>
+    </section>
+</template>
+
+<script setup>
+import { computed, onMounted, ref } from "vue";
+import { useAdminStore } from "../../stores/Admin";
+import BaseDialog from "@/components/Admin/BaseDialog.vue";
+import RejectDialog from "@/components/Admin/RejectDialog.vue";
+import ArchiveDialog from "@/components/Admin/ArchiveDialog.vue";
+import { useAdminAuthStore } from "@/stores/AdminAuth";
+import { useStudentAuthStore } from "@/stores/StudentAuth";
+
+const adminStore = useAdminStore();
+adminStore.getArchiveRequest();
+
+const headers = [
+    { text: "LRN", value: "learnerReferenceNumber" },
+    { text: "REQUESTOR", value: "requestorName" },
+    { text: "DATE CREATED", value: "dateCreated", width: 150 },
+    { text: "TYPES OF DOC.", value: "documentType", width: 100 },
+    { text: "DATE NEEDED", value: "dateNeeded", width: 150 },
+    { text: "PURPOSE OF REQUEST", value: "purpose", width: 150 },
+    { text: "SUPPORTING DOCUMENTS", value: "supporting", width: 150 },
+    { text: "PROOF OF PAYMENT", value: "proof", width: 150 },
+    {
+        text: "PICK UP DATE",
+        value: "pickUpDate",
+        width: 150,
+    },
+    { text: "STATUS", value: "status" },
+
+];
+
+// onMounted(async () => {
+//     await studentAuthStore.checkAuthStudent();
+//     if (studentAuthStore.isAuthenticatedStudent) {
+//         return router.push("/student_dashboard");
+//     }
+//     await adminAuthStore.checkAuth()
+//     if (adminAuthStore.isAuthenticated) {
+//         return router.push('/admin_dashboard')
+//     }
+//     router.push('/')
+// });
+</script>
+
+<style scoped>
+.customize-table {
+    --easy-table-header-font-size: 12px;
+    --easy-table-header-height: 50px;
+    --easy-table-header-font-color: #ffffff;
+    --easy-table-header-background-color: rgb(30 64 175);
+}
+</style>

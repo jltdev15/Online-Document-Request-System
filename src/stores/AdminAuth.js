@@ -14,7 +14,6 @@ export const useAdminAuthStore = defineStore("authadmin", () => {
   const checkAuth = async () => {
     try {
       const response = await axiosClient.get(`/admin/active`);
-      console.log(response);
       if (response) {
         return (isAuthenticated.value = true);
       }
@@ -32,10 +31,11 @@ export const useAdminAuthStore = defineStore("authadmin", () => {
         toast.success(data.data.message, {
           timeout: 1500,
         });
+
         setTimeout(async () => {
           await router.push("/admin_dashboard");
-        }, 1500);
-        return (isAuthenticated.value = true);
+          return (isAuthenticated.value = true);
+        }, 2000);
       }
       console.log(typeof data);
     } catch (err) {

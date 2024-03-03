@@ -5,12 +5,16 @@ import axiosClient from "@/axiosClient";
 export const useAdminStore = defineStore("admin", () => {
   // State
   const requests = ref([]);
+  const archiveRequest = ref([]);
   const isScheduleShow = ref(false);
+  const isArchiveShow = ref(false);
   const isRemarksShow = ref(false);
   const schedId = ref("");
   const rejectId = ref("");
+  const archiveId = ref("");
   const date = ref("");
   const remarks = ref("");
+  const others = ref("");
   const currentDate = new Date();
   date.value = currentDate.toISOString().split("T")[0];
 
@@ -52,6 +56,20 @@ export const useAdminStore = defineStore("admin", () => {
     console.log(id._id);
     rejectId.value = id._id;
   };
+  const showArchiveDialog = async (id) => {
+    isArchiveShow.value = !isArchiveShow.value;
+    console.log(id._id);
+    archiveId.value = id._id;
+  };
+  const updateToArchive = async () => {
+    try {
+      await axiosClient.patch(`/admin/archive/${archiveId.value}`);
+      await getRequest();
+      isArchiveShow.value = !isArchiveShow.value;
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const updatePickUp = async () => {
     try {
       const status = await axiosClient.patch(
@@ -68,16 +86,12 @@ export const useAdminStore = defineStore("admin", () => {
   };
   const updateCompleted = async (id) => {
     try {
-      const status = await axiosClient.patch(`/admin/complete/${id}`, {
-        status: "Completed",
-      });
-      console.log(status);
+      await axiosClient.patch(`/admin/complete/${id}`);
       await getRequest();
     } catch (err) {
       console.log(err);
     }
   };
-
   const hideSchedule = async () => {
     isScheduleShow.value = !isScheduleShow.value;
   };
@@ -86,6 +100,15 @@ export const useAdminStore = defineStore("admin", () => {
       const request = await axiosClient.get("/admin/requests");
       // requests.value.push(request.data.content[0]);
       requests.value = request.data.content;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const getArchiveRequest = async () => {
+    try {
+      const request = await axiosClient.get("/admin/archiveRequests");
+      // requests.value.push(request.data.content[0]);
+      archiveRequest.value = request.data.content;
     } catch (err) {
       console.log(err);
     }
@@ -105,6 +128,7 @@ export const useAdminStore = defineStore("admin", () => {
         {
           remarks: remarks.value,
           status: "Rejected",
+          others: others.value,
         }
       );
       isRemarksShow.value = !isRemarksShow.value;
@@ -115,16 +139,6 @@ export const useAdminStore = defineStore("admin", () => {
     }
   };
   const updateToProcess = async (id) => {
-    console.log(id);
-    try {
-      const status = await axiosClient.patch(`/admin/processing/${id}`);
-      console.log(status);
-      getRequest();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const updateToComplete = async (id) => {
     console.log(id);
     try {
       const status = await axiosClient.patch(`/admin/processing/${id}`);
@@ -158,5 +172,12 @@ export const useAdminStore = defineStore("admin", () => {
     updateToReject,
     rejectId,
     remarks,
+    others,
+    updateToArchive,
+    showArchiveDialog,
+    archiveId,
+    isArchiveShow,
+    getArchiveRequest,
+    archiveRequest,
   };
 });
