@@ -50,25 +50,28 @@
                 <textarea v-model.trim="purpose" class="w-full p-3 border resize-none" name="purpose" id="purpose"
                   rows="4" placeholder="(eg. Scholarship, Graduation, etc.)" required></textarea>
               </div>
-              <header class="py-1 ">
-                <h2 class="text-xl font-bold">Attached Supporting Documents <span
-                    class="text-sm text-gray-500 font-extralight">(e.g.Valid
-                    Ids,)</span>
+              <header class="py-1">
+                <h2 class="text-xl font-bold">
+                  Attached Supporting Documents
+                  <span class="text-sm text-gray-500 font-extralight">(e.g.Valid Ids,)</span>
                 </h2>
-                <p class="text-sm text-gray-500 font-extralight">Accepts only JPEG or PDF format(2MB Max size)</p>
+                <p class="text-sm text-gray-500 font-extralight">
+                  Accepts only JPEG or PDF format(5MB Max size)
+                </p>
               </header>
               <div class="p-3 mb-3 border">
-
                 <input placeholder="Supporting documents" @change="handleFileUpload" type="file"
                   name="supporting_document" accept="application/pdf, image/jpeg, image/png" id="supporting_document"
                   ref="fileInput " />
-                <p v-if="isFileSizeExceed" class="p-1 text-red-800">Files size exceeded. Please upload other documents
+                <p v-if="isFileSizeExceed" class="p-1 text-red-800">
+                  Files size exceeded. Please upload other documents
                 </p>
               </div>
               <!-- <input type="submit" name="submit" value="Upload" /> -->
               <button :disabled="isFileSizeExceed"
-                class="w-full text-base bg-blue-800 hover:bg-blue-500 btn text-gray-50" type="submit">Send Request
-                <i class="fa-solid fa-arrow-right"></i></button>
+                class="w-full text-base bg-blue-800 hover:bg-blue-500 btn text-gray-50" type="submit">
+                Send Request <i class="fa-solid fa-arrow-right"></i>
+              </button>
             </div>
           </div>
         </form>
@@ -84,9 +87,7 @@ import { useRouter } from "vue-router";
 import { useStudentStore } from "@/stores/Student";
 import { useToast } from "vue-toastification";
 import { useAdminStore } from "../../stores/Admin";
-import {
-  useStudentAuthStore
-} from "@/stores/StudentAuth";
+import { useStudentAuthStore } from "@/stores/StudentAuth";
 const adminStore = useAdminStore();
 const studentAuthStore = useStudentAuthStore();
 const toast = useToast();
@@ -98,27 +99,20 @@ const year = ref("");
 const dateNeeded = ref("");
 const purpose = ref("");
 const dateCreated = ref("");
-const isFileSizeExceed = ref(false)
-
-
-
-
-
+const isFileSizeExceed = ref(false);
 
 const handleFileUpload = (event) => {
   fileName.value = event.target.files[0];
   const file = event.target.files[0];
-  const maxSize = 2048 * 2048;
+  const maxSize = 5000 * 5000;
   if (file && file.size > maxSize) {
-    return isFileSizeExceed.value = true;
+    return (isFileSizeExceed.value = true);
   }
   isFileSizeExceed.value = false;
   console.log(fileName.value);
 };
 
 const uploadFile = async () => {
-
-
   const formData = new FormData();
   if (fileName.value) {
     formData.append("fileName", fileName.value);
@@ -155,7 +149,6 @@ for (let i = 1991; i <= 2025; i++) {
 }
 
 onMounted(async () => {
-
   const currentDate = new Date();
   dateNeeded.value = currentDate.toISOString().split("T")[0];
   dateCreated.value = currentDate.toISOString().split("T")[0];
@@ -164,6 +157,6 @@ onMounted(async () => {
   if (studentAuthStore.isAuthenticatedStudent) {
     return router.push("/student_request");
   }
-  return router.push('/')
+  return router.push("/");
 });
 </script>

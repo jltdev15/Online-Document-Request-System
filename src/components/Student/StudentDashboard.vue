@@ -185,7 +185,8 @@
               </div>
 
               <div class="flex flex-col gap-3">
-                <button @click="uploadProof" class="w-full text-base btn btn-primary" type="submit">
+                <button :disabled="isFileSizeExceed" @click="uploadProof" class="w-full text-base btn btn-primary"
+                  type="submit">
                   Submit<i class="fa-solid fa-arrow-right"></i>
                 </button>
                 <button @click="studentStore.toggleUpdatePayment" class="w-full btn btn-outline" type="submit">
@@ -270,6 +271,7 @@ const items = [];
 onMounted(async () => {
   await studentAuthStore.checkAuthStudent();
   await adminAuthStore.checkAuth()
+  console.log(studentAuthStore.isAuthenticatedStudent);
   if (studentAuthStore.isAuthenticatedStudent) {
     return router.push("/student_dashboard");
   }
@@ -281,16 +283,6 @@ onMounted(async () => {
 });
 
 
-// const handleFileUpload = (event) => {
-//   fileName.value = event.target.files[0];
-//   const file = event.target.files[0];
-//   const maxSize = 2048 * 2048;
-//   if (file && file.size > maxSize) {
-//     return isFileSizeExceed.value = true;
-//   }
-//   isFileSizeExceed.value = false;
-//   console.log(fileName.value);
-// };
 
 const handleFileUpload = (event) => {
   fileName.value = event.target.files[0];
