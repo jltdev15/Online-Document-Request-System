@@ -1,7 +1,7 @@
 <template>
     <section class="container pt-24 md:px-16">
         <header class="px-3 py-3 md:px-24">
-            <router-link to="/admin_dashboard"
+            <router-link to="/student_dashboard"
                 class="bg-blue-800 md:text-xl hover:text-gray-50 text-gray-50 btn-block hover:bg-blue-600 md:btn md:w-3/12 btn"><i
                     class="fa-solid fa-arrow-left"></i>Back
                 to

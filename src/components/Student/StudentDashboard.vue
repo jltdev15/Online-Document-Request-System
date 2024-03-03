@@ -120,7 +120,7 @@
             <p class="text-gray-80">No action needed</p>
           </div>
           <div v-if="item.status === 'Done'" class="flex justify-start my-3">
-            <p class="text-gray-80">Pick up now!</p>
+            <p class="text-gray-80">No action needed</p>
           </div>
           <div v-if="item.status === 'Completed'" class="flex justify-start my-3">
             <p class="text-gray-80">No action needed</p>
