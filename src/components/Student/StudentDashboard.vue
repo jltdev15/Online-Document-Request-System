@@ -179,13 +179,13 @@
               <div class="p-1 mt-3 mb-6 border">
 
                 <input class="text-sm md:text-base" @change="handleFileUpload" type="file" name="supporting_document"
-                  accept="image/x-png,image/jpeg" id="supporting_document" />
+                  accept="image/x-png,image/jpeg" id="supporting_document" required />
                 <p v-if="isFileSizeExceed" class="p-1 text-red-800">Files size exceeded. Please upload other files
                 </p>
               </div>
 
               <div class="flex flex-col gap-3">
-                <button :disabled="isFileSizeExceed" @click="uploadProof" class="w-full text-base btn btn-primary"
+                <button :disabled="isButtonEnabled" @click="uploadProof" class="w-full text-base btn btn-primary"
                   type="submit">
                   Submit<i class="fa-solid fa-arrow-right"></i>
                 </button>
@@ -201,6 +201,15 @@
         </template>
       </payment-dialog>
     </div>
+
+    <template>
+      <div class="md:fixed bottom-0 w-full bg-gray-400 z-[9999]">
+        <p class="py-3 text-sm text-center text-gray-50">
+          © 2023 Richwell Colleges Inc. BSIS Capstone Project. All rights reserved.
+        </p>
+      </div>
+    </template>
+
   </section>
 </template>
 
@@ -228,8 +237,9 @@ const studentAuthStore = useStudentAuthStore();
 const adminAuthStore = useAdminAuthStore();
 const router = useRouter();
 studentStore.getRequest();
-const fileName = ref(null);
-const isFileSizeExceed = ref('')
+const fileName = ref('');
+const isFileSizeExceed = ref(false);
+const isButtonEnabled = ref(false);
 const headers = [{
   text: "DATE REQUESTED",
   value: "dateCreated", width: 150
@@ -268,6 +278,37 @@ const isGuideLineShow = ref(false);
 studentAuthStore.checkAuthStudent();
 const items = [];
 
+const handleFileUpload = async (event) => {
+  fileName.value = event.target.files[0];
+  const file = await event.target.files[0];
+  const maxSize = 5000 * 5000;
+  if (file && file.size > maxSize) {
+    isButtonEnabled.value = true;
+    return isFileSizeExceed.value = true;
+  }
+  isButtonEnabled.value = false;
+  isFileSizeExceed.value = false;
+}
+const uploadProof = async () => {
+  const formData = new FormData();
+  console.log(fileName.value);
+  if (!fileName.value) {
+    return toast.error('File upload is empty', {
+      timeout: 1500
+    })
+  }
+  formData.append("proof", fileName.value);
+  await studentStore.updatePayment(formData);
+  toast.success(
+    "Payment updated",
+    {
+      timeout: 2000,
+    },
+    await router.push("/student_dashboard")
+  );
+  studentStore.getRequest();
+};
+
 onMounted(async () => {
   await studentAuthStore.checkAuthStudent();
   await adminAuthStore.checkAuth()
@@ -284,31 +325,7 @@ onMounted(async () => {
 
 
 
-const handleFileUpload = (event) => {
-  fileName.value = event.target.files[0];
-  const file = event.target.files[0];
-  const maxSize = 5000 * 5000;
-  if (file && file.size > maxSize) {
-    return isFileSizeExceed.value = true;
-  }
-}
-const uploadProof = async () => {
-  const formData = new FormData();
-  if (!fileName.value) {
-    return toast.error('Cant upload empty file', {
-      timeout: 1500
-    })
-  }
-  formData.append("proof", fileName.value);
-  await studentStore.updatePayment(formData);
-  toast.success(
-    "Payment updated",
-    {
-      timeout: 2000,
-    },
-    await router.push("/")
-  );
-};
+
 </script>
 
 <style scoped>

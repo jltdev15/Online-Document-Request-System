@@ -1,5 +1,5 @@
 <template>
-    <section class="container pt-24 md:px-9">
+    <section class="container pb-24 pt-24 md:px-9">
         <header class="px-3 py-3 md:px-24">
             <router-link to="/student_dashboard"
                 class="bg-blue-800 md:text-xl hover:text-gray-50 text-gray-50 btn-block hover:bg-blue-600 md:btn md:w-3/12 btn"><i
@@ -16,35 +16,35 @@
                     <label class="text-[0.7rem] md:text-base" for="">Learning Reference Number</label>
 
                     <input :class="{ border: studentAuthStore.isEdit }" :disabled="!studentAuthStore.isEdit"
-                        class="p-1 font-bold bg-transparent md:text-xl" type="text"
+                        class="p-1 font-bold bg-transparent text-xs md:text-xl" type="text"
                         v-model="studentAuthStore.profileData.lrn" />
                 </div>
                 <div class="py-3">
                     <label for="" class="text-[0.7rem] md:text-base">Full Name</label>
 
                     <input :class="{ border: studentAuthStore.isEdit }" :disabled="!studentAuthStore.isEdit"
-                        class="p-1 font-bold bg-transparent md:text-xl" type="text"
+                        class="p-1 font-bold text-xs bg-transparent md:text-xl" type="text"
                         v-model="studentAuthStore.profileData.name" />
                 </div>
                 <div class="py-3">
                     <label for="" class="text-[0.7rem] md:text-base">Address</label>
                     <!-- <p class="font-bold md:text-xl">{{ studentAuthStore.profileData.address }}</p> -->
                     <input :class="{ border: studentAuthStore.isEdit }" :disabled="!studentAuthStore.isEdit"
-                        class="p-1 font-bold bg-transparent md:text-xl" type="text"
+                        class="p-1 font-bold text-xs bg-transparent md:text-xl" type="text"
                         v-model="studentAuthStore.profileData.address" />
                 </div>
                 <div class="py-3">
                     <label for="" class="text-[0.7rem] md:text-base">Contact</label>
                     <!-- <p class="font-bold md:text-xl">{{ studentAuthStore.profileData.contact }}</p> -->
                     <input :class="{ border: studentAuthStore.isEdit }" :disabled="!studentAuthStore.isEdit"
-                        class="p-1 font-bold bg-transparent md:text-xl" type="text"
+                        class="p-1 text-xs font-bold bg-transparent md:text-xl" type="text"
                         v-model="studentAuthStore.profileData.contact" />
                 </div>
                 <div class="py-3">
                     <label for="" class="text-[0.7rem] md:text-base">Email</label>
                     <!-- <p class="font-bold md:text-xl">{{ studentAuthStore.profileData.email }}</p> -->
                     <input :class="{ border: studentAuthStore.isEdit }" :disabled="!studentAuthStore.isEdit"
-                        class="p-1 font-bold bg-transparent md:text-xl" type="text"
+                        class="p-1 font-bold text-xs bg-transparent md:text-xl" type="text"
                         v-model="studentAuthStore.profileData.email" />
                 </div>
                 <div class="flex justify-end col-span-2 gap-3 p-3">

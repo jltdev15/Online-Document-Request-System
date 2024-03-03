@@ -1,5 +1,5 @@
 <template>
-  <section class="pt-20">
+  <section class="pb-20 pt-24 md:py-20">
     <div class="mx-auto lg:p-6 lg:w-6/12">
       <div class="">
         <router-link class="flex items-center gap-2 px-3 py-3 bg-transparent" to="/student_dashboard"><i
@@ -16,7 +16,7 @@
             <div class="grid gap-6 md:grid-cols-3">
               <div class="flex flex-col gap-3">
                 <label class="font-bold md:text-xl" for="document_type">Document Type</label>
-                <select v-model.trim="documentType" class="w-full lg:max-w-xs select select-bordered">
+                <select v-model.trim="documentType" class="w-full lg:max-w-xs select select-bordered" required>
                   <option selected value="">Choose Document</option>
                   <option value="COE">Certificate of Enrollment - P50</option>
                   <option value="COR">Certificate of Registration - P50</option>
@@ -29,7 +29,7 @@
               </div>
               <div class="flex flex-col gap-3">
                 <label class="text-base font-bold md:text-xl" for="last_school_year">S.Y. Attended</label>
-                <select v-model.trim="year" class="w-full lg:max-w-xs select select-bordered">
+                <select v-model.trim="year" class="w-full lg:max-w-xs select select-bordered" required>
                   <option selected value="">Choose Year</option>
                   <option v-for="item in yearsRange" :key="item">
                     {{ item }}
@@ -133,7 +133,7 @@ const uploadFile = async () => {
       {
         timeout: 2000,
       },
-      await router.push("/")
+      await router.push("/student_dashboard")
     );
     console.log("File uploaded successfully");
   } catch (err) {
