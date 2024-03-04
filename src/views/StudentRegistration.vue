@@ -54,13 +54,11 @@
           </div> -->
         </div>
         <div class="py-3 text-center">
-          <input type="checkbox" :disabled="!studentStore.isEnabled" :checked="isChecked" required
-            @click="checkHandler" />
-          <span> I agree to the <a href="javascript:void(0)" @click="studentStore.showCondition"
-              class="text-blue-700">Terms and
+          <input type="checkbox" :disabled="isEnabled" :checked="isChecked" required @click="checkHandler" />
+          <span> I agree to the <a href="javascript:void(0)" @click="showCondition" class="text-blue-700">Terms and
               Condition</a></span>
         </div>
-        <terms-and-condition :show="studentStore.isConditionShow" title="Terms and Conditions">
+        <terms-and-condition :show="isConditionShow" title="Terms and Conditions">
           <template #default>
             <div class="overflow-auto h-[50vh]">
               <h2>PBC Document Requisition Terms and Conditions</h2>
@@ -91,8 +89,7 @@
 
               </p>
               <div class="py-3">
-                <button @click="studentStore.hideCondition"
-                  class="w-full py-3 font-bold bg-gray-400 text-gray-50">Accept</button>
+                <button @click="hideCondition" class="w-full py-3 font-bold bg-gray-400 text-gray-50">Accept</button>
               </div>
             </div>
           </template>
@@ -136,7 +133,16 @@ const data = reactive({
 });
 const isChecked = ref(false)
 const isConditionShow = ref(false);
-const isEnabled = ref(false);
+const isEnabled = ref(true);
+
+
+const showCondition = async () => {
+  isConditionShow.value = !isConditionShow.value;
+};
+const hideCondition = async () => {
+  isConditionShow.value = !isConditionShow.value;
+  isEnabled.value = false;
+};
 const checkHandler = async () => {
   isChecked.value = !isChecked.value;
   console.log(isChecked.value);
@@ -149,7 +155,6 @@ const registerStudent = async () => {
     })
   }
   if (data.lrn.toString().length > 12) {
-
     return toast.error('LRN must not exceed 12 digits', {
       timeout: 1500,
     })
@@ -165,13 +170,7 @@ const registerStudent = async () => {
   };
 
   await studentStore.registerAccount(registerForm);
-  toast.success(
-    "Account created",
-    {
-      timeout: 2000,
-    },
-    await router.push("/student_login")
-  );
+
 
   data.fullName = "";
   data.lrn = "";
@@ -179,6 +178,9 @@ const registerStudent = async () => {
   data.contact = "";
   data.email = "";
   data.password = "";
+  isChecked.value = false;
+  isConditionShow.value = false;
+  isEnabled.value = true;
 };
 
 onMounted(async () => {

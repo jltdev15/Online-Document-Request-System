@@ -13,6 +13,7 @@ export const useStudentAuthStore = defineStore("authstudent", () => {
   const isEdit = ref(false);
   const currentPassword = ref("");
   const newPassword = ref("");
+
   const profileData = reactive({
     lrn: "",
     name: "",

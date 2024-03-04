@@ -5,7 +5,7 @@
       <h2 class="text-3xl font-bold">Dashboard</h2>
     </header>
     <div class="container grid grid-flow-row grid-cols-2 gap-2 justify-items-stretch md:grid-cols-4">
-      <div class="shadow-xl md:w-56 card bg-base-100 ">
+      <div class="shadow-xl md:w-56 card bg-base-100">
         <div class="flex flex-col card-body">
           <h2 class="card-title">Pending</h2>
           <p class="p-3 text-xl font-bold text-center md:p-6 md:text-5xl">
@@ -16,7 +16,7 @@
           </div> -->
         </div>
       </div>
-      <div class="shadow-xl md:w-56 card bg-base-100 ">
+      <div class="shadow-xl md:w-56 card bg-base-100">
         <div class="card-body">
           <h2 class="card-title">Approved</h2>
           <p class="p-3 text-xl font-bold text-center md:p-6 md:text-5xl">
@@ -27,7 +27,7 @@
           </div> -->
         </div>
       </div>
-      <div class="shadow-xl md:w-56 card bg-base-100 ">
+      <div class="shadow-xl md:w-56 card bg-base-100">
         <div class="card-body">
           <h2 class="card-title">Processing</h2>
           <p class="p-3 text-xl font-bold text-center md:p-6 md:text-5xl">
@@ -38,7 +38,7 @@
           </div> -->
         </div>
       </div>
-      <div class="shadow-xl md:w-56 card bg-base-100 ">
+      <div class="shadow-xl md:w-56 card bg-base-100">
         <div class="card-body">
           <h2 class="card-title">Completed</h2>
           <p class="p-3 text-xl font-bold text-center md:p-6 md:text-5xl">
@@ -58,6 +58,7 @@
             class="w-full max-w-xl input input-bordered" :min="adminStore.date" />
         </div>
       </template>
+
       <template #actions>
         <div class="flex gap-2">
           <button @click="adminStore.hideSchedule" class="px-6 py-3 bg-red-800 border-blue-800 rounded text-gray-50">
@@ -73,24 +74,28 @@
     <div class="py-9">
       <EasyDataTable :headers="headers" alternating :items="adminStore.requests" table-class-name="customize-table"
         :rows-per-page="5" border-cell header-text-direction="left">
+
         <template #item-supporting="{ fileName, filePath }">
           <a target="_blank" :href="filePath">{{ fileName }}</a>
         </template>
+
         <template #item-proof="{ proof, proofPath }">
           <a target="_blank" :href="proofPath">{{ proof }}</a>
         </template>
+
         <template #item-status="item">
-          <div :class="item.status === 'Completed' ? 'bg-green-700 p-3 text-gray-50' : ''
-            ">
+          <div :class="item.status === 'Completed' ? 'bg-green-700 p-3 text-gray-50' : ''">
             {{ item.status }}
           </div>
         </template>
+
         <template #item-date="item">
           <p v-if="item.pickUpDate === ''">Not set</p>
           <p else>
             {{ item.pickUpDate }}
           </p>
         </template>
+
         <template #item-remarks="item">
           <div class="flex justify-center p-3" v-show="item.status === 'Rejected'">
             <p class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
@@ -128,6 +133,7 @@
             </p>
           </div>
         </template>
+
         <template #item-operation="item">
           <div v-if="item.status === 'Pending'" class="flex items-center justify-between gap-3 p-3">
             <button
@@ -145,7 +151,6 @@
             <p class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
               No action needed
             </p>
-
           </div>
           <div class="flex justify-center p-3" v-show="item.status === 'Approved'">
             <p v-if="item.proof === ''"
@@ -175,12 +180,14 @@
           <div class="flex justify-center p-3" v-show="item.status === 'Completed'">
             <!-- <p class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">No
               action needed</p> -->
-            <button @click="adminStore.showArchiveDialog(item)" class="bg-red-800 btn text-gray-50 hover:bg-red-600">Move
-              to archive<i class="fa-solid fa-box-archive"></i></button>
+            <button @click="adminStore.showArchiveDialog(item)" class="bg-red-800 btn text-gray-50 hover:bg-red-600">
+              Move to archive<i class="fa-solid fa-box-archive"></i>
+            </button>
           </div>
         </template>
       </EasyDataTable>
       <reject-dialog :show="adminStore.isRemarksShow" title="Reject request">
+
         <template #default>
           <div>
             <label class="my-3 font-bold text-center" for="">Select Remarks</label>
@@ -198,6 +205,7 @@
               rows="2" placeholder="Other remarks" required></textarea>
           </div>
         </template>
+
         <template #actions>
           <div class="flex gap-2">
             <button @click="adminStore.showRemarksDialog"
@@ -212,12 +220,16 @@
         </template>
       </reject-dialog>
       <archive-dialog :show="adminStore.isArchiveShow" title="Archive Request">
+
         <template #default>
           <div class="flex items-center gap-3">
             <i class="text-3xl fa-regular fa-circle-question"></i>
-            <p class="text-base font-semibold">Are you sure to move this request to archive?</p>
+            <p class="text-base font-semibold">
+              Are you sure to move this request to archive?
+            </p>
           </div>
         </template>
+
         <template #actions>
           <div class="flex gap-2">
             <button @click="adminStore.showArchiveDialog"
@@ -234,16 +246,15 @@
     </div>
   </section>
 </template>
+
 <script setup>
 import { computed, onMounted, ref } from "vue";
 import { useAdminStore } from "../../stores/Admin";
 import BaseDialog from "@/components/Admin/BaseDialog.vue";
-import RejectDialog from '@/components/Admin/RejectDialog.vue'
-import ArchiveDialog from '@/components/Admin/ArchiveDialog.vue'
+import RejectDialog from "@/components/Admin/RejectDialog.vue";
+import ArchiveDialog from "@/components/Admin/ArchiveDialog.vue";
 import { useAdminAuthStore } from "@/stores/AdminAuth";
-import {
-  useStudentAuthStore
-} from "@/stores/StudentAuth";
+import { useStudentAuthStore } from "@/stores/StudentAuth";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -267,14 +278,14 @@ const headers = [
   { text: "PROOF OF PAYMENT", value: "proof", width: 150 },
   {
     text: "PICK UP DATE",
-    value: "date", width: 150
+    value: "date",
+    width: 150,
   },
   { text: "STATUS", value: "status" },
   { text: "REMARKS", value: "remarks", width: 200 },
 
   { text: "ACTIONS", value: "operation" },
 ];
-
 
 const acceptHandler = async (value) => {
   adminStore.updateToApproved(value._id);
@@ -288,20 +299,19 @@ const processHandler = async (value) => {
 const finishHandler = async (value) => {
   adminStore.updateCompleted(value._id);
 };
-
+adminAuthStore.checkAuth();
 onMounted(async () => {
   await studentAuthStore.checkAuthStudent();
   if (studentAuthStore.isAuthenticatedStudent) {
     return router.push("/student_dashboard");
   }
-  await adminAuthStore.checkAuth()
+  await adminAuthStore.checkAuth();
   if (adminAuthStore.isAuthenticated) {
-    return router.push('/admin_dashboard')
+    return router.push("/admin_dashboard");
   }
-  router.push('/')
+  router.push("/");
 });
 </script>
-
 
 <style scoped>
 .customize-table {

@@ -20,7 +20,12 @@
               class="inline-block p-3 font-bold sm:p-6 text-gray-50">Student</router-link>
           </li>
         </ul>
+        <!-- Admin Menu -->
         <ul v-show="adminAuthStore.isAuthenticated" class="items-center gap-3 text-sm text-left lg:text-lg md:flex">
+          <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
+            <router-link to="/admin_profile" class="inline-block w-full p-6 font-bold text-left lg:text-lg">
+              Admin</router-link>
+          </li>
           <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
             <router-link to="/archive" class="inline-block w-full p-6 font-bold text-left lg:text-lg">
               Request Archive</router-link>
@@ -31,10 +36,15 @@
               Logout</a>
           </li>
         </ul>
+        <!-- Student Menu -->
         <ul v-show="studentAuthStore.isAuthenticatedStudent" class="items-center gap-3 text-base md:px-3 md:flex">
           <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
             <router-link to="/student_profile" class="inline-block w-full p-6 font-bold text-center">Learners
               Profile</router-link>
+          </li>
+          <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
+            <router-link to="/contact" class="inline-block w-full p-6 font-bold text-center">
+              Contact Us</router-link>
           </li>
           <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
             <a href="javascript:void(0)" @click="studentAuthStore.submitLogout"
