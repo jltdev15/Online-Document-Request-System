@@ -131,6 +131,9 @@
           <div v-if="item.status === 'Completed'" class="flex justify-start my-3">
             <p class="text-gray-80">Document received</p>
           </div>
+          <div v-if="item.status === 'Rejected' && item.remarks === ''" class="flex justify-start my-3">
+            <p class="text-gray-80">No data</p>
+          </div>
           <div v-if="item.status === 'Done'" class="flex justify-start my-3">
             <p class="text-gray-80">Your document is ready</p>
           </div>
@@ -267,6 +270,10 @@ const headers = [{
 {
   text: "REMARKS",
   value: "remarks", width: 150
+},
+{
+  text: "COMMENT",
+  value: "others", width: 150
 },
 {
   text: "ACTIONS",
