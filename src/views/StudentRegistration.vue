@@ -149,12 +149,12 @@ const checkHandler = async () => {
 }
 const registerStudent = async () => {
   console.log(data.lrn.toString().length);
-  if (data.lrn.toString().length < 12) {
+  if (data.lrn.toString().length < 11) {
     return toast.error('LRN must be 12 digits', {
       timeout: 1500,
     })
   }
-  if (data.lrn.toString().length > 12) {
+  if (data.lrn.toString().length > 11) {
     return toast.error('LRN must not exceed 12 digits', {
       timeout: 1500,
     })
