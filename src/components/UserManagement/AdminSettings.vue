@@ -1,10 +1,6 @@
 <template>
-    <section class="container pt-24 pb-24 md:px-9">
-        <header class="px-3 py-3 md:px-24">
-            <router-link to="/admin_dashboard"
-                class="bg-blue-800 md:text-xl hover:text-gray-50 text-gray-50 btn-block hover:bg-blue-600 md:btn md:w-3/12 btn"><i
-                    class="fa-solid fa-arrow-left"></i>Back to Dashboard</router-link>
-        </header>
+    <section class="container pb-24 md:px-9">
+
         <div class="px-3">
             <h1 class="pb-2 text-3xl font-bold text-center md:text-left md:px-24 md:text-5xl">
                 Manage account

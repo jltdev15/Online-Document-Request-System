@@ -1,5 +1,5 @@
 <template>
-  <section class="pb-20 pt-24 md:py-20">
+  <section class="pt-24 pb-20 md:py-20">
     <div class="mx-auto lg:p-6 lg:w-6/12">
       <div class="">
         <router-link class="flex items-center gap-2 px-3 py-3 bg-transparent" to="/student_dashboard"><i
@@ -11,7 +11,7 @@
             Student Request Form
           </h1>
         </header>
-        <form @submit.prevent="uploadFile" enctype="multipart/form-dataß">
+        <form @submit.prevent="uploadFile" enctype="multipart/form-data">
           <div class="">
             <div class="grid gap-6 md:grid-cols-3">
               <div class="flex flex-col gap-3">
@@ -22,8 +22,8 @@
                   <option value="COR">Certificate of Registration - P50</option>
                   <option value="CON">Certificate of Completion - P50</option>
                   <option value="SOA">Statement of Account - P50</option>
-                  <option value="Diploma">Diploma - P100</option>
-                  <option value="TOR">Transcript of Records - P100</option>
+                  <option value="Diploma">Diploma - P50</option>
+                  <option value="TOR">FORM 137 - P50</option>
                   <option value="CGMC">Certificate of Good Moral Character - P50</option>
                 </select>
               </div>
@@ -37,9 +37,9 @@
                 </select>
               </div>
               <div class="flex flex-col gap-3">
-                <label class="font-bold md:text-xl" for="date_needed">Date Needed</label>
-                <input v-model.trim="dateNeeded" class="w-full px-2 py-2 border rounded-lg lg:max-w-xs" type="date"
-                  :min="dateNeeded" name="date_needed" placeholder="MM/DD/YYYY" required />
+                <label class="font-bold md:text-xl" for="date_needed">Processing days</label>
+                <input v-model.trim="dateNeeded" class="w-full px-2 py-2 border rounded-lg lg:max-w-xs" type="text"
+                  name="date_needed" disabled required />
               </div>
             </div>
             <div>
@@ -96,7 +96,7 @@ const studentStore = useStudentStore();
 const documentType = ref("");
 const fileName = ref(null);
 const year = ref("");
-const dateNeeded = ref("");
+const dateNeeded = ref("5 days");
 const purpose = ref("");
 const dateCreated = ref("");
 const isFileSizeExceed = ref(false);
@@ -120,7 +120,7 @@ const uploadFile = async () => {
   formData.append("documentType", documentType.value);
   formData.append("dateCreated", dateCreated.value);
   formData.append("year", year.value);
-  formData.append("dateNeeded", dateNeeded.value);
+  formData.append("processingDays", dateNeeded.value);
   formData.append("purpose", purpose.value);
   try {
     await axiosClient.post("/create", formData, {
@@ -150,7 +150,7 @@ for (let i = 1991; i <= 2025; i++) {
 
 onMounted(async () => {
   const currentDate = new Date();
-  dateNeeded.value = currentDate.toISOString().split("T")[0];
+
   dateCreated.value = currentDate.toISOString().split("T")[0];
   await studentAuthStore.checkAuthStudent();
 

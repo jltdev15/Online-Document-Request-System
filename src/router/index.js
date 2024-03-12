@@ -11,9 +11,10 @@ import StudentProfile from "@/components/Student/StudentProfile.vue";
 import Contact from "@/components/Student/Contact.vue";
 import NewLRN from "@/components/Admin/NewLRN.vue";
 import AdminProfile from "@/components/Admin/AdminProfile.vue";
-
-import FeedbackForm from "@/components/Student/FeedbackForm.vue";
-
+import AccountManagement from "@/components/Admin/AccountManagement.vue";
+import ViewUsers from "@/components/UserManagement/ViewUsers.vue";
+import AdminSettings from "@/components/UserManagement/AdminSettings.vue";
+import RegistrarLogin from "@/views/RegistrarLogin.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -41,9 +42,27 @@ const router = createRouter({
       component: AdminLogin,
     },
     {
-      path: "/admin_profile",
-      name: "admiprofile",
-      component: AdminProfile,
+      path: "/registrar-login",
+      name: "registrarlogin",
+      component: RegistrarLogin,
+    },
+    {
+      path: "/account-management",
+      redirect: "/account-management/view",
+      name: "accountmanagement",
+      component: AccountManagement,
+      children: [
+        {
+          path: "view",
+          name: "viewusers",
+          component: ViewUsers,
+        },
+        {
+          path: "settings",
+          name: "adminsettings",
+          component: AdminSettings,
+        },
+      ],
     },
     {
       path: "/student_login",

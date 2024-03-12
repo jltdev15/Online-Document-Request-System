@@ -7,13 +7,19 @@
       </a>
       <div :class="{ 'right-0': isNavShow, 'right-[-100%]': isNavHide }" id="main-nav"
         class="2xs:py-2 px-9 md:px-3 md:gap-2 lg:px-0 md:py-0 h-screen md:h-auto absolute capitalize bg-[#0245A3] text-gray-50 md:bg-transparent md:justify-between lg:justify-between md:static md:flex top-[100%] lg:z-0 z-[999] animate__animated animate__fadeInLeft">
-        <ul v-show="!adminAuthStore.isAuthenticated && !studentAuthStore.isAuthenticatedStudent
+        <ul v-show="!adminAuthStore.isAuthenticated &&
+        !studentAuthStore.isAuthenticatedStudent &&
+        !registrarAuthStore.isRegAuthenticated
         "
           class="flex flex-col gap-6 px-6 py-12 text-base font-semibold text-gray-50 lg:text-lg xs:px-12 md:gap-3 md:text-sm md:py-0 sm:text-lg md:text-gray-800 sm:px-16 md:items-center md:flex-row md:px-0 lg:gap-2">
           <li class="transition-all hover:bg-blue-500 hover:text-gray-800">
             <router-link to="/admin_login" @click="toggleMobileNav"
               class="inline-block p-3 font-bold sm:p-6 text-gray-50">
               Admin</router-link>
+          </li>
+          <li class="transition-all hover:bg-blue-500 hover:text-gray-800">
+            <router-link to="/registrar-login" @click="toggleMobileNav"
+              class="inline-block p-3 font-bold sm:p-6 text-gray-50">Registrar</router-link>
           </li>
           <li class="transition-all hover:bg-blue-500 hover:text-gray-800">
             <router-link to="/student_login" @click="toggleMobileNav"
@@ -23,8 +29,8 @@
         <!-- Admin Menu -->
         <ul v-show="adminAuthStore.isAuthenticated" class="items-center gap-3 text-sm text-left lg:text-lg md:flex">
           <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
-            <router-link to="/admin_profile" class="inline-block w-full p-6 font-bold text-left lg:text-lg">
-              Admin</router-link>
+            <router-link to="/account-management" class="inline-block w-full p-6 font-bold text-left lg:text-lg">
+              Account Management</router-link>
           </li>
           <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
             <router-link to="/archive" class="inline-block w-full p-6 font-bold text-left lg:text-lg">
@@ -32,6 +38,19 @@
           </li>
           <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
             <a href="javascript:void(0)" @click="adminAuthStore.submitLogout"
+              class="inline-block w-full p-6 font-bold text-left">
+              Logout</a>
+          </li>
+        </ul>
+        <!-- Registrar Menu -->
+        <ul v-show="registrarAuthStore.isRegAuthenticated"
+          class="items-center gap-3 text-sm text-left lg:text-lg md:flex">
+          <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
+            <router-link to="/archive" class="inline-block w-full p-6 font-bold text-left lg:text-lg">
+              Request Archive</router-link>
+          </li>
+          <li class="transition-all hover:bg-gray-50 hover:text-gray-800">
+            <a href="javascript:void(0)" @click="registrarAuthStore.submitLogout"
               class="inline-block w-full p-6 font-bold text-left">
               Logout</a>
           </li>
@@ -67,9 +86,13 @@
 import { onMounted, ref } from "vue";
 import { useAdminAuthStore } from "@/stores/AdminAuth";
 import { useStudentAuthStore } from "@/stores/StudentAuth";
+import { useRegistrarAuthStore } from "@/stores/Registrar";
 
 const adminAuthStore = useAdminAuthStore();
 const studentAuthStore = useStudentAuthStore();
+const registrarAuthStore = useRegistrarAuthStore();
+console.log(registrarAuthStore.isRegAuthenticated);
+registrarAuthStore.checkAuthRegistrar();
 adminAuthStore.checkAuth();
 const isShow = ref(true);
 const isClose = ref(false);

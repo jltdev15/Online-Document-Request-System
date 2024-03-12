@@ -73,8 +73,7 @@
     </base-dialog>
     <div class="py-9">
       <EasyDataTable :headers="headers" alternating :items="adminStore.requests" table-class-name="customize-table"
-        :rows-per-page="5" border-cell header-text-direction="left">
-
+        :rows-per-page="10" border-cell header-text-direction="left">
         <template #item-supporting="{ fileName, filePath }">
           <a target="_blank" :href="filePath">{{ fileName }}</a>
         </template>
@@ -84,7 +83,10 @@
         </template>
 
         <template #item-status="item">
-          <div :class="item.status === 'Completed' ? 'bg-green-700 p-3 text-gray-50' : ''">
+          <div :class="item.status === 'Rejected'
+              ? 'bg-red-700 p-3 text-gray-50'
+              : 'bg-green-700 p-3 text-gray-50'
+              ">
             {{ item.status }}
           </div>
         </template>
@@ -97,38 +99,36 @@
         </template>
 
         <template #item-remarks="item">
-          <div class="flex justify-center p-3" v-show="item.status === 'Rejected'">
-            <p class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
+          <div class="p-3" v-show="item.status === 'Rejected'">
+            <p class="transition-all ">
               {{ item.remarks }}
             </p>
           </div>
-          <div class="flex justify-center p-3" v-show="item.status === 'Pending'">
-            <p class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
+          <div class="p-3" v-show="item.status === 'Pending'">
+            <p class="transition-all ">
               Waiting for response
             </p>
           </div>
-          <div class="flex justify-center p-3" v-show="item.status === 'Approved'">
-            <p v-if="item.proof === ''"
-              class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
+          <div class="p-3" v-show="item.status === 'Approved'">
+            <p v-if="item.proof === ''" class="transition-all ">
               Waiting for payment
             </p>
-            <p v-else
-              class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
+            <p v-else class="transition-all w-[12rem] ">
               Ready to process
             </p>
           </div>
           <div class="flex justify-center p-3" v-show="item.status === 'Processing'">
-            <p class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
+            <p class="transition-all ">
               Working on request
             </p>
           </div>
           <div class="flex justify-start p-3" v-show="item.status === 'Done'">
-            <p class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
+            <p class="transition-all ">
               Document ready
             </p>
           </div>
           <div class="flex justify-center p-3" v-show="item.status === 'Completed'">
-            <p class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
+            <p class="transition-all ">
               Document received
             </p>
           </div>
@@ -147,25 +147,24 @@
               Reject<i class="fa-solid fa-ban text-gray-50"></i>
             </button>
           </div>
-          <div class="flex justify-center p-3" v-show="item.status === 'Rejected'">
-            <p class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
+          <div class="p-3 " v-show="item.status === 'Rejected'">
+            <p class="transition-all ">
               No action needed
             </p>
           </div>
-          <div class="flex justify-center p-3" v-show="item.status === 'Approved'">
-            <p v-if="item.proof === ''"
-              class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">
+          <div class="p-3" v-show="item.status === 'Approved'">
+            <p v-if="item.proof === ''" class="transition-all ">
               No action needed
             </p>
-            <button v-else
-              class="transition-all flex w-[9rem] hover:bg-green-500 rounded-md px-6 py-2 bg-green-600 text-gray-50 btn-success gap-3 items-center"
-              @click="processHandler(item)">
-              Process now <i class="fa-solid fa-circle-check text-gray-50"></i>
-            </button>
+            <div v-else class="">
+              <button class="px-6 py-3 bg-green-600 rounded-md hover:bg-green-500 text-gray-50 btn-success"
+                @click="processHandler(item)">
+                Process now <i class="fa-solid fa-circle-check text-gray-50"></i>
+              </button>
+            </div>
           </div>
           <div class="flex justify-center p-3" v-show="item.status === 'Processing'">
-            <button
-              class="transition-all flex justify-center w-[9rem] hover:bg-green-500 rounded-md px-6 py-2 bg-green-600 text-gray-50 btn-success gap-3 items-center"
+            <button class="px-6 py-3 bg-green-600 rounded-md hover:bg-green-500 text-gray-50 btn-success"
               @click="adminStore.showSchedule(item)">
               Schedule <i class="fa-regular fa-calendar-check"></i>
             </button>
@@ -180,14 +179,14 @@
           <div class="flex justify-center p-3" v-show="item.status === 'Completed'">
             <!-- <p class="transition-all flex w-[12rem] rounded-md px-6 py-2 text-gray-900 btn-success gap-3 items-center">No
               action needed</p> -->
-            <button @click="adminStore.showArchiveDialog(item)" class="bg-red-800 btn text-gray-50 hover:bg-red-600">
+            <button @click="adminStore.showArchiveDialog(item)"
+              class="flex items-center gap-3 px-3 py-3 bg-red-800 text-gray-50 hover:bg-red-600">
               Move to archive<i class="fa-solid fa-box-archive"></i>
             </button>
           </div>
         </template>
       </EasyDataTable>
       <reject-dialog :show="adminStore.isRemarksShow" title="Reject request">
-
         <template #default>
           <div>
             <label class="my-3 font-bold text-center" for="">Select Remarks</label>
@@ -219,8 +218,7 @@
           </div>
         </template>
       </reject-dialog>
-      <archive-dialog :show="adminStore.isArchiveShow" title="Archive Request">
-
+      <archive-dialog :show="adminStore.isArchiveShow" title="Move to Archived">
         <template #default>
           <div class="flex items-center gap-3">
             <i class="text-3xl fa-regular fa-circle-question"></i>
@@ -255,11 +253,13 @@ import RejectDialog from "@/components/Admin/RejectDialog.vue";
 import ArchiveDialog from "@/components/Admin/ArchiveDialog.vue";
 import { useAdminAuthStore } from "@/stores/AdminAuth";
 import { useStudentAuthStore } from "@/stores/StudentAuth";
+import { useRegistrarAuthStore } from "@/stores/Registrar";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 const studentAuthStore = useStudentAuthStore();
 const adminAuthStore = useAdminAuthStore();
+const registrarAuthStore = useRegistrarAuthStore();
 const adminStore = useAdminStore();
 adminStore.getRequest();
 
@@ -268,23 +268,23 @@ const isCompleted = ref(false);
 
 const headers = [
   { text: "LRN", value: "learnerReferenceNumber" },
-  { text: "REQUESTOR", value: "requestorName" },
-  { text: "DATE CREATED", value: "dateCreated", width: 150 },
-  { text: "TYPES OF DOC.", value: "documentType", width: 100 },
-  { text: "DATE NEEDED", value: "dateNeeded", width: 150 },
-  { text: "S.Y. LAST ATTENDED", value: "year", width: 150 },
-  { text: "PURPOSE OF REQUEST", value: "purpose", width: 150 },
-  { text: "SUPPORTING DOCUMENTS", value: "supporting", width: 150 },
+  { text: "REQUESTOR", value: "requestorName", width: 200 },
+  { text: "DATE CREATED", value: "dateCreated", width: 200 },
+  { text: "TYPES OF DOC.", value: "documentType", width: 200 },
+  { text: "PROCESSING DAYS", value: "processingDays", width: 200 },
+  { text: "S.Y. LAST ATTENDED", value: "year", width: 200 },
+  { text: "PURPOSE OF REQUEST", value: "purpose", width: 200 },
+  { text: "SUPPORTING DOCUMENTS", value: "supporting", width: 200 },
   { text: "PROOF OF PAYMENT", value: "proof", width: 150 },
   {
     text: "PICK UP DATE",
     value: "date",
     width: 150,
   },
-  { text: "STATUS", value: "status" },
-  { text: "REMARKS", value: "remarks", width: 200 },
+  { text: "STATUS", value: "status", width: 250 },
+  { text: "REMARKS", value: "remarks", width: 250 },
 
-  { text: "ACTIONS", value: "operation" },
+  { text: "ACTIONS", value: "operation", width: 250 },
 ];
 
 const acceptHandler = async (value) => {
@@ -299,14 +299,18 @@ const processHandler = async (value) => {
 const finishHandler = async (value) => {
   adminStore.updateCompleted(value._id);
 };
-adminAuthStore.checkAuth();
+
 onMounted(async () => {
   await studentAuthStore.checkAuthStudent();
   if (studentAuthStore.isAuthenticatedStudent) {
     return router.push("/student_dashboard");
   }
   await adminAuthStore.checkAuth();
-  if (adminAuthStore.isAuthenticated) {
+  if (adminAuthStore.isAuthenticated || registrarAuthStore.isRegAuthenticated) {
+    return router.push("/admin_dashboard");
+  }
+  await registrarAuthStore.checkAuthRegistrar();
+  if (registrarAuthStore.isRegAuthenticated) {
     return router.push("/admin_dashboard");
   }
   router.push("/");
@@ -315,9 +319,13 @@ onMounted(async () => {
 
 <style scoped>
 .customize-table {
-  --easy-table-header-font-size: 12px;
-  --easy-table-header-height: 50px;
+  --easy-table-header-font-size: 16px;
+  --easy-table-header-height: 60px;
   --easy-table-header-font-color: #ffffff;
   --easy-table-header-background-color: rgb(30 64 175);
+  --easy-table-body-row-font-size: 16px;
+
+  --easy-table-body-row-height: 50px;
+  --easy-table-body-row-font-size: 20px;
 }
 </style>

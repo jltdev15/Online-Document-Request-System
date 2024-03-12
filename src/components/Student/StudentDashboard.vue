@@ -19,7 +19,7 @@
         <div class="guidelines">
           <h2>Guidelines in Requesting Document</h2>
           <b>1. Requests shall be for regular processing only:</b><br />
-          Regular processing days shall be 10 working days. Working days exclude
+          Regular processing days shall be 5 working days. Working days exclude
           Saturdays, Sundays, Holidays, and Christmas break.<br />
           <b>2. Provide a Detailed Description:</b><br />
           Clearly explain the purpose and context of the document. Include any
@@ -51,27 +51,27 @@
               </tr>
               <tr>
                 <td>Certificate of Completion</td>
-                <td>7 days</td>
+                <td>5 days</td>
                 <td>P 50.00</td>
               </tr>
               <tr>
                 <td>Statement of Account</td>
-                <td>7 days</td>
+                <td>5 days</td>
                 <td>P 50.00</td>
               </tr>
               <tr>
                 <td>Diploma</td>
-                <td>7 days</td>
+                <td>5 days</td>
                 <td>P 50.00</td>
               </tr>
               <tr>
-                <td>Transcript of Records</td>
-                <td>7 days</td>
+                <td>FORM 137</td>
+                <td>5 days</td>
                 <td>P 50.00</td>
               </tr>
               <tr>
                 <td>Certificate of Good Moral Character</td>
-                <td>7 days</td>
+                <td>5 days</td>
                 <td>P 50.00</td>
               </tr>
               <!-- Add more rows as needed -->
@@ -99,7 +99,7 @@
       </div>
     </div>
     <div class="py-9">
-      <EasyDataTable :headers="headers" :items="studentStore.requestList" :rows-per-page="5" border-cell
+      <EasyDataTable :headers="headers" :items="studentStore.requestList" :rows-per-page="10" border-cell
         table-class-name="customize-table" header-text-direction="left">
         <template #item-operation="item">
           <div v-if="item.status === 'Approved'" class="my-2 w-[10rem]">
@@ -125,9 +125,15 @@
           <div v-if="item.status === 'Completed'" class="flex justify-start my-3">
             <p class="text-gray-80">No action needed</p>
           </div>
+          <div v-if="item.status === 'Archive'" class="flex justify-start my-3">
+            <p class="text-gray-80">No action needed</p>
+          </div>
         </template>
 
         <template #item-remarks="item">
+          <div v-if="item.status === 'Archive'" class="flex justify-start my-3">
+            <p class="text-gray-80">Moved to archived</p>
+          </div>
           <div v-if="item.status === 'Completed'" class="flex justify-start my-3">
             <p class="text-gray-80">Document received</p>
           </div>
@@ -143,7 +149,7 @@
           <div v-if="item.status === 'Rejected'" class="flex justify-start my-3">
             <p class="text-gray-80">{{ item.remarks }}</p>
           </div>
-          <div v-if="item.status === 'Pending'" class="my-2 text-center w-[10rem]">
+          <div v-if="item.status === 'Pending'" class="my-2">
             <p class="text-gray-80">Your request has been received</p>
           </div>
           <div v-if="item.status === 'Approved'" class="flex justify-start my-3">
@@ -157,6 +163,18 @@
           <p else>
             {{ item.pickUpDate }}
           </p>
+        </template>
+        <template #item-others="item">
+          <p v-if="item.status !== 'Rejected' && item.others === ''">Not set</p>
+          <p v-if="item.status === 'Rejected' && item.others === ''">Not set</p>
+          <p v-if="item.status === 'Rejected' && item.others !== ''">{{ item.others }}</p>
+
+        </template>
+        <template #item-status="item">
+          <div :class="item.status === 'Rejected'
+          ? 'bg-red-700 p-3 text-gray-50'
+          : 'bg-green-700 p-3 text-gray-50'
+          ">{{ item.status }}</div>
         </template>
       </EasyDataTable>
       <payment-dialog :show="studentStore.isPaymentShow" title="Payment">
@@ -252,8 +270,8 @@ const headers = [{
   value: "documentType", width: 150
 },
 {
-  text: "DATE NEEDED",
-  value: "dateNeeded", width: 150
+  text: "PROCESSING DAYS",
+  value: "processingDays", width: 150
 },
 {
   text: "PURPOSE OF REQUEST",
@@ -337,10 +355,14 @@ onMounted(async () => {
 
 <style scoped>
 .customize-table {
-  --easy-table-header-font-size: 12px;
-  --easy-table-header-height: 50px;
+  --easy-table-header-font-size: 16px;
+  --easy-table-header-height: 60px;
   --easy-table-header-font-color: #ffffff;
   --easy-table-header-background-color: rgb(30 64 175);
+  --easy-table-body-row-font-size: 16px;
+
+  --easy-table-body-row-height: 50px;
+
 }
 
 #guidelinesModal {
