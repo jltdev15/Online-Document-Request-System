@@ -9,7 +9,7 @@
             <div class="flex items-center justify-between">
                 <p class="py-3 text-3xl font-bold">List of Archive request</p>
                 <button @click="adminAuthStore.exportToExcel"
-                    class="flex items-center transition-all bg-blue-800 btn hover:bg-blue-500 text-gray-50">
+                    class="flex items-center text-lg transition-all bg-blue-800 btn btn-md hover:bg-blue-500 text-gray-50">
                     Export to Excel <i class="fa-solid fa-download"></i>
                 </button>
             </div>

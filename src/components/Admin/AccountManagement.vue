@@ -1,19 +1,19 @@
 <template>
     <section class="container pt-24 pb-24 md:px-9">
-        <div class="flex justify-between py-3">
+        <div class="flex justify-between px-3 py-3">
             <div>
-                <router-link to="/admin_dashboard" class="flex items-center gap-2 text-blue-800 btn-sm"><i
+                <router-link to="/admin_dashboard" class="flex items-center gap-2 text-lg text-blue-800 btn-md"><i
                         class="fa-solid fa-arrow-left"></i> Dashboard</router-link>
             </div>
-            <div>
-                <button @click="adminAuthStore.toggleNewUserModal" class="btn btn-primary text-gray-50">
+            <div class="">
+                <button @click="adminAuthStore.toggleNewUserModal" class="text-lg btn btn-primary text-gray-50">
                     New user <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
         </div>
         <!-- Navigation -->
-        <div class="flex gap-4">
-            <ul class="w-[20%] h-5/6 bg-gray-100 rounded-md p-3">
+        <div class="flex flex-col gap-4">
+            <ul class="md:w-[20%] flex  h-5/6 bg-gray-100 rounded-md p-3">
                 <li>
                     <router-link active-class="active" class="inline-block w-full p-3" to="view">View
                         users</router-link>

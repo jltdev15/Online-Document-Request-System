@@ -57,14 +57,14 @@ const submitCredentials = async () => {
 };
 
 onMounted(async () => {
-  // await adminAuthStore.checkAuth();
-  // if (adminAuthStore.isAuthenticated) {
-  //   return router.push("/admin_dashboard");
-  // }
-  // await studentAuthStore.checkAuthStudent();
-  // if (studentAuthStore.isAuthenticatedStudent) {
-  //   return router.push("/student_dashboard");
-  // }
+  await adminAuthStore.checkAuth();
+  if (adminAuthStore.isAuthenticated) {
+    return router.push("/admin_dashboard");
+  }
+  await studentAuthStore.checkAuthStudent();
+  if (studentAuthStore.isAuthenticatedStudent) {
+    return router.push("/student_dashboard");
+  }
 });
 </script>
 

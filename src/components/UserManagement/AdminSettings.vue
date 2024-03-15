@@ -1,12 +1,8 @@
 <template>
     <section class="container pb-24 md:px-9">
 
-        <div class="px-3">
-            <h1 class="pb-2 text-3xl font-bold text-center md:text-left md:px-24 md:text-5xl">
-                Manage account
-            </h1>
-        </div>
-        <div class="grid px-3 md:p-3 md:gap-3 md:px-24 md:grid-cols-2">
+
+        <div class="grid px-3 md:p-3 md:gap-3 md:grid-cols-2">
             <div class="p-3 border md:py-9 md:px-9">
                 <p class="px-3 text-3xl font-bold text-left md:text-center">Manage username</p>
                 <div class="py-3">

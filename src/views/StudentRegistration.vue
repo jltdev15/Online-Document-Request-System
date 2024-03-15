@@ -147,14 +147,25 @@ const checkHandler = async () => {
   isChecked.value = !isChecked.value;
   console.log(isChecked.value);
 }
+const resetField = async () => {
+  data.fullName = "";
+  data.lrn = "";
+  data.address = "";
+  data.contact = "";
+  data.email = "";
+  data.password = "";
+  isChecked.value = false;
+  isConditionShow.value = false;
+  isEnabled.value = true;
+}
 const registerStudent = async () => {
   console.log(data.lrn.toString().length);
-  if (data.lrn.toString().length < 11) {
+  if (data.lrn.toString().length < 12) {
     return toast.error('LRN must be 12 digits', {
       timeout: 1500,
     })
   }
-  if (data.lrn.toString().length > 11) {
+  if (data.lrn.toString().length > 12) {
     return toast.error('LRN must not exceed 12 digits', {
       timeout: 1500,
     })
@@ -171,16 +182,8 @@ const registerStudent = async () => {
 
   await studentStore.registerAccount(registerForm);
 
+  await resetField();
 
-  data.fullName = "";
-  data.lrn = "";
-  data.address = "";
-  data.contact = "";
-  data.email = "";
-  data.password = "";
-  isChecked.value = false;
-  isConditionShow.value = false;
-  isEnabled.value = true;
 };
 
 onMounted(async () => {

@@ -84,10 +84,10 @@ const adminAuthStore = useAdminAuthStore();
 
 const headers = [
     { text: "EmployeeID", value: "employeeID" },
-    { text: "Full Name", value: "fullName" },
+    { text: "Full Name", value: "fullName", width: 200 },
     { text: "Email Address", value: "emailAddress" },
     { text: "Contact Number", value: "contactNumber" },
-    { text: "User Name", value: "userName" },
+    { text: "User Name", value: "userName", width: 200 },
     { text: "Action", value: "operation", width: 50 },
 ];
 </script>

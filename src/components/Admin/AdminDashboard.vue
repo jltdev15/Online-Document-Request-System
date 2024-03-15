@@ -83,7 +83,7 @@
         </template>
 
         <template #item-status="item">
-          <div :class="item.status === 'Rejected'
+          <div class="text-center" :class="item.status === 'Rejected'
               ? 'bg-red-700 p-3 text-gray-50'
               : 'bg-green-700 p-3 text-gray-50'
               ">

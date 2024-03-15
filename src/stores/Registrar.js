@@ -37,7 +37,7 @@ export const useRegistrarAuthStore = defineStore("authregistrar", () => {
       }
       console.log(data);
     } catch (err) {
-      //   console.log(err.response.data.message);
+      console.log(err);
       toast.error(err.response.data.message, {
         timeout: 1500,
       });
