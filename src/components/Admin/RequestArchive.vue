@@ -1,9 +1,9 @@
 <template>
     <section class="w-full px-3 pb-0 mx-auto pt-28 md:px-12">
-        <header class="py-3">
-            <router-link to="/admin_dashboard" class="text-xl btn"><i class="fa-solid fa-arrow-left"></i>Back to Admin
-                Dashboard</router-link>
-        </header>
+        <div>
+            <router-link to="/admin_dashboard" class="flex items-center gap-2 text-lg text-blue-800 btn-md"><i
+                    class="fa-solid fa-arrow-left"></i> Dashboard</router-link>
+        </div>
 
         <div class="py-3">
             <div class="flex items-center justify-between">

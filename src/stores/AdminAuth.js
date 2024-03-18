@@ -150,26 +150,6 @@ export const useAdminAuthStore = defineStore("authadmin", () => {
     }
   };
   const addNewUserHandler = async () => {
-    if (newUser.empId === "") {
-      return toast.error("Employee Id is required", {
-        timeout: 2000,
-      });
-    }
-    if (newUser.fullName === "") {
-      return toast.error("Name is required", {
-        timeout: 2000,
-      });
-    }
-    if (newUser.emailAddress === "") {
-      return toast.error("Email Address is required", {
-        timeout: 2000,
-      });
-    }
-    if (newUser.contact === "") {
-      return toast.error("Contact Number is required", {
-        timeout: 2000,
-      });
-    }
     if (newUser.username === "") {
       return toast.error("Username is required", {
         timeout: 2000,
@@ -191,10 +171,6 @@ export const useAdminAuthStore = defineStore("authadmin", () => {
       });
     }
     const newUserAccount = {
-      employeeID: newUser.empId,
-      fullName: newUser.fullName,
-      emailAddress: newUser.emailAddress,
-      contactNumber: newUser.contact,
       userName: newUser.username,
       password: newUser.password,
     };

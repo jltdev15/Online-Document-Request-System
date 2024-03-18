@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="w-full px-3 sm:w-3/6">
         <EasyDataTable :headers="headers" :items="adminAuthStore.usersList" table-class-name="customize-table"
             :rows-per-page="10" border-cell header-text-direction="left">
             <template #item-operation="item">
@@ -83,12 +83,12 @@ import DeleteModal from "./../../UI/BaseDialog.vue";
 const adminAuthStore = useAdminAuthStore();
 
 const headers = [
-    { text: "EmployeeID", value: "employeeID" },
-    { text: "Full Name", value: "fullName", width: 200 },
-    { text: "Email Address", value: "emailAddress" },
-    { text: "Contact Number", value: "contactNumber" },
+    // { text: "EmployeeID", value: "employeeID" },
+    // { text: "Full Name", value: "fullName", width: 200 },
+    // { text: "Email Address", value: "emailAddress" },
+    // { text: "Contact Number", value: "contactNumber" },
     { text: "User Name", value: "userName", width: 200 },
-    { text: "Action", value: "operation", width: 50 },
+    { text: "Action", value: "operation", width: 10 },
 ];
 </script>
 <style scoped>

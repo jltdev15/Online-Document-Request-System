@@ -60,7 +60,7 @@ function closeHandler() {
 
 dialog {
     position: fixed;
-    top: 10vh;
+    top: 20vh;
     left: 5dvw;
     z-index: 999;
     border: none;
@@ -86,9 +86,9 @@ section {
 }
 
 menu {
-    padding: 1rem;
+    padding: 0rem;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-center;
     margin: 0;
     gap: 0.6rem
 }

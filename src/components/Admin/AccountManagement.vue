@@ -13,7 +13,7 @@
         </div>
         <!-- Navigation -->
         <div class="flex flex-col gap-4">
-            <ul class="md:w-[20%] flex  h-5/6 bg-gray-100 rounded-md p-3">
+            <ul class="md:w-[30%] flex  h-5/6 bg-gray-100 rounded-md p-3">
                 <li>
                     <router-link active-class="active" class="inline-block w-full p-3" to="view">View
                         users</router-link>
@@ -30,48 +30,21 @@
         </div>
         <new-user-dialog :show="adminAuthStore.isNewUserModal" title="New User">
             <template #default>
-                <div class="grid grid-cols-2 gap-3">
-                    <label class="w-full max-w-xs form-control">
-                        <div class="label">
-                            <span class="font-bold label-text">Employee ID</span>
-                        </div>
-                        <input v-model="adminAuthStore.newUser.empId" type="text" placeholder="Type here"
-                            class="w-full max-w-xs input input-bordered" />
-                    </label>
-                    <label class="w-full max-w-xs form-control">
-                        <div class="label">
-                            <span class="font-bold label-text">Full Name</span>
-                        </div>
-                        <input v-model="adminAuthStore.newUser.fullName" type="text" placeholder="Type here"
-                            class="w-full max-w-xs input input-bordered" />
-                    </label>
-                    <label class="w-full max-w-xs form-control">
-                        <div class="label">
-                            <span class="font-bold label-text">Email Address</span>
-                        </div>
-                        <input v-model="adminAuthStore.newUser.emailAddress" type="text" placeholder="Type here"
-                            class="w-full max-w-xs input input-bordered" />
-                    </label>
-                    <label class="w-full max-w-xs form-control">
-                        <div class="label">
-                            <span class="font-bold label-text">Contact Number</span>
-                        </div>
-                        <input v-model="adminAuthStore.newUser.contact" type="text" placeholder="Type here"
-                            class="w-full max-w-xs input input-bordered" />
-                    </label>
-                    <label class="w-full max-w-xs form-control">
+                <div class="grid grid-cols-1 gap-3">
+
+                    <label class="w-full max-w-xl col-span-2 col-start-1 form-control">
                         <div class="label">
                             <span class="font-bold label-text">Username</span>
                         </div>
                         <input v-model="adminAuthStore.newUser.username" type="text" placeholder="Type here"
-                            class="w-full max-w-xs input input-bordered" />
+                            class="w-full max-w-xl input input-bordered" />
                     </label>
-                    <label class="w-full max-w-xs form-control">
+                    <label class="w-full max-w-xl col-span-2 col-start-1 form-control">
                         <div class="label">
                             <span class="font-bold label-text">Strong Password</span>
                         </div>
                         <input v-model="adminAuthStore.newUser.password" type="password" placeholder="Type here"
-                            class="w-full max-w-xs input input-bordered" />
+                            class="w-full max-w-xl input input-bordered" />
                     </label>
                     <label class="w-full max-w-xl col-span-2 col-start-1 form-control">
                         <div class="label">

@@ -7,7 +7,7 @@
             PBC Sunbeam School ODRS
           </h1>
           <div class="flex flex-col gap-12 p-6 mx-auto md:flex-row sm:w-5/6 justify-evenly">
-            <div class="md:p-12">
+            <div class="md:p-0">
               <h2
                 class="flex items-center justify-center gap-3 py-3 text-lg font-bold text-center text-gray-800 bg-white">
                 Administrator<i class="fa-solid fa-unlock"></i>
@@ -17,7 +17,7 @@
                 Proceed here <i class="fa-solid fa-arrow-right-long"></i>
               </router-link>
             </div>
-            <div class="md:p-12">
+            <div class="md:p-0">
               <h2
                 class="flex items-center justify-center gap-3 py-3 text-lg font-bold text-center text-gray-800 bg-white">
                 School Registrar<i class="fa-solid fa-address-card"></i>
@@ -27,7 +27,7 @@
                 Proceed here <i class="fa-solid fa-arrow-right-long"></i>
               </router-link>
             </div>
-            <div class="md:p-12">
+            <div class="md:p-0">
               <h2
                 class="flex items-center justify-center gap-3 py-3 text-lg font-bold text-center text-gray-800 bg-white">
                 Student<i class="fa-solid fa-user-graduate"></i>
