@@ -333,16 +333,16 @@ const uploadProof = async () => {
   );
   studentStore.getRequest();
 };
-
+// studentAuthStore.checkAuthStudent();
 onMounted(async () => {
+
   await studentAuthStore.checkAuthStudent();
-  await adminAuthStore.checkAuth()
-  console.log(studentAuthStore.isAuthenticatedStudent);
   if (studentAuthStore.isAuthenticatedStudent) {
-    return router.push("/student_dashboard");
+    return await router.push("/student_dashboard");
   }
+  await adminAuthStore.checkAuth();
   if (adminAuthStore.isAuthenticated) {
-    return router.push('/admin_dashboard')
+    return router.replace('/admin_dashboard')
   }
   router.push('/')
 

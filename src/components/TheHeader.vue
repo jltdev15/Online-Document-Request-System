@@ -91,7 +91,6 @@ import { useRegistrarAuthStore } from "@/stores/Registrar";
 const adminAuthStore = useAdminAuthStore();
 const studentAuthStore = useStudentAuthStore();
 const registrarAuthStore = useRegistrarAuthStore();
-console.log(registrarAuthStore.isRegAuthenticated);
 registrarAuthStore.checkAuthRegistrar();
 adminAuthStore.checkAuth();
 const isShow = ref(true);

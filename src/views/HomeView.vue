@@ -62,7 +62,6 @@ onMounted(async () => {
   if (studentAuthStore.isAuthenticatedStudent) {
     return router.push("/student_dashboard");
   }
-
   await adminAuthStore.checkAuth();
   if (adminAuthStore.isAuthenticated) {
     return router.push("/admin_dashboard");
@@ -71,6 +70,7 @@ onMounted(async () => {
   if (registrarAuthStore.isRegAuthenticated) {
     return router.push("/admin_dashboard");
   }
+  return router.replace('/')
 });
 </script>
 
