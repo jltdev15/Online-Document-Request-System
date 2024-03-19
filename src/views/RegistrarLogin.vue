@@ -12,14 +12,14 @@
                 <span class="text-lg font-bold text-white label-text">What is your Username?</span>
               </div>
 
-              <input type="text" placeholder="Type here" class="w-full max-w-xs text-gray-800 input input-bordered"
+              <input type="text" placeholder="Username" class="w-full max-w-xs text-gray-800 input input-bordered"
                 v-model.trim="adminuser" required />
             </label>
             <label class="w-full max-w-xs pt-3 form-control">
               <div class="label">
                 <span class="text-lg font-bold text-white label-text">What is your Password?</span>
               </div>
-              <input type="password" placeholder="Type here" class="w-full text-gray-800 input input-bordered"
+              <input type="password" placeholder="Password" class="w-full text-gray-800 input input-bordered"
                 v-model.trim="adminpass" required />
             </label>
             <div class="w-full max-w-xs py-3 pt-6 lg:max-w-full md:px-0 xl:px-8 2xl:px-14">

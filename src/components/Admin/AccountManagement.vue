@@ -36,14 +36,14 @@
                         <div class="label">
                             <span class="font-bold label-text">Username</span>
                         </div>
-                        <input v-model="adminAuthStore.newUser.username" type="text" placeholder="Type here"
+                        <input v-model="adminAuthStore.newUser.username" type="text" placeholder="Username"
                             class="w-full max-w-xl input input-bordered" />
                     </label>
                     <label class="w-full max-w-xl col-span-2 col-start-1 form-control">
                         <div class="label">
                             <span class="font-bold label-text">Strong Password</span>
                         </div>
-                        <input v-model="adminAuthStore.newUser.password" type="password" placeholder="Type here"
+                        <input v-model="adminAuthStore.newUser.password" type="password" placeholder="Password"
                             class="w-full max-w-xl input input-bordered" />
                     </label>
                     <label class="w-full max-w-xl col-span-2 col-start-1 form-control">
@@ -51,7 +51,7 @@
                             <span class="font-bold label-text">Verify Password</span>
                         </div>
                         <input v-model="adminAuthStore.newUser.confirm_password" required type="password"
-                            placeholder="Type here" class="w-full max-w-xl input input-bordered" />
+                            placeholder="Verify password" class="w-full max-w-xl input input-bordered" />
                     </label>
                 </div>
             </template>

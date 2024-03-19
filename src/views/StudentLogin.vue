@@ -12,7 +12,7 @@
                 <div class="label">
                   <span class="text-lg font-bold label-text text-gray-50">What is your Username?</span>
                 </div>
-                <input v-model.trim="studentUser" type="text" placeholder="Type here" required
+                <input v-model.trim="studentUser" type="text" placeholder="Username" required
                   class="w-full max-w-xs text-gray-800 sm:max-w-lg input input-bordered" />
               </label>
             </div>
@@ -21,7 +21,7 @@
                 <div class="label">
                   <span class="text-lg font-bold label-text text-gray-50">What is your Password?</span>
                 </div>
-                <input v-model.trim="studentPass" type="password" placeholder="Type here" required
+                <input v-model.trim="studentPass" type="password" placeholder="Password" required
                   class="w-full max-w-xs text-gray-800 sm:max-w-lg input input-bordered" />
               </label>
             </div>
